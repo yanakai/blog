@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包-->
+    <classPathEntry  location="E:\maven\repoIdea\mysql\mysql-connector-java\8.0.17\mysql-connector-java-8.0.17.jar"/>
+    <context id="DB2Tables"  targetRuntime="MyBatis3">
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8" />
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+        <!-- 配置生成实体类序列化插件 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!-- 配置生成实体类的toString()方法插件 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!-- 这里的type里写的是你的实现类的类全路径   替换原来的配置引入自定义的生成格式类，解决无法生成带注释的实体类   -->
+        <commentGenerator type="com.yk.blog.common.tool.MySQLCommentGenerator"></commentGenerator>
+        <!--数据库连接驱动类,URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/blog?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC" userId="root" password="root">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成(实体)模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.yk.blog.sys.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成XML映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mybatis.sys.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO接口的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yk.blog.sys.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="sys_article_info" domainObjectName="sysArticleInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    </context>
+</generatorConfiguration>

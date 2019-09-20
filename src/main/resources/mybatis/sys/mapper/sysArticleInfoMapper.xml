@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.blog.sys.mapper.sysArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yk.blog.sys.model.sysArticleInfo">
+    <id column="article_id" jdbcType="VARCHAR" property="articleId" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    article_id, article_title
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_article_info
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_article_info
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yk.blog.sys.model.sysArticleInfo">
+    insert into sys_article_info (article_id, article_title)
+    values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yk.blog.sys.model.sysArticleInfo">
+    insert into sys_article_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="articleTitle != null">
+        article_title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTitle != null">
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.sys.model.sysArticleInfo">
+    update sys_article_info
+    <set>
+      <if test="articleTitle != null">
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yk.blog.sys.model.sysArticleInfo">
+    update sys_article_info
+    set article_title = #{articleTitle,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </update>
+</mapper>
