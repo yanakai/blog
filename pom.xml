@@ -111,9 +111,12 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.7</version>
                 <configuration>
+                    <!--允许移动生成的文件 -->
+                    <verbose>false</verbose>
+                    <!--允许覆盖生成的文件 -->
+                    <overwrite>false</overwrite>
+                    <!--配置文件的路径 -->
                     <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
-                    <overwrite>true</overwrite>
-                    <verbose>true</verbose>
                 </configuration>
                 <dependencies>
                     <dependency> <!-- mysql驱动-->

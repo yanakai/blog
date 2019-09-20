@@ -1,5 +1,15 @@
 server:
   port: 8080
+  ##项目名字配置
+  #servlet :
+  #  context-path : /demo
+  tomcat:
+    max-threads: 128
+    min-spare-threads: 5
+    uri-encoding: UTF-8
+    #shiro 报错修改的地方
+    max-connections: 200000
+    max-http-post-size: 9000000
 spring :
   # 环境 dev 开发|test 测试|prod生产
   profiles :
