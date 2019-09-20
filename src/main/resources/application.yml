@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring :
+  # 环境 dev 开发|test 测试|prod生产
+  profiles :
+    active : dev
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      maxFileSize : 10MB
+      #shiro 报错修改的地方
+    max-connections: 200000
+    max-http-post-size: 9000000
+  mvc:   #静态文件
+    static-path-pattern : /static/**
+  thymeleaf:
+    model: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false #开发时关闭缓存,不然没法看到实时页面
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+mybatis : #mybatis 配置
+  mapperLocations : classpath*:mybatis/*/*.xml
+  executor-type : reuse
+  type-aliases-package : com.*.model
+  configuration :
+    map-underscore-to-camel-case : true
+
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
