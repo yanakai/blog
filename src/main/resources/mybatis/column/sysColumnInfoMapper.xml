@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.blog.column.mapper.sysColumnInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yk.blog.column.model.sysColumnInfo">
+    <id column="column_id" jdbcType="VARCHAR" property="columnId" />
+    <result column="column_name" jdbcType="VARCHAR" property="columnName" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    column_id, column_name, sort, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_column_info
+    where column_id = #{columnId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_column_info
+    where column_id = #{columnId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yk.blog.column.model.sysColumnInfo">
+    insert into sys_column_info (column_id, column_name, sort, 
+      remarks)
+    values (#{columnId,jdbcType=VARCHAR}, #{columnName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yk.blog.column.model.sysColumnInfo">
+    insert into sys_column_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="columnId != null">
+        column_id,
+      </if>
+      <if test="columnName != null">
+        column_name,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="columnId != null">
+        #{columnId,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.column.model.sysColumnInfo">
+    update sys_column_info
+    <set>
+      <if test="columnName != null">
+        column_name = #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where column_id = #{columnId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yk.blog.column.model.sysColumnInfo">
+    update sys_column_info
+    set column_name = #{columnName,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where column_id = #{columnId,jdbcType=VARCHAR}
+  </update>
+</mapper>

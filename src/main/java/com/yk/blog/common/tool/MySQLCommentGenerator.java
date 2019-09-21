@@ -3,6 +3,7 @@ package com.yk.blog.common.tool;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 import java.util.Properties;
@@ -37,5 +38,23 @@ public class MySQLCommentGenerator extends EmptyCommentGenerator {
         field.addJavaDocLine("/**");
         field.addJavaDocLine(" * " + remarks);
         field.addJavaDocLine(" */");
+    }
+
+    @Override
+    public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+        // 获取列注释
+        String remarks = introspectedColumn.getRemarks();
+        method.addJavaDocLine("/**");
+        method.addJavaDocLine(" * " + remarks);
+        method.addJavaDocLine(" */");
+    }
+
+    @Override
+    public void addSetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+        // 获取列注释
+        String remarks = introspectedColumn.getRemarks();
+        method.addJavaDocLine("/**");
+        method.addJavaDocLine(" * " + remarks);
+        method.addJavaDocLine(" */");
     }
 }
