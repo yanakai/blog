@@ -2,7 +2,6 @@ package com.yk.blog.common.base;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.github.pagehelper.StringUtil;
 
 /**
  * 分页数据
