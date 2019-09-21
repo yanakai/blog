@@ -45,7 +45,8 @@ mybatis : #mybatis 配置
   type-aliases-package : com.*.model
   configuration :
     map-underscore-to-camel-case : true
-
+    #控制台打印sql
+    log-impl : org.apache.ibatis.logging.stdout.StdOutImpl
 #pagehelper分页插件
 pagehelper:
   helperDialect: mysql
