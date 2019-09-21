@@ -23,16 +23,16 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成(实体)模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.yk.blog.sys.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.yk.blog.article.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成XML映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="mybatis.sys.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.article" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO接口的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yk.blog.sys.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yk.blog.article.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
