@@ -1,3 +1,11 @@
+# 项目相关配置
+yk:
+  #名称
+  name: blog
+  #版本
+  version: 1.0
+  #版权年份
+  copyrightYear: 2019
 server:
   port: 8080
   ##项目名字配置
