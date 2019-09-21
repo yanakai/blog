@@ -1,10 +1,12 @@
 package com.yk.blog.article.service.impl;
 
 import com.yk.blog.article.mapper.SysArticleInfoMapper;
+import com.yk.blog.article.model.SysArticleInfo;
 import com.yk.blog.article.service.ISysArticleInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: blog
@@ -22,4 +24,9 @@ import javax.annotation.Resource;
 public class SysArticleInfoServiceImpl implements ISysArticleInfoService {
     @Resource
     private SysArticleInfoMapper sysArticleInfoMapper;
+
+    @Override
+    public List<SysArticleInfo> getList(SysArticleInfo sysArticleInfo) {
+        return sysArticleInfoMapper.getList(sysArticleInfo);
+    }
 }

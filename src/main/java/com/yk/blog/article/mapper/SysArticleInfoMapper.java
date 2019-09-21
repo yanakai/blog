@@ -1,6 +1,9 @@
 package com.yk.blog.article.mapper;
 
 import com.yk.blog.article.model.SysArticleInfo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysArticleInfoMapper {
     int deleteByPrimaryKey(String articleId);
@@ -14,4 +17,14 @@ public interface SysArticleInfoMapper {
     int updateByPrimaryKeySelective(SysArticleInfo record);
 
     int updateByPrimaryKey(SysArticleInfo record);
+
+    /**
+     * @method:  getList
+     * @description: <p>通过对象获取列表数据</p>
+     * @params:  [sysArticleInfo]文章对象信息
+     * @return java.util.List<com.yk.blog.article.model.SysArticleInfo>
+     * @date: 2019/9/21 23:36
+     * @author: yanakai@126.com
+     */
+    List<SysArticleInfo> getList(@Param("vo") SysArticleInfo sysArticleInfo);
 }
