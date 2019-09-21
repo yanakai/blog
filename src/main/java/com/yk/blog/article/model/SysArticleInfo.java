@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * 
  */
-public class sysArticleInfo implements Serializable {
+public class SysArticleInfo implements Serializable {
     /**
      * 主键id
      */

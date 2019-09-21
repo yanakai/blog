@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yk.blog.article.mapper.sysArticleInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yk.blog.article.model.sysArticleInfo">
+<mapper namespace="com.yk.blog.article.mapper.SysArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yk.blog.article.model.SysArticleInfo">
     <id column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="articel_title" jdbcType="VARCHAR" property="articelTitle" />
     <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
@@ -34,7 +34,7 @@
     delete from sys_article_info
     where article_id = #{articleId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yk.blog.article.model.sysArticleInfo">
+  <insert id="insert" parameterType="com.yk.blog.article.model.SysArticleInfo">
     insert into sys_article_info (article_id, articel_title, article_abstract, 
       article_content, img_path, chick_num, 
       column_id, tag_id, create_time, 
@@ -48,7 +48,7 @@
       #{releaseTime,jdbcType=TIMESTAMP}, #{releaseName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, 
       #{releaseStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.yk.blog.article.model.sysArticleInfo">
+  <insert id="insertSelective" parameterType="com.yk.blog.article.model.SysArticleInfo">
     insert into sys_article_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.article.model.sysArticleInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.article.model.SysArticleInfo">
     update sys_article_info
     <set>
       <if test="articelTitle != null">
@@ -202,7 +202,7 @@
     </set>
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yk.blog.article.model.sysArticleInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yk.blog.article.model.SysArticleInfo">
     update sys_article_info
     set articel_title = #{articelTitle,jdbcType=VARCHAR},
       article_abstract = #{articleAbstract,jdbcType=VARCHAR},
@@ -219,212 +219,6 @@
       release_name = #{releaseName,jdbcType=VARCHAR},
       delete_status = #{deleteStatus,jdbcType=INTEGER},
       release_status = #{releaseStatus,jdbcType=INTEGER}
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </update>
-  <resultMap id="BaseResultMap" type="com.yk.blog.article.model.sysArticleInfo">
-    <id column="article_id" jdbcType="VARCHAR" property="articleId" />
-    <result column="column_id" jdbcType="VARCHAR" property="columnId" />
-    <result column="article_name" jdbcType="VARCHAR" property="articleName" />
-    <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
-    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
-    <result column="article_img_path" jdbcType="VARCHAR" property="articleImgPath" />
-    <result column="article_img_name" jdbcType="VARCHAR" property="articleImgName" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
-    <result column="state" jdbcType="VARCHAR" property="state" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yk.blog.article.model.sysArticleInfo">
-    <result column="article_title" jdbcType="LONGVARCHAR" property="articleTitle" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    article_id, column_id, article_name, article_abstract, article_content, article_img_path, 
-    article_img_name, create_time, modify_time, type, keyword, state
-  </sql>
-  <sql id="Blob_Column_List">
-    article_title
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sys_article_info
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from sys_article_info
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.yk.blog.article.model.sysArticleInfo">
-    insert into sys_article_info (article_id, column_id, article_name, 
-      article_abstract, article_content, article_img_path, 
-      article_img_name, create_time, modify_time, 
-      type, keyword, state, 
-      article_title)
-    values (#{articleId,jdbcType=VARCHAR}, #{columnId,jdbcType=VARCHAR}, #{articleName,jdbcType=VARCHAR}, 
-      #{articleAbstract,jdbcType=VARCHAR}, #{articleContent,jdbcType=VARCHAR}, #{articleImgPath,jdbcType=VARCHAR}, 
-      #{articleImgName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
-      #{articleTitle,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.yk.blog.article.model.sysArticleInfo">
-    insert into sys_article_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="columnId != null">
-        column_id,
-      </if>
-      <if test="articleName != null">
-        article_name,
-      </if>
-      <if test="articleAbstract != null">
-        article_abstract,
-      </if>
-      <if test="articleContent != null">
-        article_content,
-      </if>
-      <if test="articleImgPath != null">
-        article_img_path,
-      </if>
-      <if test="articleImgName != null">
-        article_img_name,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="modifyTime != null">
-        modify_time,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="keyword != null">
-        keyword,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="articleTitle != null">
-        article_title,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=VARCHAR},
-      </if>
-      <if test="columnId != null">
-        #{columnId,jdbcType=VARCHAR},
-      </if>
-      <if test="articleName != null">
-        #{articleName,jdbcType=VARCHAR},
-      </if>
-      <if test="articleAbstract != null">
-        #{articleAbstract,jdbcType=VARCHAR},
-      </if>
-      <if test="articleContent != null">
-        #{articleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="articleImgPath != null">
-        #{articleImgPath,jdbcType=VARCHAR},
-      </if>
-      <if test="articleImgName != null">
-        #{articleImgName,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="keyword != null">
-        #{keyword,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="articleTitle != null">
-        #{articleTitle,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.article.model.sysArticleInfo">
-    update sys_article_info
-    <set>
-      <if test="columnId != null">
-        column_id = #{columnId,jdbcType=VARCHAR},
-      </if>
-      <if test="articleName != null">
-        article_name = #{articleName,jdbcType=VARCHAR},
-      </if>
-      <if test="articleAbstract != null">
-        article_abstract = #{articleAbstract,jdbcType=VARCHAR},
-      </if>
-      <if test="articleContent != null">
-        article_content = #{articleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="articleImgPath != null">
-        article_img_path = #{articleImgPath,jdbcType=VARCHAR},
-      </if>
-      <if test="articleImgName != null">
-        article_img_name = #{articleImgName,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="keyword != null">
-        keyword = #{keyword,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="articleTitle != null">
-        article_title = #{articleTitle,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yk.blog.article.model.sysArticleInfo">
-    update sys_article_info
-    set column_id = #{columnId,jdbcType=VARCHAR},
-      article_name = #{articleName,jdbcType=VARCHAR},
-      article_abstract = #{articleAbstract,jdbcType=VARCHAR},
-      article_content = #{articleContent,jdbcType=VARCHAR},
-      article_img_path = #{articleImgPath,jdbcType=VARCHAR},
-      article_img_name = #{articleImgName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=VARCHAR},
-      keyword = #{keyword,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR},
-      article_title = #{articleTitle,jdbcType=LONGVARCHAR}
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yk.blog.article.model.sysArticleInfo">
-    update sys_article_info
-    set column_id = #{columnId,jdbcType=VARCHAR},
-      article_name = #{articleName,jdbcType=VARCHAR},
-      article_abstract = #{articleAbstract,jdbcType=VARCHAR},
-      article_content = #{articleContent,jdbcType=VARCHAR},
-      article_img_path = #{articleImgPath,jdbcType=VARCHAR},
-      article_img_name = #{articleImgName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=VARCHAR},
-      keyword = #{keyword,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
 </mapper>

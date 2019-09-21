@@ -1,6 +1,3 @@
-${AnsiColor.BRIGHT_YELLOW}
-Application Version: ${yk.version}
-Spring Boot Version: ${spring-boot.version}
 *******************************************
 * 码云地址                                 *
 * https://gitee.com/yanakai/blog.git      *
@@ -33,4 +30,3 @@ Spring Boot Version: ${spring-boot.version}
   :        /  |"-     '
   '           |      /
               `      |
-${AnsiColor.BLACK}

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 
  */
-public class sysColumnInfo implements Serializable {
+public class SysColumnInfo implements Serializable {
     /**
      * 主键Id
      */

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yk.blog.column.mapper.sysColumnInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yk.blog.column.model.sysColumnInfo">
+<mapper namespace="com.yk.blog.column.mapper.SysColumnInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yk.blog.column.model.SysColumnInfo">
     <id column="column_id" jdbcType="VARCHAR" property="columnId" />
     <result column="column_name" jdbcType="VARCHAR" property="columnName" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -20,13 +20,13 @@
     delete from sys_column_info
     where column_id = #{columnId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yk.blog.column.model.sysColumnInfo">
+  <insert id="insert" parameterType="com.yk.blog.column.model.SysColumnInfo">
     insert into sys_column_info (column_id, column_name, sort, 
       remarks)
     values (#{columnId,jdbcType=VARCHAR}, #{columnName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yk.blog.column.model.sysColumnInfo">
+  <insert id="insertSelective" parameterType="com.yk.blog.column.model.SysColumnInfo">
     insert into sys_column_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="columnId != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.column.model.sysColumnInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.column.model.SysColumnInfo">
     update sys_column_info
     <set>
       <if test="columnName != null">
@@ -72,7 +72,7 @@
     </set>
     where column_id = #{columnId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yk.blog.column.model.sysColumnInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yk.blog.column.model.SysColumnInfo">
     update sys_column_info
     set column_name = #{columnName,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},
