@@ -36,4 +36,14 @@ public interface ISysArticleInfoService {
      * @author: yanakai@126.com
      */
     int updateNotNull(SysArticleInfo sysArticleInfo);
+
+    /**
+     * @method:  getInfoById
+     * @description: <p>主键查询对象</p>
+     * @params:  [id]
+     * @return com.yk.blog.article.model.SysArticleInfo
+     * @date: 2019/9/23 0:25
+     * @author: yanakai@126.com
+     */
+    SysArticleInfo getInfoById(String id);
 }

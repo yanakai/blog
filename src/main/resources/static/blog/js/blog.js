@@ -831,6 +831,19 @@
             	});
             	
             },
+            // 删除信息
+            virtualDeleteById: function(id) {
+                $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
+                    var url = $.common.isEmpty(id) ? $.table._option.removeUrl : $.table._option.removeUrl.replace("{id}", id);
+                    if($.table._option.type == table_type.bootstrapTreeTable) {
+                        $.operate.get(url);
+                    } else {
+                        var data = { "id": id };
+                        $.operate.submit(url, "post", "json", data);
+                    }
+                });
+
+            },
             // 批量删除信息
             removeAll: function() {
         		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);

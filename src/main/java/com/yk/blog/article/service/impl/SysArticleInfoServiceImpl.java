@@ -34,4 +34,9 @@ public class SysArticleInfoServiceImpl implements ISysArticleInfoService {
     public int updateNotNull(SysArticleInfo sysArticleInfo) {
         return sysArticleInfoMapper.updateByPrimaryKeySelective(sysArticleInfo);
     }
+
+    @Override
+    public SysArticleInfo getInfoById(String id) {
+        return sysArticleInfoMapper.selectByPrimaryKey(id);
+    }
 }
