@@ -48,6 +48,7 @@ public class SysArticleInfoController extends BaseController {
     public TableDataInfo articlePage(HttpServletRequest request, SysArticleInfo sysArticleInfo){
         //初始化分页
         startPage();
+        sysArticleInfo.setDeleteStatus(0);
         List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
         return getDataTable(list);
     }

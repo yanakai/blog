@@ -29,13 +29,15 @@ spring :
       #shiro 报错修改的地方
     max-connections: 200000
     max-http-post-size: 9000000
-  mvc:   #静态文件
-    static-path-pattern : /static/**
   thymeleaf:
     model: HTML5
     prefix: classpath:/templates/
     suffix: .html
     cache: false #开发时关闭缓存,不然没法看到实时页面
+    # 资源信息
+    messages:
+      # 国际化资源文件路径
+      basename: static/i18n/messages
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
