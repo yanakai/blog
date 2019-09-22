@@ -31,7 +31,7 @@ public class ResponseData implements Serializable {
     /**
      * 描述信息
      */
-    private String message;
+    private String msg;
 
     /**
      * 返回的对象
@@ -64,37 +64,37 @@ public class ResponseData implements Serializable {
      *
      * @param state
      *            信息状态
-     * @param message
+     * @param msg
      *            描述信息
      */
-    public ResponseData(ResponseState state, String message) {
+    public ResponseData(ResponseState state, String msg) {
         this(state);
-        this.message = message;
+        this.msg = msg;
     }
 
     /**
      *
      * @param code 状态码
      * @param state 操作状态 0失败 1成功
-     * @param message 提示信息
+     * @param msg 提示信息
      */
-    public ResponseData(String code, ResponseState state, String message) {
+    public ResponseData(String code, ResponseState state, String msg) {
         this(state);
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     /***
      *
      * @param state
      *            信息状态
-     * @param message
+     * @param msg
      *            描述信息
      * @param data
      *            返回的对象
      */
-    public ResponseData(ResponseState state, String message, Object data) {
-        this(state, message);
+    public ResponseData(ResponseState state, String msg, Object data) {
+        this(state, msg);
         this.data = data;
     }
 
@@ -114,12 +114,12 @@ public class ResponseData implements Serializable {
         this.state = state;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public Object getData() {

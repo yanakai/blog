@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<th:block th:include="include :: header('文章列表')" />
 </head>
@@ -42,7 +42,7 @@
     </div>
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
-        var prefix = "sys/article";
+        var prefix = "/sys/article";
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -74,9 +74,9 @@
 		            align: 'center',
 		            formatter: function(value, row, index) {
 						if (row.releaseStatus == 0) {
-							return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="enableRelease(\'' + row.articleId + '\')"></i> ';
+							return '未发布';
 						} else {
-							return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="disableRelease(\'' + row.articleId + '\')"></i> ';
+							return '已发布';
 						}
 		            }
 		        },
@@ -94,6 +94,11 @@
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
+						if (row.releaseStatus == 0) {
+							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="enableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>发布</a> ');
+						} else {
+							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="disableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>取消发布</a> ')
+						}
 		            	actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.editFull(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.remove(\'' + row.articleId + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
@@ -105,14 +110,14 @@
 		/* 文章管理-取消发布 */
 		function disableRelease(articleId) {
 			$.modal.confirm("确认要取消发布吗？", function() {
-				$.operate.post(prefix + "/changeReleaseStatus", { "articleId": articleId, "releaseStatus": 1 });
+				$.operate.post(prefix + "/changeReleaseStatus", { "articleId": articleId, "releaseStatus": 0 });
 			})
 		}
 
 		/* 文章管理-发布  */
 		function enableRelease(articleId) {
 			$.modal.confirm("确认要发布文章吗？", function() {
-				$.operate.post(prefix + "/changeReleaseStatus", { "articleId": articleId, "releaseStatus": 0 });
+				$.operate.post(prefix + "/changeReleaseStatus", { "articleId": articleId, "releaseStatus": 1 });
 			})
 		}
     </script>

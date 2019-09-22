@@ -91,13 +91,13 @@ public class BaseController {
      * <b>方法描述：</b>自定义操作成功提示信息
      * </p>
      *
-     * @param message
+     * @param msg
      *            成功时的信息
      * @return 输出信息的对象
      */
-    protected ResponseData operateSucess(String message) {
+    protected ResponseData operateSucess(String msg) {
         ResponseData result = new ResponseData(ResponseData.ResponseState.SUCESS_STATE);
-        result.setMessage(message);
+        result.setMsg(msg);
         return result;
     }
 
@@ -107,27 +107,27 @@ public class BaseController {
      * <b>方法描述：</b>自定义操作成功提示信息，并返回数据
      * </p>
      *
-     * @param message
+     * @param msg
      *            成功时的信息
      * @param data
      *            数据对象
      * @return 输出信息的对象
      */
-    protected ResponseData operateSucess(String message, Object data) {
-        ResponseData result = operateSucess(message);
+    protected ResponseData operateSucess(String msg, Object data) {
+        ResponseData result = operateSucess(msg);
         result.setData(data);
         return result;
     }
 
     /***
      * <p><b>方法描述：</b>自定义操作成功提示信息，并返回数据和code</p>
-     * @param message 成功时的信息
+     * @param msg 成功时的信息
      * @param data 数据对象
      * @param code code编码
      * @return ResponseData
      */
-    protected ResponseData operateSucess(String message, Object data, String code) {
-        ResponseData result = operateSucess(message, data);
+    protected ResponseData operateSucess(String msg, Object data, String code) {
+        ResponseData result = operateSucess(msg, data);
         result.setCode(code);
         return result;
     }
@@ -138,12 +138,12 @@ public class BaseController {
      * <b>方法描述：</b>自定义失败提示信息
      * </p>
      *
-     * @param message 失败时的信息
+     * @param msg 失败时的信息
      * @return 输出信息的对象
      */
-    protected ResponseData operateFailed(String message) {
+    protected ResponseData operateFailed(String msg) {
         ResponseData result = new ResponseData(ResponseData.ResponseState.FAILED_STATE);
-        result.setMessage(message);
+        result.setMsg(msg);
         return result;
     }
 
@@ -153,25 +153,25 @@ public class BaseController {
      * <b>方法描述：</b>自定义失败提示信息并返回数据
      * </p>
      *
-     * @param message 失败时的信息
+     * @param msg 失败时的信息
      * @param data 数据对象
      * @return 输出信息的对象
      */
-    protected ResponseData operateFailed(String message, Object data) {
-        ResponseData result = operateFailed(message);
+    protected ResponseData operateFailed(String msg, Object data) {
+        ResponseData result = operateFailed(msg);
         result.setData(data);
         return result;
     }
 
     /***
      * <p><b>方法描述：</b>自定义失败提示信息并返回数据和code</p>
-     * @param message 失败时的信息
+     * @param msg 失败时的信息
      * @param data 数据对象
      * @param code code编码
      * @return ResponseData
      */
-    protected ResponseData operateFailed(String message, Object data, String code) {
-        ResponseData result = operateFailed(message, data);
+    protected ResponseData operateFailed(String msg, Object data, String code) {
+        ResponseData result = operateFailed(msg, data);
         result.setCode(code);
         return result;
     }

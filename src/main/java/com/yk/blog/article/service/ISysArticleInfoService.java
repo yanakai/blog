@@ -26,4 +26,14 @@ public interface ISysArticleInfoService {
      * @return java.util.List<com.yk.blog.article.model.SysArticleInfo>
      */
     List<SysArticleInfo> getList(SysArticleInfo sysArticleInfo);
+
+    /**
+     * @method:  updateNotNull
+     * @description: <p>根据主键修改不为空的数据</p>
+     * @params:  [sysArticleInfo]
+     * @return int
+     * @date: 2019/9/22 23:24
+     * @author: yanakai@126.com
+     */
+    int updateNotNull(SysArticleInfo sysArticleInfo);
 }

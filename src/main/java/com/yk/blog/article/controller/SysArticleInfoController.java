@@ -3,6 +3,7 @@ package com.yk.blog.article.controller;
 import com.yk.blog.article.model.SysArticleInfo;
 import com.yk.blog.article.service.ISysArticleInfoService;
 import com.yk.blog.common.base.BaseController;
+import com.yk.blog.common.base.ResponseData;
 import com.yk.blog.common.base.TableDataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,11 +39,27 @@ public class SysArticleInfoController extends BaseController {
     @Resource
     private ISysArticleInfoService sysArticleInfoService;
 
+    /**
+     * @method:  articleList
+     * @description: <p>跳转至文章列表页</p>
+     * @params:  []
+     * @return java.lang.String
+     * @date: 2019/9/22 23:26
+     * @author: yanakai@126.com
+     */
     @GetMapping("/list")
     public String articleList(){
         return SYS_ARTICLE_PATH+"/list";
     }
 
+    /**
+     * @method:  articlePage
+     * @description: <p>获取文章列表数据分页</p>
+     * @params:  [request, sysArticleInfo]
+     * @return com.yk.blog.common.base.TableDataInfo
+     * @date: 2019/9/22 23:27
+     * @author: yanakai@126.com
+     */
     @PostMapping("list")
     @ResponseBody
     public TableDataInfo articlePage(HttpServletRequest request, SysArticleInfo sysArticleInfo){
@@ -52,4 +69,23 @@ public class SysArticleInfoController extends BaseController {
         List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
         return getDataTable(list);
     }
+
+    /**
+     * @method:  changeReleaseStatus
+     * @description: <p>文章发布</p>
+     * @params:  [request, sysArticleInfo]
+     * @return com.yk.blog.common.base.ResponseData
+     * @date: 2019/9/22 23:27
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/changeReleaseStatus")
+    @ResponseBody
+    public ResponseData changeReleaseStatus(HttpServletRequest request,SysArticleInfo sysArticleInfo){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        state = sysArticleInfoService.updateNotNull(sysArticleInfo);
+        if (state>0) data = operateSucess("操作成功");
+        return data;
+    }
+
 }

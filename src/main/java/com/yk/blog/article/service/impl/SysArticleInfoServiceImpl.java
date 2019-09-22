@@ -29,4 +29,9 @@ public class SysArticleInfoServiceImpl implements ISysArticleInfoService {
     public List<SysArticleInfo> getList(SysArticleInfo sysArticleInfo) {
         return sysArticleInfoMapper.getList(sysArticleInfo);
     }
+
+    @Override
+    public int updateNotNull(SysArticleInfo sysArticleInfo) {
+        return sysArticleInfoMapper.updateByPrimaryKeySelective(sysArticleInfo);
+    }
 }

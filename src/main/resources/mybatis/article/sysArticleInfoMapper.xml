@@ -3,7 +3,7 @@
 <mapper namespace="com.yk.blog.article.mapper.SysArticleInfoMapper">
   <resultMap id="BaseResultMap" type="com.yk.blog.article.model.SysArticleInfo">
     <id column="article_id" jdbcType="VARCHAR" property="articleId" />
-    <result column="articel_title" jdbcType="VARCHAR" property="articelTitle" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
     <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
     <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
     <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
@@ -20,7 +20,7 @@
     <result column="release_status" jdbcType="INTEGER" property="releaseStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    article_id, articel_title, article_abstract, article_content, img_path, chick_num, 
+    article_id, article_title, article_abstract, article_content, img_path, chick_num, 
     column_id, tag_id, create_time, create_name, last_modify_time, last_modify_name, 
     release_time, release_name, delete_status, release_status
   </sql>
@@ -35,13 +35,13 @@
     where article_id = #{articleId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.yk.blog.article.model.SysArticleInfo">
-    insert into sys_article_info (article_id, articel_title, article_abstract, 
+    insert into sys_article_info (article_id, article_title, article_abstract, 
       article_content, img_path, chick_num, 
       column_id, tag_id, create_time, 
       create_name, last_modify_time, last_modify_name, 
       release_time, release_name, delete_status, 
       release_status)
-    values (#{articleId,jdbcType=VARCHAR}, #{articelTitle,jdbcType=VARCHAR}, #{articleAbstract,jdbcType=VARCHAR}, 
+    values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleAbstract,jdbcType=VARCHAR}, 
       #{articleContent,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR}, #{chickNum,jdbcType=INTEGER}, 
       #{columnId,jdbcType=VARCHAR}, #{tagId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createName,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{lastModifyName,jdbcType=VARCHAR}, 
@@ -54,8 +54,8 @@
       <if test="articleId != null">
         article_id,
       </if>
-      <if test="articelTitle != null">
-        articel_title,
+      <if test="articleTitle != null">
+        article_title,
       </if>
       <if test="articleAbstract != null">
         article_abstract,
@@ -104,8 +104,8 @@
       <if test="articleId != null">
         #{articleId,jdbcType=VARCHAR},
       </if>
-      <if test="articelTitle != null">
-        #{articelTitle,jdbcType=VARCHAR},
+      <if test="articleTitle != null">
+        #{articleTitle,jdbcType=VARCHAR},
       </if>
       <if test="articleAbstract != null">
         #{articleAbstract,jdbcType=VARCHAR},
@@ -154,8 +154,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.article.model.SysArticleInfo">
     update sys_article_info
     <set>
-      <if test="articelTitle != null">
-        articel_title = #{articelTitle,jdbcType=VARCHAR},
+      <if test="articleTitle != null">
+        article_title = #{articleTitle,jdbcType=VARCHAR},
       </if>
       <if test="articleAbstract != null">
         article_abstract = #{articleAbstract,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yk.blog.article.model.SysArticleInfo">
     update sys_article_info
-    set articel_title = #{articelTitle,jdbcType=VARCHAR},
+    set article_title = #{articleTitle,jdbcType=VARCHAR},
       article_abstract = #{articleAbstract,jdbcType=VARCHAR},
       article_content = #{articleContent,jdbcType=VARCHAR},
       img_path = #{imgPath,jdbcType=VARCHAR},
@@ -228,8 +228,8 @@
             <if test="vo.articleId !=null and vo.articleId !='' ">
                 and article_id = #{vo.articleId}
             </if>
-            <if test="vo.articelTitle != null">
-                and articel_title like CONCAT('%', #{vo.articelTitle}, '%')
+            <if test="vo.articleTitle != null">
+                and article_title like CONCAT('%', #{vo.articleTitle}, '%')
             </if>
             <if test="vo.columnId != null">
                 and column_id = #{vo.columnId,jdbcType=VARCHAR}

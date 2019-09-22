@@ -15,7 +15,7 @@ public class SysArticleInfo implements Serializable {
     /**
      * 文章标题
      */
-    private String articelTitle;
+    private String articleTitle;
 
     /**
      * 文章摘要
@@ -106,15 +106,15 @@ public class SysArticleInfo implements Serializable {
     /**
      * 文章标题
      */
-    public String getArticelTitle() {
-        return articelTitle;
+    public String getArticleTitle() {
+        return articleTitle;
     }
 
     /**
      * 文章标题
      */
-    public void setArticelTitle(String articelTitle) {
-        this.articelTitle = articelTitle == null ? null : articelTitle.trim();
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle == null ? null : articleTitle.trim();
     }
 
     /**
@@ -320,7 +320,7 @@ public class SysArticleInfo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", articleId=").append(articleId);
-        sb.append(", articelTitle=").append(articelTitle);
+        sb.append(", articleTitle=").append(articleTitle);
         sb.append(", articleAbstract=").append(articleAbstract);
         sb.append(", articleContent=").append(articleContent);
         sb.append(", imgPath=").append(imgPath);
