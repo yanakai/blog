@@ -274,9 +274,9 @@
 	    			var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
 	    			$.modal.loading("正在导出数据，请稍后...");
 	    			$.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function(result) {
-	    				if (result.code == web_status.SUCCESS) {
+	    				if (result.state == web_status.SUCCESS) {
 	    			        window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
-	    				} else if (result.code == web_status.WARNING) {
+	    				} else if (result.state == web_status.WARNING) {
 	                        $.modal.alertWarning(result.msg)
 	                    } else {
 	    					$.modal.alertError(result.msg);
@@ -288,9 +288,9 @@
     		// 下载模板
     		importTemplate: function() {
     			$.get($.table._option.importTemplateUrl, function(result) {
-    				if (result.code == web_status.SUCCESS) {
+    				if (result.state == web_status.SUCCESS) {
     			        window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
-    				} else if (result.code == web_status.WARNING) {
+    				} else if (result.state == web_status.WARNING) {
                         $.modal.alertWarning(result.msg)
                     } else {
     					$.modal.alertError(result.msg);
@@ -331,11 +331,11 @@
             				processData: false,
             				type: 'POST',
             				success: function (result) {
-            					if (result.code == web_status.SUCCESS) {
+            					if (result.state == web_status.SUCCESS) {
             						$.modal.closeAll();
             						$.modal.alertSuccess(result.msg);
             						$.table.refresh();
-            					} else if (result.code == web_status.WARNING) {
+            					} else if (result.state == web_status.WARNING) {
             						layer.close(index);
             						$.modal.enable();
         	                        $.modal.alertWarning(result.msg)
@@ -947,9 +947,9 @@
         	        	if (typeof callback == "function") {
         	        	    callback(result);
         	        	}
-        	        	if (result.code == web_status.SUCCESS) {
+        	        	if (result.state == web_status.SUCCESS) {
 	                        $.modal.alertSuccess(result.msg)
-	                    } else if (result.code == web_status.WARNING) {
+	                    } else if (result.state == web_status.WARNING) {
 	                        $.modal.alertWarning(result.msg)
 	                    } else {
 	                    	$.modal.alertError(result.msg);
@@ -980,13 +980,13 @@
             },
             // 保存结果弹出msg刷新table表格
             ajaxSuccess: function (result) {
-            	if (result.code == web_status.SUCCESS && $.table._option.type == table_type.bootstrapTable) {
+            	if (result.state == web_status.SUCCESS && $.table._option.type == table_type.bootstrapTable) {
                 	$.modal.msgSuccess(result.msg);
             		$.table.refresh();
-                } else if (result.code == web_status.SUCCESS && $.table._option.type == table_type.bootstrapTreeTable) {
+                } else if (result.state == web_status.SUCCESS && $.table._option.type == table_type.bootstrapTreeTable) {
                 	$.modal.msgSuccess(result.msg);
                 	$.treeTable.refresh();
-                } else if (result.code == web_status.WARNING) {
+                } else if (result.state == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
                 }  else {
                 	$.modal.alertError(result.msg);
@@ -995,9 +995,9 @@
             },
             // 成功结果提示msg（父窗体全局更新）
             saveSuccess: function (result) {
-            	if (result.code == web_status.SUCCESS) {
+            	if (result.state == web_status.SUCCESS) {
             		$.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
-                } else if (result.code == web_status.WARNING) {
+                } else if (result.state == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
                 }  else {
                 	$.modal.alertError(result.msg);
@@ -1006,7 +1006,7 @@
             },
             // 成功回调执行事件（父窗体静默更新）
             successCallback: function(result) {
-                if (result.code == web_status.SUCCESS) {
+                if (result.state == web_status.SUCCESS) {
                 	var parent = window.parent;
                     if (parent.$.table._option.type == table_type.bootstrapTable) {
                         $.modal.close();
@@ -1019,7 +1019,7 @@
                     } else {
                         $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
                     }
-                } else if (result.code == web_status.WARNING) {
+                } else if (result.state == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
                 }  else {
                     $.modal.alertError(result.msg);
@@ -1029,7 +1029,7 @@
             },
             // 选项卡成功回调执行事件（父窗体静默更新）
             successTabCallback: function(result) {
-                if (result.code == web_status.SUCCESS) {
+                if (result.state == web_status.SUCCESS) {
                 	var topWindow = $(window.parent.document);
     	            var currentId = $('.page-tabs-content', topWindow).find('.active').attr('data-panel');
     	            var $contentWindow = $('.RuoYi_iframe[data-id="' + currentId + '"]', topWindow)[0].contentWindow;
@@ -1042,7 +1042,7 @@
     	        		$contentWindow.$.treeTable.refresh();
                     }
     	            $.modal.closeTab();
-                } else if (result.code == web_status.WARNING) {
+                } else if (result.state == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
                 } else {
                     $.modal.alertError(result.msg);
