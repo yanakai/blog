@@ -1,7 +1,12 @@
 package com.yk.blog.column.service.impl;
 
+import com.yk.blog.column.mapper.SysColumnInfoMapper;
+import com.yk.blog.column.model.SysColumnInfo;
 import com.yk.blog.column.service.ISysColumnInfoService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: blog
@@ -17,4 +22,31 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysColumnInfoServiceImpl implements ISysColumnInfoService {
+    @Resource
+    private SysColumnInfoMapper sysColumnInfoMapper;
+
+    @Override
+    public List<SysColumnInfo> getList(SysColumnInfo sysColumnInfo) {
+        return sysColumnInfoMapper.getList(sysColumnInfo);
+    }
+
+    @Override
+    public int saveNotNUll(SysColumnInfo sysColumnInfo) {
+        return sysColumnInfoMapper.insertSelective(sysColumnInfo);
+    }
+
+    @Override
+    public int updateNotNUll(SysColumnInfo sysColumnInfo) {
+        return sysColumnInfoMapper.updateByPrimaryKeySelective(sysColumnInfo);
+    }
+
+    @Override
+    public SysColumnInfo selectByPrimaryKey(String columnId) {
+        return sysColumnInfoMapper.selectByPrimaryKey(columnId);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(String columnId) {
+        return sysColumnInfoMapper.deleteByPrimaryKey(columnId);
+    }
 }

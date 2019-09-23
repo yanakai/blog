@@ -79,4 +79,15 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where column_id = #{columnId,jdbcType=VARCHAR}
   </update>
+  <select id="getList" parameterType="com.yk.blog.column.model.SysColumnInfo" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from sys_column_info
+    <where>
+      <if test="columnName != null">
+        column_name like CONCAT('%', #{columnName}, '%')
+      </if>
+    </where>
+    order by sort
+  </select>
+
 </mapper>
