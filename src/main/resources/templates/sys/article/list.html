@@ -87,7 +87,10 @@
 				{
 		            field: 'createTime',
 		            title: '创建时间',
-		            sortable: true
+		            sortable: true,
+					formatter: function(value,row,index){
+		            	return $.dateUtil.toDateString(value,"yyyy-MM-dd");
+					}
 		        },
 		        {
 		            title: '操作',
