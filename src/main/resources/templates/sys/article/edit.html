@@ -94,7 +94,7 @@
 	        if ($.validate.form()) {
 	        	var sHTML = $('.summernote').summernote('code');
 				$("#noticeContent").val(sHTML);
-				$.operate.save(prefix + "/edit", $('#form-notice-edit').serialize());
+				$.operate.save(prefix + "/saveOrUpdate", $('#form-notice-edit').serialize());
 	        }
 	    }
 	</script>

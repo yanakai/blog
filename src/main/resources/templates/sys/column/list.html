@@ -42,7 +42,7 @@
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
-                removeUrl: prefix + "/remove",
+                removeUrl: prefix + "/deleteById",
                 modalName: "文章列表",
                 columns: [
 				{
@@ -70,7 +70,7 @@
 		            formatter: function(value, row, index) {
 		            	var actions = [];
 		            	actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.editFull(\'' + row.columnId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.remove(\'' + row.columnId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.deleteById(columnId,\'' + row.columnId + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]

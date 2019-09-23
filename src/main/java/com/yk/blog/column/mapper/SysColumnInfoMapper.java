@@ -26,4 +26,14 @@ public interface SysColumnInfoMapper {
      * @author: yanakai@126.com
      */
     List<SysColumnInfo> getList(SysColumnInfo sysColumnInfo);
+
+    /**
+     * @method:  checkColumnNameUnique
+     * @description: <p>校验栏目名称是否已存在</p>
+     * @params:  [columnName]
+     * @return com.yk.blog.column.model.SysColumnInfo
+     * @date: 2019/9/23 23:24
+     * @author: yanakai@126.com
+     */
+    SysColumnInfo checkColumnNameUnique(String columnName);
 }

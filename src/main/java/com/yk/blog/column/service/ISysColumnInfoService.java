@@ -66,4 +66,14 @@ public interface ISysColumnInfoService {
      * @author: yanakai@126.com
      */
     int deleteByPrimaryKey(String columnId);
+
+    /**
+     * @method:  checkColumnNameUnique
+     * @description: <p>校验栏目名称是否已存在</p>
+     * @params:  [sysColumnInfo]
+     * @return java.lang.String
+     * @date: 2019/9/23 23:19
+     * @author: yanakai@126.com
+     */
+    String checkColumnNameUnique(SysColumnInfo sysColumnInfo);
 }

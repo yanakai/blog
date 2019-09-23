@@ -142,4 +142,9 @@ public class SysColumnInfoController extends BaseController {
         }
         return data;
     }
+
+    public String checkColumnNameUnique(SysColumnInfo sysColumnInfo){
+
+        return sysColumnInfoService.checkColumnNameUnique(sysColumnInfo);
+    }
 }

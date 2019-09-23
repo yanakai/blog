@@ -1,8 +1,10 @@
 package com.yk.blog.column.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.yk.blog.column.mapper.SysColumnInfoMapper;
 import com.yk.blog.column.model.SysColumnInfo;
 import com.yk.blog.column.service.ISysColumnInfoService;
+import com.yk.blog.common.utils.UserConstants;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -48,5 +50,15 @@ public class SysColumnInfoServiceImpl implements ISysColumnInfoService {
     @Override
     public int deleteByPrimaryKey(String columnId) {
         return sysColumnInfoMapper.deleteByPrimaryKey(columnId);
+    }
+
+    @Override
+    public String checkColumnNameUnique(SysColumnInfo sysColumnInfo) {
+        String columnId = StrUtil.isEmpty(sysColumnInfo.getColumnId())?"":sysColumnInfo.getColumnId();
+       SysColumnInfo temp = sysColumnInfoMapper.checkColumnNameUnique(sysColumnInfo.getColumnName());
+        if (temp != null && !columnId.equals(temp.getColumnId())){
+            return UserConstants.USER_COLUMN_NAME_NOT_UNIQUE;
+        }
+        return  UserConstants.USER_COLUMN_NAME_UNIQUE;
     }
 }

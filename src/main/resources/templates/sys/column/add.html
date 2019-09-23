@@ -30,7 +30,30 @@
     <script type="text/javascript">
         var prefix = "/sys/column";
 		$("#form-notice-add").validate({
-			focusCleanup: true
+			focusCleanup: true,
+			rules:{
+				columnName:{
+					columnName:true,
+					remote: {
+						url: prefix + "/checkColumnNameUnique",
+						type: "post",
+						dataType: "json",
+						data: {
+							name: function () {
+								return $.common.trim($("#columnName").val());
+							}
+						},
+						dataFilter: function (data, type) {
+							return $.validate.unique(data);
+						}
+					}
+				}
+			},
+			messages: {
+				"columnName": {
+					remote: "栏目已经存在"
+				}
+			},
 		});
 		function submitHandler() {
 	        if ($.validate.form()) {

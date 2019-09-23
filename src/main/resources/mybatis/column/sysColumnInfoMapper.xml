@@ -89,5 +89,11 @@
     </where>
     order by sort
   </select>
+  <!-- 校验栏目名称是否已存在 -->
+  <select id="checkColumnNameUnique" parameterType="String" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from sys_column_info
+    where column_name = #{columnName}
+  </select>
 
 </mapper>
