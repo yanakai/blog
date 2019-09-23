@@ -143,8 +143,17 @@ public class SysColumnInfoController extends BaseController {
         return data;
     }
 
+    /**
+     * @method:  checkColumnNameUnique
+     * @description: <p>校验栏目名称是否已存在</p>
+     * @params:  [sysColumnInfo]
+     * @return java.lang.String
+     * @date: 2019/9/23 23:33
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/checkColumnNameUnique")
+    @ResponseBody
     public String checkColumnNameUnique(SysColumnInfo sysColumnInfo){
-
         return sysColumnInfoService.checkColumnNameUnique(sysColumnInfo);
     }
 }
