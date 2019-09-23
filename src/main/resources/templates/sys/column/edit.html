@@ -28,60 +28,41 @@
 		</form>
     </div>
     <th:block th:include="include :: footer" />
-    <th:block th:include="include :: summernote-js" />
     <script type="text/javascript">
-        var prefix = ctx + "system/notice";
-    
-	    $(function() {
-		    $('.summernote').summernote({
-		    	placeholder: '请输入公告内容',
-		    	height : 192,
-				lang : 'zh-CN',
-				followingToolbar: false,
-				callbacks: {
-	                onImageUpload: function (files) {
-	                    sendFile(files[0], this);
-	                }
-	            }
-		    });
-			var content = $("#noticeContent").val();
-		    $('#editor').summernote('code', content);
-	    });
-	    
-	    // 上传文件
-	    function sendFile(file, obj) {
-	        var data = new FormData();
-	        data.append("file", file);
-	        $.ajax({
-	            type: "POST",
-	            url: ctx + "common/upload",
-	            data: data,
-	            cache: false,
-	            contentType: false,
-	            processData: false,
-	            dataType: 'json',
-	            success: function(result) {
-	                if (result.code == web_status.SUCCESS) {
-	                	$(obj).summernote('editor.insertImage', result.url, result.fileName);
-					} else {
-						$.modal.alertError(result.msg);
-					}
-	            },
-	            error: function(error) {
-	                $.modal.alertWarning("图片上传失败。");
-	            }
-	        });
-	    }
-	    
+        var prefix = "sys/column";
+
 		$("#form-notice-edit").validate({
-			focusCleanup: true
+			focusCleanup: true,
+            rules:{
+                columnName:{
+                    columnName:true,
+                    remote: {
+                        url: prefix + "/checkColumnNameUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            name: function () {
+                                return $.common.trim($("#columnName").val());
+                            }
+                        },
+                        dataFilter: function (data, type) {
+                            return $.validate.unique(data);
+                        }
+                    }
+                }
+            },
+            messages: {
+                "columnName": {
+                    remote: "栏目已经存在"
+                }
+            }
 		});
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
 	        	var sHTML = $('.summernote').summernote('code');
 				$("#noticeContent").val(sHTML);
-				$.operate.save(prefix + "/edit", $('#form-notice-edit').serialize());
+				$.operate.save(prefix + "/saveOrUpdate", $('#form-notice-edit').serialize());
 	        }
 	    }
 	</script>
