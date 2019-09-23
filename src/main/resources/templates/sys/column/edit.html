@@ -30,7 +30,6 @@
     <th:block th:include="include :: footer" />
     <script type="text/javascript">
         var prefix = "sys/column";
-
 		$("#form-notice-edit").validate({
 			focusCleanup: true,
             rules:{
@@ -60,8 +59,6 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	var sHTML = $('.summernote').summernote('code');
-				$("#noticeContent").val(sHTML);
 				$.operate.save(prefix + "/saveOrUpdate", $('#form-notice-edit').serialize());
 	        }
 	    }
