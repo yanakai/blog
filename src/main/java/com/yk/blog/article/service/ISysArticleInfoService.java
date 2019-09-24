@@ -46,4 +46,14 @@ public interface ISysArticleInfoService {
      * @author: yanakai@126.com
      */
     SysArticleInfo getInfoById(String id);
+
+    /**
+     * @Title: saveNotNull
+     * @Description: 添加不为空的数据
+     * @Param: sysArticleInfo
+     * @return: int
+     * @author: yankai
+     * @date   2019/9/24
+     */
+    int saveNotNull(SysArticleInfo sysArticleInfo);
 }

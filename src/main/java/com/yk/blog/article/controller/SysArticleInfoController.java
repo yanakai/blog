@@ -1,5 +1,7 @@
 package com.yk.blog.article.controller;
 
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.StrUtil;
 import com.yk.blog.article.model.SysArticleInfo;
 import com.yk.blog.article.service.ISysArticleInfoService;
 import com.yk.blog.column.model.SysColumnInfo;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -149,5 +152,32 @@ public class SysArticleInfoController extends BaseController {
         SysArticleInfo sysArticleInfo = sysArticleInfoService.getInfoById(articleId);
         modelMap.put("info",sysArticleInfo);
         return SYS_ARTICLE_PATH+"add";
+    }
+
+    /**
+     * @Title: saveOrUpdate
+     * @Description:  保存或者添加文章数据
+     * @Param: sysArticleInfo
+     * @return: com.yk.blog.common.base.ResponseData
+     * @author: yankai
+     * @date   2019/9/24
+     */
+    @PostMapping("/saveOrUpdate")
+    @ResponseBody
+    public ResponseData saveOrUpdate(SysArticleInfo sysArticleInfo){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        if (StrUtil.isEmpty(sysArticleInfo.getArticleId())){
+            sysArticleInfo.setLastModifyTime(new Date());
+            sysArticleInfo.setLastModifyName("目前没有登录系统");
+            state = sysArticleInfoService.updateNotNull(sysArticleInfo);
+        }else {
+            sysArticleInfo.setArticleId(UUID.randomUUID().toString());
+            sysArticleInfo.setCreateTime(new Date());
+            sysArticleInfo.setCreateName("目前没有登录系统");
+            state = sysArticleInfoService.saveNotNull(sysArticleInfo);
+        }
+        if (state>0) data = operateSucess("操作成功");
+        return data;
     }
 }
