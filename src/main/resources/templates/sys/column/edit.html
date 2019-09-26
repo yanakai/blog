@@ -5,8 +5,8 @@
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-notice-edit" th:object="${info}">
-            <input id="noticeId" name="noticeId" th:field="*{columnId}"  type="hidden">
+        <form class="form-horizontal m" id="form-column-add" th:object="${info}">
+            <input id="noticeId" name="columnId" th:field="*{columnId}"  type="hidden">
             <div class="form-group">	
                 <label class="col-sm-2 control-label">栏目名称：</label>
                 <div class="col-sm-10">
@@ -29,37 +29,36 @@
     </div>
     <th:block th:include="include :: footer" />
     <script type="text/javascript">
-        var prefix = "sys/column";
-		$("#form-notice-edit").validate({
-			focusCleanup: true,
-            rules:{
-                columnName:{
-                    columnName:true,
+        var prefix = "/sys/column";
+        $("#form-column-add").validate({
+            onkeyup: false,
+            rules: {
+                columnName: {
                     remote: {
                         url: prefix + "/checkColumnNameUnique",
                         type: "post",
                         dataType: "json",
                         data: {
-                            name: function () {
+                            "columnName": function() {
                                 return $.common.trim($("#columnName").val());
                             }
                         },
-                        dataFilter: function (data, type) {
+                        dataFilter: function(data, type) {
                             return $.validate.unique(data);
                         }
                     }
-                }
+                },
             },
             messages: {
                 "columnName": {
-                    remote: "栏目已经存在"
+                    remote: "栏目名称已经存在"
                 }
-            }
-		});
-		
+            },
+            focusCleanup: true
+        });
 		function submitHandler() {
 	        if ($.validate.form()) {
-				$.operate.save(prefix + "/saveOrUpdate", $('#form-notice-edit').serialize());
+				$.operate.save(prefix + "/saveOrUpdate", $('#form-column-add').serialize());
 	        }
 	    }
 	</script>

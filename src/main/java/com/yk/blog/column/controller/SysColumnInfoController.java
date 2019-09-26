@@ -9,11 +9,9 @@ import com.yk.blog.common.base.ResponseData;
 import com.yk.blog.common.base.TableDataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -37,6 +35,7 @@ public class SysColumnInfoController extends BaseController {
     /**
      * 文章栏目业务层接口
      */
+    @Resource
     private ISysColumnInfoService sysColumnInfoService;
 
     /**
@@ -89,8 +88,8 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:53
      * @author: yanakai@126.com
      */
-    @GetMapping("/edit")
-    public String add(HttpServletRequest request, String columnId, ModelMap modelMap){
+    @GetMapping("/edit/{columnId}")
+    public String add(HttpServletRequest request, @PathVariable("columnId") String columnId, ModelMap modelMap){
         if (StrUtil.isNotEmpty(columnId)){
             SysColumnInfo sysColumnInfo = sysColumnInfoService.selectByPrimaryKey(columnId);
             modelMap.put("info",sysColumnInfo);
