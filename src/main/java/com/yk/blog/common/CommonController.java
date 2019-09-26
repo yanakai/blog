@@ -37,7 +37,7 @@ public class CommonController extends BaseController {
     @Resource
     private ServerConfig serverConfig;
 
-    @RequestMapping("/update")
+    @RequestMapping("/upload")
     @ResponseBody
     public ResponseData updateFile(MultipartFile file){
         ResponseData data = operateFailed("上传失败！");

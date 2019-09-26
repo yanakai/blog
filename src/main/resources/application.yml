@@ -6,6 +6,11 @@ yk:
   version: 1.0
   #版权年份
   copyrightYear: 2019
+  # 文件路径 示例（ Windows配置E:/blog/uploadPath，Linux配置 /home/blog/uploadPath）
+  profile: E:/blog/uploadPath
+  # 获取ip地址开关
+  addressEnabled: true
+
 server:
   port: 8080
   ##项目名字配置
@@ -44,7 +49,7 @@ spring :
 mybatis : #mybatis 配置
   mapperLocations : classpath*:mybatis/*/*.xml
   executor-type : reuse
-  type-aliases-package : com.*.model
+  type-aliases-package : com.yk.blog.*.model
   configuration :
     map-underscore-to-camel-case : true
     #控制台打印sql

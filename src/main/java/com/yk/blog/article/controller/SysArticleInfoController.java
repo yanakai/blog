@@ -48,6 +48,7 @@ public class SysArticleInfoController extends BaseController {
     /**
      * 文章栏目业务层接口
      */
+    @Resource
     private ISysColumnInfoService sysColumnInfoService;
 
     /**
@@ -107,7 +108,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/23 0:06
      * @author: yanakai@126.com
      */
-    @PostMapping("/virtualDeleteById")
+    @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData virtualDeleteById(HttpServletRequest request,String id){
         ResponseData data = operateFailed("操作失败");
@@ -132,7 +133,7 @@ public class SysArticleInfoController extends BaseController {
         //获取所有的文章栏目
         List<SysColumnInfo> columnInfoList=sysColumnInfoService.getList(null);
         modelMap.put("columnInfoList",columnInfoList);
-        return SYS_ARTICLE_PATH+"add";
+        return SYS_ARTICLE_PATH+"/add";
     }
 
     /**
@@ -151,7 +152,7 @@ public class SysArticleInfoController extends BaseController {
         modelMap.put("columnInfoList",columnInfoList);
         SysArticleInfo sysArticleInfo = sysArticleInfoService.getInfoById(articleId);
         modelMap.put("info",sysArticleInfo);
-        return SYS_ARTICLE_PATH+"add";
+        return SYS_ARTICLE_PATH+"/edit";
     }
 
     /**
