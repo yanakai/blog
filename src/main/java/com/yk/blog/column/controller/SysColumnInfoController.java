@@ -132,10 +132,10 @@ public class SysColumnInfoController extends BaseController {
      */
     @PostMapping("/deleteById")
     @ResponseBody
-    public ResponseData deleteById(String columnId){
+    public ResponseData deleteById(String id){
         ResponseData data = operateFailed("删除失败");
         int state = 0;
-        state = sysColumnInfoService.deleteByPrimaryKey(columnId);
+        state = sysColumnInfoService.deleteByPrimaryKey(id);
         if (state>0){
             data = operateSucess("删除成功");
         }
