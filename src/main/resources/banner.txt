@@ -1,32 +1,20 @@
+${AnsiColor.BRIGHT_BLUE}
+Application Version: ${yk.version}
+Spring Boot Version: ${spring-boot.version}
 *******************************************
 * 码云地址                                 *
 * https://gitee.com/yanakai/blog.git      *
-* GitHub地址                               *
+* GitHub地址                              *
 * https://github.com/yanakai/blog.git     *
 *******************************************
-           _.._        ,------------------------.
-        ,'      `.    ( 永无bug!，永不宕机！ )
-       /  __) __` \    `-,----------------------`
-      (  (`-`(-')  ) _.-'
-      /)  \  = /  (
-     /'    |--' .  \
-    (  ,---|  `-.)__`
-     )(  `-.,--'   _`-.
-    '/,'          (  Uu",
-     (_       ,    `/,-' )
-     `.__,  : `-'/  /`--'
-       |     `--'  |
-       `   `-._   /
-        \        (
-        /\ .      \.
-       / |` \     ,-\
-      /  \| .)   /   \
-     ( ,'|\    ,'     :
-     | \,`.`--"/      }
-     `,'    \  |,'    /
-    / "-._   `-/      |
-    "-.   "-.,'|     ;
-   /        _/["---'""]
-  :        /  |"-     '
-  '           |      /
-              `      |
+${AnsiColor.BRIGHT_RED}                      !                      天地山青   ${AnsiColor.BRIGHT_YELLOW}                      !
+${AnsiColor.BRIGHT_RED}                     /^\                        ${AnsiColor.BRIGHT_YELLOW}道法无常                     /^\
+${AnsiColor.BRIGHT_RED}                   /     \                   天地无极   ${AnsiColor.BRIGHT_YELLOW}                   /     \
+${AnsiColor.BRIGHT_RED}   |            | (       ) |            |      ${AnsiColor.BRIGHT_YELLOW}乾坤戒法   |            | (       ) |            |
+${AnsiColor.BRIGHT_RED}  /^\  |       /^\ \     / /^\       |  /^\  元阳入体   ${AnsiColor.BRIGHT_YELLOW}  /^\  |       /^\ \     / /^\       |  /^\
+${AnsiColor.BRIGHT_RED}  |O| /^\     (   )|-----|(   )     /^\ |O|     ${AnsiColor.BRIGHT_YELLOW}五毒不侵  |O| /^\     (   )|-----|(   )     /^\ |O|
+${AnsiColor.BRIGHT_RED}  |_| |-| |^-^|---||-----||---|^-^| |-| |_|  九阳之体   ${AnsiColor.BRIGHT_YELLOW}  |_| |-| |^-^|---||-----||---|^-^| |-| |_|
+${AnsiColor.BRIGHT_RED}  |O| |O| |/^\|/^\||  |  ||/^\|/^\| |O| |O|     ${AnsiColor.BRIGHT_YELLOW}化缘神功  |O| |O| |/^\|/^\||  |  ||/^\|/^\| |O| |O|
+${AnsiColor.BRIGHT_RED}  |-| |-| ||_|||_||| /^\ |||_|||_|| |-| |-|  邪魔退散   ${AnsiColor.BRIGHT_YELLOW}  |-| |-| ||_|||_||| /^\ |||_|||_|| |-| |-|
+${AnsiColor.BRIGHT_RED}  |O| |O| |/^\|/^\||(   )||/^\|/^\| |O| |O|     ${AnsiColor.BRIGHT_YELLOW}永不宕机  |O| |O| |/^\|/^\||(   )||/^\|/^\| |O| |O|
+${AnsiColor.BRIGHT_RED}  |-| |-| ||_|||_||||   ||||_|||_|| |-| |-|  永无Bug   ${AnsiColor.BRIGHT_YELLOW}  |-| |-| ||_|||_||||   ||||_|||_|| |-| |-|
