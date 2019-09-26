@@ -39,18 +39,24 @@ public class CommonController extends BaseController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public ResponseData updateFile(MultipartFile file) throws IOException {
+    public ResponseData updateFile(MultipartFile file){
         ResponseData data = operateFailed("上传失败！");
-        //获取上传文件路径
-        String fielPath = Global.getUploadPath();
-        //上传并返回新的文件名称
-        String fileName = FileUploadUtils.upload(fielPath,file);
-        //获取新的文件路劲
-        String url = serverConfig.getUrl() + fileName;
-        Map<String,Object> map = new HashMap<>();
-        map.put("fileName", fileName);
-        map.put("url", url);
-        data.setData(map);
+        try {
+            //获取上传文件路径
+            String fielPath = Global.getUploadPath();
+            //上传并返回新的文件名称
+            String fileName = FileUploadUtils.upload(fielPath,file);
+            //获取新的文件路劲
+            String url = serverConfig.getUrl() + fileName;
+            Map<String,Object> map = new HashMap<>();
+            map.put("fileName", fileName);
+            map.put("url", url);
+            data = operateFailed("上传成功！");
+            data.setData(map);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
         return data;
 
     }
