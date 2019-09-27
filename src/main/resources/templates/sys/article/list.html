@@ -65,8 +65,15 @@
 					title : '文章标题'
 				},
 				{
-		            field: 'lastModifyTime',
-		            title: '最后一次修改时间'
+					field : 'columnName',
+					title : '所属栏目'
+				},
+				{
+		            field: 'releaseTime',
+		            title: '发布时间',
+					formatter: function(value,row,index){
+						return $.dateUtil.toDateString(row.releaseTime,"yyyy-MM-dd");
+					}
 		        },
 				{
 		            field: 'releaseStatus',
@@ -85,11 +92,11 @@
 					title : '创建者' 
 				},
 				{
-		            field: 'createTime',
-		            title: '创建时间',
+		            field: 'lastModifyTime',
+		            title: '最后修改时间',
 		            sortable: true,
 					formatter: function(value,row,index){
-		            	return $.dateUtil.toDateString(value,"yyyy-MM-dd");
+		            	return $.dateUtil.toDateString(row.lastModifyTime,"yyyy-MM-dd");
 					}
 		        },
 		        {

@@ -168,7 +168,7 @@ public class SysArticleInfoController extends BaseController {
     public ResponseData saveOrUpdate(SysArticleInfo sysArticleInfo){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
-        if (StrUtil.isEmpty(sysArticleInfo.getArticleId())){
+        if (StrUtil.isNotEmpty(sysArticleInfo.getArticleId())){
             sysArticleInfo.setLastModifyTime(new Date());
             sysArticleInfo.setLastModifyName("目前没有登录系统");
             state = sysArticleInfoService.updateNotNull(sysArticleInfo);
