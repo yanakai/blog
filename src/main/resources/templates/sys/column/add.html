@@ -56,7 +56,6 @@
 			focusCleanup: true
 		});
 		function submitHandler() {
-			console.log("栏目提交功能");
 	        if ($.validate.form()) {
 				$.operate.save(prefix + "/saveOrUpdate", $('#form-column-add').serialize());
 	        }
