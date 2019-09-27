@@ -103,17 +103,17 @@ public class SysArticleInfoController extends BaseController {
     /**
      * @method:  virtualDeleteById
      * @description: <p>通过主键id虚拟删除修改删除状态</p>
-     * @params:  [request, id]
+     * @params:  [request, articleId]
      * @return com.yk.blog.common.base.ResponseData
      * @date: 2019/9/23 0:06
      * @author: yanakai@126.com
      */
     @PostMapping("/deleteById")
     @ResponseBody
-    public ResponseData virtualDeleteById(HttpServletRequest request,String id){
+    public ResponseData virtualDeleteById(HttpServletRequest request,String articleId){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
-        SysArticleInfo sysArticleInfo = sysArticleInfoService.getInfoById(id);
+        SysArticleInfo sysArticleInfo = sysArticleInfoService.getInfoById(articleId);
         sysArticleInfo.setDeleteStatus(1);
         state = sysArticleInfoService.updateNotNull(sysArticleInfo);
         if (state>0) data = operateSucess("操作成功");
