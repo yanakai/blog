@@ -1,6 +1,6 @@
 /**
  * 通用js方法封装处理
- * Copyright (c) 2019 ruoyi
+ * Copyright (c) 2019 ruoyi   ---blog二次改造
  */
 (function ($) {
     $.extend({
@@ -866,13 +866,14 @@
             	
             },
             // 通过主键删除信息
-            deleteById: function(id) {
+            deleteById: function(idName,id) {
                 $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
                     var url = $.common.isEmpty(id) ? $.table._option.removeUrl : $.table._option.removeUrl.replace("{id}", id);
                     if($.table._option.type == table_type.bootstrapTreeTable) {
                         $.operate.get(url);
                     } else {
-                        var data = { "id": id };
+						var data = {};
+						data[idName] = id;
                         $.operate.submit(url, "post", "json", data);
                     }
                 });
