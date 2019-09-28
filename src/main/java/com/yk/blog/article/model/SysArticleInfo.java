@@ -88,6 +88,25 @@ public class SysArticleInfo implements Serializable {
     private Integer releaseStatus;
 
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * 文章栏目名称 ---只做显示，不做持久化
+     */
+    private String columnName;
+
+    /**
+     * 文章栏目名称 ---只做显示，不做持久化
+     */
+    public String getColumnName() {
+        return columnName;
+    }
+
+    /**
+     * 文章栏目名称 ---只做显示，不做持久化
+     */
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 
     /**
      * 主键id

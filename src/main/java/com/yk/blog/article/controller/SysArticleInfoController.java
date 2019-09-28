@@ -11,10 +11,7 @@ import com.yk.blog.common.base.ResponseData;
 import com.yk.blog.common.base.TableDataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -145,8 +142,8 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
-    @GetMapping("/edit")
-    public String edit(String articleId,ModelMap modelMap){
+    @GetMapping("/edit/{articleId}")
+    public String edit(@PathVariable("articleId") String articleId, ModelMap modelMap){
         //获取所有的文章栏目
         List<SysColumnInfo> columnInfoList=sysColumnInfoService.getList(null);
         modelMap.put("columnInfoList",columnInfoList);

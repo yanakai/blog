@@ -16,8 +16,8 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">所属栏目：</label>
 				<div class="col-sm-10">
-					<select name="noticeType" class="form-control m-b" >
-						<option th:each="item : ${columnInfoList}" th:text="${item.columnName}" th:value="${item.columnName}"></option>
+					<select name="columnId" class="form-control m-b" >
+						<option th:each="item : ${columnInfoList}" th:text="${item.columnName}" th:value="${item.columnId}"></option>
 					</select>
 				</div>
 			</div>
