@@ -1,49 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<th:block th:include="include :: header('修改通知公告')" />
+	<th:block th:include="include :: header('修改文章信息')" />
 	<th:block th:include="include :: summernote-css" />
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-notice-edit" th:object="${notice}">
-            <input id="noticeId" name="noticeId" th:field="*{noticeId}"  type="hidden">
-            <div class="form-group">	
-                <label class="col-sm-2 control-label">公告标题：</label>
+        <form class="form-horizontal m" id="form-article-edit" th:object="${info}">
+            <input id="articleId" name="articleId" th:field="*{articleId}"  type="hidden">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标题：</label>
                 <div class="col-sm-10">
-                    <input id="noticeTitle" name="noticeTitle" th:field="*{noticeTitle}" class="form-control" type="text" required>
+                    <input id="articleTitle" name="articleTitle" th:field="*{articleTitle}" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">
-				<label class="col-sm-2 control-label">公告类型：</label>
-				<div class="col-sm-10">
-					<select name="noticeType" class="form-control m-b" th:with="type=${@dict.getType('sys_notice_type')}">
-	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{noticeType}"></option>
-	                </select>
-				</div>
-			</div>
-            <div class="form-group">	
-                <label class="col-sm-2 control-label">公告内容：</label>
+                <label class="col-sm-2 control-label">所属栏目：</label>
                 <div class="col-sm-10">
-                    <input id="noticeContent" name="noticeContent" th:field="*{noticeContent}" type="hidden">
+                    <select name="columnId" class="form-control m-b" >
+                        <option th:each="item : ${columnInfoList}" th:selected="${item.columnId == info.columnId}" th:text="${item.columnName}" th:value="${item.columnId}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">简介：</label>
+                <div class="col-sm-10">
+                    <textarea name="articleAbstract" maxlength="500" th:field="*{articleAbstract}" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">内容：</label>
+                <div class="col-sm-10">
+                    <input id="articleContent" name="articleContent" th:field="*{articleContent}" type="hidden">
                     <div id="editor" class="summernote"></div>
                 </div>
             </div>
-            <div class="form-group">
-				<label class="col-sm-2 control-label">公告状态：</label>
-				<div class="col-sm-10">
-					<div class="radio-box" th:each="dict : ${@dict.getType('sys_notice_status')}">
-						<input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}" th:field="*{status}">
-						<label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
-					</div>
-				</div>
-			</div>
 		</form>
     </div>
     <th:block th:include="include :: footer" />
     <th:block th:include="include :: summernote-js" />
     <script type="text/javascript">
-        var prefix = ctx + "system/notice";
+        var prefix ="/sys/article";
     
 	    $(function() {
 		    $('.summernote').summernote({
@@ -57,7 +54,7 @@
 	                }
 	            }
 		    });
-			var content = $("#noticeContent").val();
+			var content = $("#articleContent").val();
 		    $('#editor').summernote('code', content);
 	    });
 	    
@@ -67,7 +64,7 @@
 	        data.append("file", file);
 	        $.ajax({
 	            type: "POST",
-	            url: ctx + "common/upload",
+	            url: "/common/upload",
 	            data: data,
 	            cache: false,
 	            contentType: false,
@@ -86,15 +83,15 @@
 	        });
 	    }
 	    
-		$("#form-notice-edit").validate({
+		$("#form-article-edit").validate({
 			focusCleanup: true
 		});
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
 	        	var sHTML = $('.summernote').summernote('code');
-				$("#noticeContent").val(sHTML);
-				$.operate.save(prefix + "/saveOrUpdate", $('#form-notice-edit').serialize());
+				$("#articleContent").val(sHTML);
+				$.operate.save(prefix + "/saveOrUpdate", $('#form-article-edit').serialize());
 	        }
 	    }
 	</script>
