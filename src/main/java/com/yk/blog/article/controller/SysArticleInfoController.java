@@ -92,6 +92,8 @@ public class SysArticleInfoController extends BaseController {
     public ResponseData changeReleaseStatus(HttpServletRequest request,SysArticleInfo sysArticleInfo){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
+        sysArticleInfo.setReleaseTime(new Date());
+        sysArticleInfo.setReleaseName("暂时没有问题登录系统");
         state = sysArticleInfoService.updateNotNull(sysArticleInfo);
         if (state>0) data = operateSucess("操作成功");
         return data;
@@ -173,6 +175,8 @@ public class SysArticleInfoController extends BaseController {
             sysArticleInfo.setArticleId(UUID.randomUUID().toString());
             sysArticleInfo.setCreateTime(new Date());
             sysArticleInfo.setCreateName("目前没有登录系统");
+            sysArticleInfo.setLastModifyTime(sysArticleInfo.getCreateTime());
+            sysArticleInfo.setLastModifyName("目前没有登录系统");
             state = sysArticleInfoService.saveNotNull(sysArticleInfo);
         }
         if (state>0) data = operateSucess("操作成功");
