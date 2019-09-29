@@ -51,7 +51,7 @@ public class CommonController extends BaseController {
             Map<String,Object> map = new HashMap<>();
             map.put("fileName", fileName);
             map.put("url", url);
-            data = operateFailed("上传成功！");
+            data = operateSucess("上传成功！");
             data.setData(map);
         }catch (IOException e){
             e.printStackTrace();
