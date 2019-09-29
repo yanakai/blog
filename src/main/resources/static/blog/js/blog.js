@@ -841,6 +841,10 @@
        			};
             	$.modal.openOptions(options);
             },
+			// 详细信息，以tab页展现
+			detailTab: function (id) {
+				$.modal.openTab("详情" + $.table._option.modalName, $.operate.detailUrl(id));
+			},
             // 详细访问地址
             detailUrl: function(id) {
             	var url = "/404.html";
