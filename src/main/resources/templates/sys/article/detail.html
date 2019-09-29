@@ -2,13 +2,34 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('文章详情')" />
+    <style>
+        p {
+            font-size: 16px;
+            color: #4d4d4d;
+            font-weight: 400;
+            line-height: 26px;
+            margin: 0 0 16px;
+        }
+        .form-group{
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    </style>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content" th:text="${info?.articleTitle}">
-    </div>
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content" th:utext="${info?.articleAbstract}">
-    </div>
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content" th:utext="${info?.articleContent}">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <div class="form-group" >
+            <div class="col-sm-10" >
+                <h2 style="text-align: center" th:text="${info?.articleTitle}"></h2>
+            </div>
+        </div>
+        <div class="form-group" >
+            <div class="col-sm-10" th:utext="${info?.articleAbstract}">
+            </div>
+        </div>
+        <div class="form-group" >
+            <div class="col-sm-10" th:utext="${info?.articleContent}"></div>
+        </div>
     </div>
 </body>
 </html>
