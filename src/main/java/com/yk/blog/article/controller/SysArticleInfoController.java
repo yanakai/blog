@@ -9,6 +9,7 @@ import com.yk.blog.column.service.ISysColumnInfoService;
 import com.yk.blog.common.base.BaseController;
 import com.yk.blog.common.base.ResponseData;
 import com.yk.blog.common.base.TableDataInfo;
+import com.yk.blog.common.utils.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -181,5 +182,24 @@ public class SysArticleInfoController extends BaseController {
         }
         if (state>0) data = operateSucess("操作成功");
         return data;
+    }
+
+    /**
+     * @Title: detail
+     * @Description:  跳转至文章详情页
+     * @Param: request
+     * @Param articleId 文章id
+     * @Param modelMap
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/9/29
+     */
+    @GetMapping("/detail/{articleId}")
+    public String detail(HttpServletRequest request,@PathVariable("articleId") String articleId,ModelMap modelMap){
+        if (StringUtils.isNotEmpty(articleId)){
+            SysArticleInfo info = sysArticleInfoService.getInfoById(articleId);
+            modelMap.put("info",info);
+        }
+        return SYS_ARTICLE_PATH + "/detail";
     }
 }

@@ -41,8 +41,9 @@
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
+				detailUrl: prefix + "/preview/{id}",
                 removeUrl: prefix + "/deleteById",
-                modalName: "文章列表",
+                modalName: "文章",
                 columns: [{
 		            checkbox: true
 		        },
@@ -108,7 +109,8 @@
 							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="disableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>取消发布</a> ')
 						}
 		            	actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.editFull(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.deleteById(\'' + articleId + '\',\'' + row.articleId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.detailTab(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>预览</a> ');
+						actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.deleteById(\'' + articleId + '\',\'' + row.articleId + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]

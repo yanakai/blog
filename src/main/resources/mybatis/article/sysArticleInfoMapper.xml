@@ -5,7 +5,7 @@
     <id column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
     <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
-    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
     <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
     <result column="chick_num" jdbcType="INTEGER" property="chickNum" />
     <result column="column_id" jdbcType="VARCHAR" property="columnId" />

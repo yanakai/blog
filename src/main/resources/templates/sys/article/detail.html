@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('文章详情')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content" th:text="${info?.articleTitle}">
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content" th:utext="${info?.articleAbstract}">
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content" th:utext="${info?.articleContent}">
+    </div>
+</body>
+</html>
