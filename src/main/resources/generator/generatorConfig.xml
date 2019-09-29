@@ -15,7 +15,7 @@
         <!-- 配置生成实体类的toString()方法插件 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
         <!-- 这里的type里写的是你的实现类的类全路径   替换原来的配置引入自定义的生成格式类，解决无法生成带注释的实体类   -->
-        <commentGenerator type="com.yk.blog.common.tool.MySQLCommentGenerator"></commentGenerator>
+        <commentGenerator type="com.blog.sys.common.tool.MySQLCommentGenerator"></commentGenerator>
         <!--数据库连接驱动类,URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/blog?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC" userId="root" password="root">
         </jdbcConnection>

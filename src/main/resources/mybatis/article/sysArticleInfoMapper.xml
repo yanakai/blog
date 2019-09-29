@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yk.blog.article.mapper.SysArticleInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yk.blog.article.model.SysArticleInfo">
+<mapper namespace="com.blog.sys.article.mapper.SysArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.blog.sys.article.model.SysArticleInfo">
     <id column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
     <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
@@ -35,7 +35,7 @@
     delete from sys_article_info
     where article_id = #{articleId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yk.blog.article.model.SysArticleInfo">
+  <insert id="insert" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info (article_id, article_title, article_abstract, 
       article_content, img_path, chick_num, 
       column_id, tag_id, create_time, 
@@ -49,7 +49,7 @@
       #{releaseTime,jdbcType=TIMESTAMP}, #{releaseName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, 
       #{releaseStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.yk.blog.article.model.SysArticleInfo">
+  <insert id="insertSelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -152,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yk.blog.article.model.SysArticleInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     <set>
       <if test="articleTitle != null">
@@ -203,7 +203,7 @@
     </set>
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yk.blog.article.model.SysArticleInfo">
+  <update id="updateByPrimaryKey" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     set article_title = #{articleTitle,jdbcType=VARCHAR},
       article_abstract = #{articleAbstract,jdbcType=VARCHAR},
@@ -222,7 +222,7 @@
       release_status = #{releaseStatus,jdbcType=INTEGER}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-    <select id="getList" parameterType="com.yk.blog.article.model.SysArticleInfo" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.blog.sys.article.model.SysArticleInfo" resultMap="BaseResultMap">
         select
           sai.article_id, sai.article_title, sai.article_abstract, sai.article_content,
           sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time, sai.create_name,
