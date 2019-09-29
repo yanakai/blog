@@ -845,6 +845,17 @@
 			detailTab: function (id) {
 				$.modal.openTab("详情" + $.table._option.modalName, $.operate.detailUrl(id));
 			},
+			// 详情信息 全屏
+			detailFull: function(id) {
+				var url = "/404.html";
+				if ($.common.isNotEmpty(id)) {
+					url = $.table._option.detailUrl.replace("{id}", id);
+				} else {
+					var row = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+					url = $.table._option.detailUrl.replace("{id}", row);
+				}
+				$.modal.openFull("详情" + $.table._option.modalName, url);
+			},
             // 详细访问地址
             detailUrl: function(id) {
             	var url = "/404.html";
