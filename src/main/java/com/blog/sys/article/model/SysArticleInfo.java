@@ -28,6 +28,11 @@ public class SysArticleInfo implements Serializable {
     private String articleContent;
 
     /**
+     * 图片名称
+     */
+    private String imgName;
+
+    /**
      * 图片路径
      */
     private String imgPath;
@@ -162,6 +167,20 @@ public class SysArticleInfo implements Serializable {
      */
     public void setArticleContent(String articleContent) {
         this.articleContent = articleContent == null ? null : articleContent.trim();
+    }
+
+    /**
+     * 图片名称
+     */
+    public String getImgName() {
+        return imgName;
+    }
+
+    /**
+     * 图片名称
+     */
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 
     /**
@@ -342,6 +361,7 @@ public class SysArticleInfo implements Serializable {
         sb.append(", articleTitle=").append(articleTitle);
         sb.append(", articleAbstract=").append(articleAbstract);
         sb.append(", articleContent=").append(articleContent);
+        sb.append(", imgName=").append(imgName);
         sb.append(", imgPath=").append(imgPath);
         sb.append(", chickNum=").append(chickNum);
         sb.append(", columnId=").append(columnId);

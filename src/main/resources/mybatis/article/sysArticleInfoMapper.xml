@@ -6,6 +6,7 @@
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
     <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
     <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
+    <result column="img_name" jdbcType="VARCHAR" property="imgName" />
     <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
     <result column="chick_num" jdbcType="INTEGER" property="chickNum" />
     <result column="column_id" jdbcType="VARCHAR" property="columnId" />
@@ -21,7 +22,7 @@
     <result column="column_name" jdbcType="VARCHAR" property="columnName" />
   </resultMap>
   <sql id="Base_Column_List">
-    article_id, article_title, article_abstract, article_content, img_path, chick_num, 
+    article_id, article_title, article_abstract, article_content, img_name, img_path, chick_num,
     column_id, tag_id, create_time, create_name, last_modify_time, last_modify_name, 
     release_time, release_name, delete_status, release_status
   </sql>
@@ -37,13 +38,13 @@
   </delete>
   <insert id="insert" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info (article_id, article_title, article_abstract, 
-      article_content, img_path, chick_num, 
+      article_content, img_name, img_path, chick_num,
       column_id, tag_id, create_time, 
       create_name, last_modify_time, last_modify_name, 
       release_time, release_name, delete_status, 
       release_status)
     values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleAbstract,jdbcType=VARCHAR}, 
-      #{articleContent,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR}, #{chickNum,jdbcType=INTEGER}, 
+      #{articleContent,jdbcType=VARCHAR}, #{imgName,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR}, #{chickNum,jdbcType=INTEGER},
       #{columnId,jdbcType=VARCHAR}, #{tagId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createName,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{lastModifyName,jdbcType=VARCHAR}, 
       #{releaseTime,jdbcType=TIMESTAMP}, #{releaseName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, 
@@ -63,6 +64,9 @@
       </if>
       <if test="articleContent != null">
         article_content,
+      </if>
+      <if test="imgName != null">
+        img_name,
       </if>
       <if test="imgPath != null">
         img_path,
@@ -114,6 +118,9 @@
       <if test="articleContent != null">
         #{articleContent,jdbcType=VARCHAR},
       </if>
+      <if test="imgName != null">
+        #{imgName,jdbcType=VARCHAR},
+      </if>
       <if test="imgPath != null">
         #{imgPath,jdbcType=VARCHAR},
       </if>
@@ -164,6 +171,9 @@
       <if test="articleContent != null">
         article_content = #{articleContent,jdbcType=VARCHAR},
       </if>
+      <if test="imgName != null">
+        img_name = #{imgName,jdbcType=VARCHAR},
+      </if>
       <if test="imgPath != null">
         img_path = #{imgPath,jdbcType=VARCHAR},
       </if>
@@ -208,6 +218,7 @@
     set article_title = #{articleTitle,jdbcType=VARCHAR},
       article_abstract = #{articleAbstract,jdbcType=VARCHAR},
       article_content = #{articleContent,jdbcType=VARCHAR},
+      img_name = #{imgName,jdbcType=VARCHAR},
       img_path = #{imgPath,jdbcType=VARCHAR},
       chick_num = #{chickNum,jdbcType=INTEGER},
       column_id = #{columnId,jdbcType=VARCHAR},
@@ -225,7 +236,7 @@
     <select id="getList" parameterType="com.blog.sys.article.model.SysArticleInfo" resultMap="BaseResultMap">
         select
           sai.article_id, sai.article_title, sai.article_abstract, sai.article_content,
-          sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time, sai.create_name,
+          sai.img_name, sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time, sai.create_name,
           sai.last_modify_time, sai.last_modify_name,sai.release_time, sai.release_name,
           sai.delete_status, sai.release_status,sci.column_name
         from  sys_column_info sci
