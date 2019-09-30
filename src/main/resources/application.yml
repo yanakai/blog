@@ -49,7 +49,7 @@ spring :
 mybatis : #mybatis 配置
   mapperLocations : classpath*:mybatis/*/*.xml
   executor-type : reuse
-  type-aliases-package : com.yk.blog.*.model
+  type-aliases-package : com.blog.sys.*.model
   configuration :
     map-underscore-to-camel-case : true
     #控制台打印sql
