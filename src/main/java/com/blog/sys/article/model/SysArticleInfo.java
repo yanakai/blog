@@ -43,6 +43,11 @@ public class SysArticleInfo implements Serializable {
     private Integer chickNum;
 
     /**
+     * 点赞次数
+     */
+    private Integer pointNum;
+
+    /**
      * 所属栏目
      */
     private String columnId;
@@ -91,6 +96,11 @@ public class SysArticleInfo implements Serializable {
      * 发布状态：0：未发布；1：已发布；默认值为0
      */
     private Integer releaseStatus;
+
+    /**
+     * 置顶状态：0：未置顶；1：已置顶；默认为0
+     */
+    private Integer topStatus;
 
     private static final long serialVersionUID = 1L;
     
@@ -195,6 +205,20 @@ public class SysArticleInfo implements Serializable {
      */
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath == null ? null : imgPath.trim();
+    }
+
+    /**
+     * 点赞次数
+     */
+    public Integer getPointNum() {
+        return pointNum;
+    }
+
+    /**
+     * 点赞次数
+     */
+    public void setPointNum(Integer pointNum) {
+        this.pointNum = pointNum;
     }
 
     /**
@@ -351,6 +375,20 @@ public class SysArticleInfo implements Serializable {
         this.releaseStatus = releaseStatus;
     }
 
+    /**
+     * 置顶状态：0：未置顶；1：已置顶；默认为0
+     */
+    public Integer getTopStatus() {
+        return topStatus;
+    }
+
+    /**
+     * 置顶状态：0：未置顶；1：已置顶；默认为0
+     */
+    public void setTopStatus(Integer topStatus) {
+        this.topStatus = topStatus;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -363,6 +401,7 @@ public class SysArticleInfo implements Serializable {
         sb.append(", articleContent=").append(articleContent);
         sb.append(", imgName=").append(imgName);
         sb.append(", imgPath=").append(imgPath);
+        sb.append(", pointNum=").append(pointNum);
         sb.append(", chickNum=").append(chickNum);
         sb.append(", columnId=").append(columnId);
         sb.append(", tagId=").append(tagId);
@@ -374,6 +413,7 @@ public class SysArticleInfo implements Serializable {
         sb.append(", releaseName=").append(releaseName);
         sb.append(", deleteStatus=").append(deleteStatus);
         sb.append(", releaseStatus=").append(releaseStatus);
+        sb.append(", topStatus=").append(topStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
