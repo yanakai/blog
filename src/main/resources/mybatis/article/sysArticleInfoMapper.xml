@@ -257,7 +257,7 @@
       top_status = #{topStatus,jdbcType=INTEGER}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <resultMap id="BaseResultMap" type="com.blog.sys.column.model.SysArticleInfo">
+  <resultMap id="BaseResultMap" type="com.blog.sys.article.model.SysArticleInfo">
     <id column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="column_id" jdbcType="VARCHAR" property="columnId" />
     <result column="article_name" jdbcType="VARCHAR" property="articleName" />
