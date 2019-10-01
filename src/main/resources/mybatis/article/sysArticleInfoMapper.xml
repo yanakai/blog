@@ -260,7 +260,8 @@
     <select id="getList" parameterType="com.blog.sys.article.model.SysArticleInfo" resultMap="BaseResultMap">
         select
           sai.article_id, sai.article_title, sai.article_abstract, sai.article_content,
-          sai.img_name, sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time, sai.create_name,
+          sai.img_name, sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time,
+          sai.create_name, sai.point_num, sai.top_status,
           sai.last_modify_time, sai.last_modify_name,sai.release_time, sai.release_name,
           sai.delete_status, sai.release_status,sci.column_name
         from  sys_column_info sci

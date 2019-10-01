@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SysIndexController extends BaseController {
 
-    @RequestMapping({"","/sys/index"})
+    @RequestMapping({"sys","/sys/index"})
     public String index(){
         return "sys/index";
     }

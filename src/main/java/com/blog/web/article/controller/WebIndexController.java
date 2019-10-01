@@ -56,27 +56,12 @@ public class WebIndexController extends BaseController {
      * @date: 2019/10/1 0:04
      * @author: yanakai@126.com
      */
-    @GetMapping("/article/list")
-    public String articleList(HttpServletRequest request, ModelMap modelMap){
-        return "web/article";
-    }
-
-    /**
-     * @method:  articleList
-     * @description: <p>获取文章列表数据</p>
-     * @params:  request
-     * @Param sysArticleInfo
-     * @Param modelMap
-     * @return: com.blog.sys.common.base.TableDataInfo
-     * @date: 2019/10/1 0:04
-     * @author: yanakai@126.com
-     */
-    @PostMapping("/article/list")
-    @ResponseBody
-    public TableDataInfo articleList(HttpServletRequest request,SysArticleInfo sysArticleInfo,ModelMap modelMap){
+    @RequestMapping("/article/list")
+    public String articleList(HttpServletRequest request,SysArticleInfo sysArticleInfo, ModelMap modelMap){
         startPage();
         List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
-        return getDataTable(list);
+        modelMap.put("list",list);
+        return "web/article";
     }
 
     @GetMapping("/article/detail")
