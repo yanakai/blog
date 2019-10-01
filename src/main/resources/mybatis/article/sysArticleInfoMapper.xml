@@ -38,7 +38,7 @@
     delete from sys_article_info
     where article_id = #{articleId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <insert id="insert" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info (article_id, article_title, article_abstract,
       article_content, img_name, img_path,
       point_num, chick_num, column_id,
@@ -54,7 +54,7 @@
       #{releaseName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, #{releaseStatus,jdbcType=INTEGER},
       #{topStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <insert id="insertSelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     <set>
       <if test="articleTitle != null">
@@ -235,7 +235,7 @@
     </set>
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <update id="updateByPrimaryKey" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     set article_title = #{articleTitle,jdbcType=VARCHAR},
       article_abstract = #{articleAbstract,jdbcType=VARCHAR},
@@ -257,7 +257,7 @@
       top_status = #{topStatus,jdbcType=INTEGER}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <resultMap id="BaseResultMap" type="com.blog.sys.column.model.sysArticleInfo">
+  <resultMap id="BaseResultMap" type="com.blog.sys.column.model.SysArticleInfo">
     <id column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="column_id" jdbcType="VARCHAR" property="columnId" />
     <result column="article_name" jdbcType="VARCHAR" property="articleName" />
@@ -271,7 +271,7 @@
     <result column="keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="state" jdbcType="VARCHAR" property="state" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.sys.column.model.sysArticleInfo">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.sys.article.model.SysArticleInfo">
     <result column="article_title" jdbcType="LONGVARCHAR" property="articleTitle" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -293,7 +293,7 @@
     delete from sys_article_info
     where article_id = #{articleId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <insert id="insert" parameterType="com.blog.sys.article.model.sysArticleInfo">
     insert into sys_article_info (article_id, column_id, article_name,
       article_abstract, article_content, article_img_path,
       article_img_name, create_time, modify_time,
@@ -305,7 +305,7 @@
       #{type,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR},
       #{articleTitle,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <insert id="insertSelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -390,7 +390,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     <set>
       <if test="columnId != null">
@@ -432,7 +432,7 @@
     </set>
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     set column_id = #{columnId,jdbcType=VARCHAR},
       article_name = #{articleName,jdbcType=VARCHAR},
@@ -448,7 +448,7 @@
       article_title = #{articleTitle,jdbcType=LONGVARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.blog.sys.column.model.sysArticleInfo">
+  <update id="updateByPrimaryKey" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
     set column_id = #{columnId,jdbcType=VARCHAR},
       article_name = #{articleName,jdbcType=VARCHAR},
