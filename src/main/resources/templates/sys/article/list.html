@@ -81,6 +81,18 @@
 						}
 		            }
 		        },
+					{
+						field: 'topStatus',
+						title: '置顶状态',
+						align: 'center',
+						formatter: function(value, row, index) {
+							if (row.topStatus == 0) {
+								return '未置顶';
+							} else {
+								return '已置顶';
+							}
+						}
+					},
 				{
 					field : 'chickNum',
 					title : '浏览次数'
@@ -104,9 +116,14 @@
 		            	var actions = [];
 						var articleId = "articleId";
 						if (row.releaseStatus == 0) {
-							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="enableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>发布</a> ');
+							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="enableTop(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>发布</a> ');
 						} else {
-							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="disableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>取消发布</a> ')
+							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="disableTop(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>取消发布</a> ')
+						}
+						if (row.topStatus == 0) {
+							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="enableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>置顶</a> ');
+						} else {
+							actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="disableRelease(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>取消置顶</a> ')
 						}
 		            	actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.editFull(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
 						actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>预览</a> ');
@@ -120,14 +137,27 @@
 		/* 文章管理-取消发布 */
 		function disableRelease(articleId) {
 			$.modal.confirm("确认要取消发布吗？", function() {
-				$.operate.post(prefix + "/changeReleaseStatus", { "articleId": articleId, "releaseStatus": 0 });
+				$.operate.post(prefix + "/changeStatus", { "articleId": articleId, "releaseStatus": 0 });
 			})
 		}
 
 		/* 文章管理-发布  */
 		function enableRelease(articleId) {
 			$.modal.confirm("确认要发布文章吗？", function() {
-				$.operate.post(prefix + "/changeReleaseStatus", { "articleId": articleId, "releaseStatus": 1 });
+				$.operate.post(prefix + "/changeStatus", { "articleId": articleId, "releaseStatus": 1 });
+			})
+		}
+		/* 文章管理-取消取消置顶 */
+		function disableTop(articleId) {
+			$.modal.confirm("确认要取消置顶吗？", function() {
+				$.operate.post(prefix + "/changeStatus", { "articleId": articleId, "topStatus": 0 });
+			})
+		}
+
+		/* 文章管理-置顶  */
+		function enableTop(articleId) {
+			$.modal.confirm("确认要置顶文章吗？", function() {
+				$.operate.post(prefix + "/changeStatus", { "articleId": articleId, "topStatus": 1 });
 			})
 		}
     </script>

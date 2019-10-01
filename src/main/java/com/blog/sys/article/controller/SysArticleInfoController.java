@@ -81,16 +81,16 @@ public class SysArticleInfoController extends BaseController {
     }
 
     /**
-     * @method:  changeReleaseStatus
-     * @description: <p>文章发布</p>
+     * @method:  changeStatus
+     * @description: <p>文章公共修改状态方法：文章发布、文章置顶</p>
      * @params:  [request, sysArticleInfo]
      * @return com.yk.blog.common.base.ResponseData
      * @date: 2019/9/22 23:27
      * @author: yanakai@126.com
      */
-    @PostMapping("/changeReleaseStatus")
+    @PostMapping("/changeStatus")
     @ResponseBody
-    public ResponseData changeReleaseStatus(HttpServletRequest request, SysArticleInfo sysArticleInfo){
+    public ResponseData changeStatus(HttpServletRequest request, SysArticleInfo sysArticleInfo){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
         sysArticleInfo.setReleaseTime(new Date());
