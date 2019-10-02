@@ -67,6 +67,10 @@ public class WebIndexController extends BaseController {
     @RequestMapping("/article/detail")
     public String getArticle(HttpServletRequest request,String articleId, ModelMap modelMap){
         SysArticleInfo info = sysArticleInfoService.getInfoById(articleId);
+        //浏览次数+1
+        int chickNum = info.getChickNum()==null? 0 : info.getChickNum();
+        info.setChickNum(chickNum+1);
+        sysArticleInfoService.updateNotNull(info);
         modelMap.put("info",info);
         return "web/read";
     }
