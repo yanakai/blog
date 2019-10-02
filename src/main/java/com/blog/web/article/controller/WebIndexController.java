@@ -64,8 +64,10 @@ public class WebIndexController extends BaseController {
         return "web/article";
     }
 
-    @GetMapping("/article/detail")
+    @RequestMapping("/article/detail")
     public String getArticle(HttpServletRequest request,String articleId, ModelMap modelMap){
+        SysArticleInfo info = sysArticleInfoService.getInfoById(articleId);
+        modelMap.put("info",info);
         return "web/read";
     }
 }

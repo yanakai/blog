@@ -49,7 +49,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html" th:text="${item?.articleTitle}"></a>
+								<a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item?.articleTitle}"></a>
 							</h5>   
 							<div class="time">       
 								<span class="day" th:text="${#dates.format(item.createTime, 'd')}"></span>
@@ -57,13 +57,13 @@
 								<span class="year fs-18 ml10" th:text="${#dates.format(item.createTime, 'yyyy')}">2019</span>
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
+								<a href="/web/article/detail/${item?.articleId}" class="cover img-light">
 									<img src="${item?.imgPath}">
 								</a>
                                 [[${item?.articleAbstract}]]
 							</div>
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="/web/article/detail/[[${item?.articleId}]]" class="fc-black f-fwb">继续阅读</a>
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -189,7 +189,7 @@
     <script th:src="@{/web/js/yss/gloable.js}"></script>
     <script th:src="@{/web/js/plugins/nprogress.js}"></script>
     <script>NProgress.start();</script>
- 	<script src="@{/web/js/yss/article.js}"></script>
+ 	<script th:src="@{/web/js/yss/article.js}"></script>
     <script> 
         window.onload = function () {
             NProgress.done();
