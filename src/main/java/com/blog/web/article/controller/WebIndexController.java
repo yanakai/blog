@@ -2,6 +2,8 @@ package com.blog.web.article.controller;
 
 import com.blog.sys.article.model.SysArticleInfo;
 import com.blog.sys.article.service.ISysArticleInfoService;
+import com.blog.sys.column.model.SysColumnInfo;
+import com.blog.sys.column.service.ISysColumnInfoService;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.TableDataInfo;
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,17 @@ import java.util.List;
 @RequestMapping("web")
 public class WebIndexController extends BaseController {
 
+    /**
+     * 文章业务层接口
+     */
     @Resource
     private ISysArticleInfoService sysArticleInfoService;
+
+    /**
+     * 栏目业务层接口
+     */
+    @Resource
+    private ISysColumnInfoService sysColumnInfoService;
 
     /**
      * @method:  index
@@ -59,8 +70,16 @@ public class WebIndexController extends BaseController {
     @RequestMapping("/article/list")
     public String articleList(HttpServletRequest request,SysArticleInfo sysArticleInfo, ModelMap modelMap){
         startPage();
-        List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
-        modelMap.put("list",list);
+        sysArticleInfo.setReleaseStatus(1);
+        List<SysArticleInfo> articleList = sysArticleInfoService.getList(sysArticleInfo);
+        modelMap.put("articleList",articleList);
+        //栏目列表
+        List<SysColumnInfo> columnInfoList = sysColumnInfoService.getList(null);
+        modelMap.put("columnInfoList",columnInfoList);
+        //热文门章
+
+        //置顶文章
+
         return "web/article";
     }
 
