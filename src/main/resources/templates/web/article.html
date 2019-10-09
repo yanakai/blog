@@ -97,9 +97,9 @@
 					        </label>
 			        		<ul class="search-result"></ul>
 			    		</div>
-			    		<ul class="category mt20" id="category" th:each="item,itemStat  : ${columnInfoList}">
-				        	<li data-index="${itemStat.index}" th:if="${itemStat.index ==0}" class="slider"></li>
-				        	<li data-index="${itemStat.count}"><a th:href="@{/web/article/list(columnId=${item.columnId})}" th:text="${item.columnName}">栏目名称</a></li>
+			    		<ul class="category mt20" id="category" >
+				        	<li th:each="item,itemStat  : ${columnInfoList}" th:data-index="${itemStat.index}" th:if="${itemStat.index ==0}" class="slider"></li>
+				        	<li th:each="item,itemStat  : ${columnInfoList}" th:data-index="${itemStat.count}"><a th:href="@{/web/article/list(columnId=${item.columnId})}" th:text="${item.columnName}">栏目名称</a></li>
 			    		</ul>
 					</div>
 					<!--右边悬浮 平板或手机设备显示-->
@@ -114,16 +114,16 @@
 					<div class="other-item">
 					    <h5 class="other-item-title">热门文章</h5>
 					    <div class="inner">
-					        <ul class="hot-list-article" th:each="item : ${hotArticleList}">
-								<li> <a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item.articleTitle}">热点文章标题</a></li>
+					        <ul class="hot-list-article">
+								<li th:each="item : ${hotArticleList}"> <a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item.articleTitle}">热点文章标题</a></li>
 					        </ul>
 					    </div>
 					</div>
 					<div class="other-item">
 					    <h5 class="other-item-title">置顶推荐</h5>
-					    <div class="inner" th:each="item : ${topArticleList}">
+					    <div class="inner" >
 					        <ul class="hot-list-article" >
-								<li> <a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item.articleTitle}">置顶文章标题</a></li>
+								<li th:each="item : ${topArticleList}"> <a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item.articleTitle}">置顶文章标题</a></li>
 					        </ul>
 					    </div>
 					</div>
@@ -162,7 +162,7 @@
                         <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
                     </div>
                     <p class="mt05">
-                        Copyright &copy; 2018-2018 燕十三 All Rights Reserved V.1.0.0 蜀ICP备18008600号
+                        Copyright &copy; 2019 VBlog All Rights Reserved V.1.0.0 郑ICP备00000001号
                     </p>
                 </div>
             </div>

@@ -24,8 +24,8 @@
                         </label>
                     </div>
                 </div>
-                <input type="hidden" name="imgPath">
-                <input type="hidden" name="imgName">
+                <input type="hidden" name="imgPath" th:value="${info?.imgPath}">
+                <input type="hidden" name="imgName" th:value="${info?.imgName}">
                 <input type="file" name="file" id='i-file'  accept=".jpg, .png, .jpeg, " onchange="uploadImage(this.files[0]);" style="display: none">
             </div>
             <div class="form-group">
