@@ -44,4 +44,14 @@ public class SysArticleInfoServiceImpl implements ISysArticleInfoService {
     public int saveNotNull(SysArticleInfo sysArticleInfo) {
         return sysArticleInfoMapper.insertSelective(sysArticleInfo);
     }
+
+    @Override
+    public List<SysArticleInfo> getHotArticleList(SysArticleInfo sysArticleInfo) {
+        return sysArticleInfoMapper.getHotArticleList(sysArticleInfo);
+    }
+
+    @Override
+    public List<SysArticleInfo> getTopArticleList(SysArticleInfo sysArticleInfo) {
+        return sysArticleInfoMapper.getTopArticleList(sysArticleInfo);
+    }
 }

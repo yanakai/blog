@@ -298,5 +298,86 @@
                 and sai.release_status = #{vo.releaseStatus,jdbcType=INTEGER}
             </if>
         </where>
+        ORDER BY sai.release_time DESC
+    </select>
+
+    <!--查询热点文章-->
+    <select id="getHotArticleList" parameterType="com.blog.sys.article.model.SysArticleInfo" resultMap="BaseResultMap">
+      select
+            <include refid="Base_Column_List"/>
+      from  sys_article_info
+      <where>
+        <if test="vo.articleId !=null and vo.articleId !='' ">
+          and article_id = #{vo.articleId}
+        </if>
+        <if test="vo.articleTitle != null and vo.articleTitle != ''">
+          and article_title like CONCAT('%', #{vo.articleTitle}, '%')
+        </if>
+        <if test="vo.columnId != null and vo.columnId != ''">
+          and column_id = #{vo.columnId,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.tagId != null and vo.tagId != ''">
+          and tag_id = #{vo.tagId,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.createTime != null">
+          and DATE_FORMAT(create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
+        </if>
+        <if test="vo.createName != null and vo.createName != ''">
+          and create_name = #{vo.createName,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.releaseTime != null">
+          and DATE_FORMAT(release_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.releaseTime},"%Y-%m-%d")
+        </if>
+        <if test="vo.releaseName != null and vo.releaseName != ''">
+          and release_name = #{vo.releaseName,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.deleteStatus != null">
+          and delete_status = #{vo.deleteStatus,jdbcType=INTEGER}
+        </if>
+        <if test="vo.releaseStatus != null">
+          and release_status = #{vo.releaseStatus,jdbcType=INTEGER}
+        </if>
+      </where>
+      ORDER BY release_time, chick_num DESC LIMIT 10
+    </select>
+
+    <!--查询置顶文章-->
+    <select id="getTopArticleList" parameterType="com.blog.sys.article.model.SysArticleInfo" resultMap="BaseResultMap">
+      select
+        <include refid="Base_Column_List"/>
+      from  sys_article_info
+      <where>
+        <if test="vo.articleId !=null and vo.articleId !='' ">
+          and article_id = #{vo.articleId}
+        </if>
+        <if test="vo.articleTitle != null and vo.articleTitle != ''">
+          and article_title like CONCAT('%', #{vo.articleTitle}, '%')
+        </if>
+        <if test="vo.columnId != null and vo.columnId != ''">
+          and column_id = #{vo.columnId,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.tagId != null and vo.tagId != ''">
+          and tag_id = #{vo.tagId,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.createTime != null">
+          and DATE_FORMAT(create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
+        </if>
+        <if test="vo.createName != null and vo.createName != ''">
+          and create_name = #{vo.createName,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.releaseTime != null">
+          and DATE_FORMAT(release_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.releaseTime},"%Y-%m-%d")
+        </if>
+        <if test="vo.releaseName != null and vo.releaseName != ''">
+          and release_name = #{vo.releaseName,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.deleteStatus != null">
+          and delete_status = #{vo.deleteStatus,jdbcType=INTEGER}
+        </if>
+        <if test="vo.releaseStatus != null">
+          and release_status = #{vo.releaseStatus,jdbcType=INTEGER}
+        </if>
+      </where>
+      ORDER BY release_time DESC LIMIT 3
     </select>
 </mapper>

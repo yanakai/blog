@@ -27,4 +27,24 @@ public interface SysArticleInfoMapper {
      * @author: yanakai@126.com
      */
     List<SysArticleInfo> getList(@Param("vo") SysArticleInfo sysArticleInfo);
+
+    /**
+     * @Title: getHotArticleList
+     * @Description:  查询热点文章，根据点赞数量倒叙 发布时间排序
+     * @Param: sysArticleInfo
+     * @return: java.util.List<com.blog.sys.article.model.SysArticleInfo>
+     * @author: yankai
+     * @date   2019/10/9
+     */
+    List<SysArticleInfo> getHotArticleList(@Param("vo")SysArticleInfo sysArticleInfo);
+
+    /**
+     * @Title: getTopArticleList
+     * @Description: 获取置顶文章 根据发布时间排序
+     * @Param: sysArticleInfo
+     * @return: java.util.List<com.blog.sys.article.model.SysArticleInfo>
+     * @author: yankai
+     * @date   2019/10/9
+     */
+    List<SysArticleInfo> getTopArticleList(@Param("vo")SysArticleInfo sysArticleInfo);
 }

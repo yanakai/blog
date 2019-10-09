@@ -71,15 +71,19 @@ public class WebIndexController extends BaseController {
     public String articleList(HttpServletRequest request,SysArticleInfo sysArticleInfo, ModelMap modelMap){
         startPage();
         sysArticleInfo.setReleaseStatus(1);
+        sysArticleInfo.setDeleteStatus(0);
         List<SysArticleInfo> articleList = sysArticleInfoService.getList(sysArticleInfo);
         modelMap.put("articleList",articleList);
         //栏目列表
         List<SysColumnInfo> columnInfoList = sysColumnInfoService.getList(null);
         modelMap.put("columnInfoList",columnInfoList);
         //热文门章
-
+        List<SysArticleInfo> hotArticleList = sysArticleInfoService.getHotArticleList(sysArticleInfo);
+        modelMap.put("hotArticleList",hotArticleList);
         //置顶文章
-
+        sysArticleInfo.setReleaseStatus(1);
+        List<SysArticleInfo> topArticleList = sysArticleInfoService.getTopArticleList(sysArticleInfo);
+        modelMap.put("topArticleList",topArticleList);
         return "web/article";
     }
 

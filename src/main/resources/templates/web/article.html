@@ -46,7 +46,7 @@
 		        <div class="inner">
 		            <article class="article-list bloglist" id="LAY_bloglist"  th:each="item : ${articleList}" >
 						<section class="article-item zoomIn article">       
-							<div class="fc-flag">置顶</div>   
+							<div class="fc-flag" th:if="${item.topStatus == 1}">置顶</div>
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
 								<a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item?.articleTitle}"></a>
@@ -63,7 +63,7 @@
                                 [[${item?.articleAbstract}]]
 							</div>
 							<div class="read-more">       
-								<a href="/web/article/detail/[[${item?.articleId}]]" class="fc-black f-fwb">继续阅读</a>
+								<a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" class="fc-black f-fwb">继续阅读</a>
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -99,18 +99,14 @@
 			    		</div>
 			    		<ul class="category mt20" id="category" th:each="item,itemStat  : ${columnInfoList}">
 				        	<li data-index="${itemStat.index}" th:if="${itemStat.index ==0}" class="slider"></li>
-				        	<li data-index="${itemStat.count}"><a href="/web/article/list?columnId=[[${item.columnId}]]" th:text="${item.columnName}">栏目名称</a></li>
+				        	<li data-index="${itemStat.count}"><a th:href="@{/web/article/list(columnId=${item.columnId})}" th:text="${item.columnName}">栏目名称</a></li>
 			    		</ul>
 					</div>
 					<!--右边悬浮 平板或手机设备显示-->
 					<div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
 					<div class="article-category">
 					    <div class="article-category-title">分类导航</div>
-						<a href="/Blog/Article/1/">个人日记</a>
-						<a href="/Blog/Article/2/">HTML5&amp;CSS3</a>
-						<a href="/Blog/Article/3/">JavaScript</a>
-						<a href="/Blog/Article/4/">ASP.NET MVC</a>
-						<a href="/Blog/Article/5/">其它</a>
+						<a th:each="item,itemStat  : ${columnInfoList}" th:href="@{/web/article/list(columnId=${item.columnId})}" th:text="${item.columnName}">栏目名称</a>
 					    <div class="f-cb"></div>
 					</div>
 					<!--遮罩-->
@@ -118,25 +114,16 @@
 					<div class="other-item">
 					    <h5 class="other-item-title">热门文章</h5>
 					    <div class="inner">
-					        <ul class="hot-list-article">
-								<li> <a href="/Blog/Read/9">2018最新版QQ音乐api调用</a></li>
-								<li> <a href="/Blog/Read/12">模板分享</a></li>
-								<li> <a href="/Blog/Read/13">逆水寒</a></li>
-								<li> <a href="/Blog/Read/4">序章</a></li>
-								<li> <a href="/Blog/Read/7">解决百度分享插件不支持https</a></li>
-								<li> <a href="/Blog/Read/11">使用码云和VS托管本地代码</a></li>
-								<li> <a href="/Blog/Read/14">MUI框架-快速开发APP</a></li>
-								<li> <a href="/Blog/Read/8">NPOI导入导出Excel</a></li>
+					        <ul class="hot-list-article" th:each="item : ${hotArticleList}">
+								<li> <a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item.articleTitle}">热点文章标题</a></li>
 					        </ul>
 					    </div>
 					</div>
 					<div class="other-item">
 					    <h5 class="other-item-title">置顶推荐</h5>
-					    <div class="inner">
+					    <div class="inner" th:each="item : ${topArticleList}">
 					        <ul class="hot-list-article" >
-								<li> <a href="/Blog/Read/16">.NET Spire.Doc组件</a></li>
-								<li> <a href="/Blog/Read/14">MUI框架-快速开发APP</a></li>
-								<li> <a href="/Blog/Read/9">2018最新版QQ音乐api调用</a></li>
+								<li> <a th:href="@{/web/article/detail(articleId = ${item?.articleId})}" th:text="${item.articleTitle}">置顶文章标题</a></li>
 					        </ul>
 					    </div>
 					</div>
@@ -144,7 +131,8 @@
 					    <h5 class="other-item-title">最近访客</h5>
 					    <div class="inner">
 					        <dl class="vistor">
-								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/72388EA977643E8F97111222675720B1/100"><cite>Anonymous</cite></a></dd>
+								<span style="color: red">功能尚未开放</span>
+								<!--<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/72388EA977643E8F97111222675720B1/100"><cite>Anonymous</cite></a></dd>
 								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/342F777E313DDF5CCD6E3E707BB0770B/100"><cite>Dekstra</cite></a></dd>
 								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/EA5D00A72C0C43ECD8FC481BD274DEEC/100"><cite>惜i</cite></a></dd>
 								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/EF18CEC98150D2442183AA30F05AAD7B/100"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
@@ -155,7 +143,7 @@
 								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/59991D53192643A1A651383847332EB6/100"><cite>毛毛小妖</cite></a></dd>
 								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/FF34F311DDC43E2AF63BE897BCA24F05/100"><cite>NULL</cite></a></dd>
 								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/59AA25A7627284AE62C8E6EBDC6FE417/100"><cite>吓一跳</cite></a></dd>
-								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/28B021E0F5AF0A4B9B781A24329FE897/100"><cite>如初</cite></a></dd>
+								<dd><a href="javasript:;"><img src="https://thirdqq.qlogo.cn/qqapp/101465933/28B021E0F5AF0A4B9B781A24329FE897/100"><cite>如初</cite></a></dd>-->
 					        </dl>
 					    </div>
 					</div>
