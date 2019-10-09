@@ -57,8 +57,8 @@
 								<span class="year fs-18 ml10" th:text="${#dates.format(item.createTime, 'yyyy')}">2019</span>
 							</div>   
 							<div class="content" >
-								<a th:if="${item.imgPath != null} and ${item.imgPath != ''}" href="/web/article/detail/${item?.articleId}" class="cover img-light" >
-									<img src="${item?.imgPath}">
+								<a th:if="${item.imgPath != null} and ${item.imgPath != ''}" th:href="@{/web/article/detail(articleId = ${item?.articleId})}" class="cover img-light" >
+									<img th:src="${item.imgPath}">
 								</a>
                                 [[${item?.articleAbstract}]]
 							</div>
