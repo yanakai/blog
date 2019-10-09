@@ -298,7 +298,7 @@
                 and sai.release_status = #{vo.releaseStatus,jdbcType=INTEGER}
             </if>
         </where>
-        ORDER BY sai.release_time DESC
+        ORDER BY sai.release_time, sai.release_status DESC
     </select>
 
     <!--查询热点文章-->
