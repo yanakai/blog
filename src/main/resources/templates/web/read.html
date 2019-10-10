@@ -71,11 +71,11 @@
                                     </p>
                                     <p class="f-toe">
                                         本文标题：
-                                        <a href="javascript:void(0)" class="r-title" th:text="${info?.articleTitle}">文章标题</a>
+                                        <a th:href="@{/web/article/detail(articleId = ${info?.articleId})}" class="r-title" th:text="${info?.articleTitle}">文章标题</a>
                                     </p>
                                     <p class="f-toe">
                                         本文网址：
-                                        <a href="#">https://www.yanshisan.cn/Blog/Read/7</a>
+                                        <a th:href="@{/web/article/detail(articleId = ${info?.articleId})}" th:text="@{/web/article/detail(articleId = ${info?.articleId})}"></a>
                                     </p>
                                 </div>
                                 <div id="aplayer" style="margin:5px 0"></div>
