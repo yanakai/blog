@@ -10,7 +10,6 @@ yk:
   profile: E:/blog/uploadPath
   # 获取ip地址开关
   addressEnabled: true
-
 server:
   port: 8080
   ##项目名字配置
@@ -52,8 +51,6 @@ mybatis : #mybatis 配置
   type-aliases-package : com.blog.sys.*.model
   configuration :
     map-underscore-to-camel-case : true
-    #控制台打印sql
-    log-impl : org.apache.ibatis.logging.stdout.StdOutImpl
 #pagehelper分页插件
 pagehelper:
   helperDialect: mysql
