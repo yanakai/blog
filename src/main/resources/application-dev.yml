@@ -57,6 +57,8 @@ spring:
         #可以增加访问账号密码【去掉注释就可以】
         #login-username: admin
         #login-password: admin
+      # 属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
+      filters: stat, wall
       filter:
         # 监控统计
         stat:
