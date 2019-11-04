@@ -7,9 +7,15 @@ spring:
     password: root
     ##  Hikari 连接池配置 ------ 详细配置请访问：https://github.com/brettwooldridge/HikariCP
     hikari: #一种数据库连接池、性能几乎是C3P0、DBCP的25倍
-      maxLifetime: 1765000 #池中连接最长生命周期
+      minimumIdle: 5 #池中维护的最小空闲连接数
       maximumPoolSize: 15 #池中最大连接数，包括闲置和使用中的连接
-      pool-name: HikariCP #连接池名称
+      maxLifetime: 1765000 #池中连接最长生命周期
+      connectionTimeout: 30000 #等待来自池的连接的最大毫秒数
+      autoCommit: true #自动提交从池中返回的连接
+      idleTimeout: 30000 #连接允许在池中闲置的最长时间
+      type: com.zaxxer.hikari.HikariDataSource
+      pool-name: DataBlock_HikariCP #连接池名称
+      ConnectionTestQuery: SELECT 1
     #druid连接池配置
     druid:
       #引用上面的JDBC配置
@@ -25,7 +31,7 @@ spring:
       min-idle: 10
       #获取连接等待超时时间
       max-wait: 5000
-      pool-prepared-statements: true #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      pool-prepared-statements: false #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
       max-pool-prepared-statement-per-connection-size: 20
       validation-query: SELECT 1 FROM DUAL
       validation-query-timeout: 20000
