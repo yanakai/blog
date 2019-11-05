@@ -81,6 +81,11 @@
 				checkbox: true
 			},
 				{
+					field : 'userId' ,
+					visible:false
+
+				},
+				{
 					title : '序号' ,
 					formatter: function (value, row, index) {
 						return $.table.serialNumber(index);
@@ -133,7 +138,7 @@
 					align: 'center',
 					formatter: function(value, row, index) {
 						var actions = [];
-						var userId = "userId"
+						var userId = "userId";
 						actions.push('<a class="btn btn-success btn-xs '+editFlag+'" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.userId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
 						actions.push('<a class="btn btn-danger btn-xs '+delFlag+'" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + userId + '\',\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a> ');
 						actions.push('<a class="btn btn-info btn-xs '+restPwdFlag+'" href="javascript:void(0)" onclick="resetPwd(\'' + row.userId + '\')"><i class="fa fa-key"></i>重置</a>');
