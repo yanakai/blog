@@ -50,14 +50,17 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     }
 
     @Override
+    @Transactional
     public int updateNotNull(SysUserInfo sysUserInfo) {
+        //通过用户id删除用户角色关系
+        sysUserRoleMapper.deleteUserRoleByUserId(sysUserInfo.getUserId());
+        //新增用户角色关系
+        saveUserRole(sysUserInfo);
         return sysUserInfoMapper.updateByPrimaryKeySelective(sysUserInfo);
     }
 
-    @Override
-    @Transactional
-    public int saveNotNull(SysUserInfo sysUserInfo) {
-        sysUserInfoMapper.insertSelective(sysUserInfo);
+    //保存用户角色关系
+    public void saveUserRole(SysUserInfo sysUserInfo) {
         List<SysUserRole> list = new ArrayList<>();
         String [] roleIds = sysUserInfo.getRoleIds();
         for (String roleId : roleIds){
@@ -66,8 +69,19 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
             sysUserRole.setRoleId(roleId);
             list.add(sysUserRole);
         }
-        return sysUserRoleMapper.saveUserRole(list);
+        sysUserRoleMapper.saveUserRole(list);
     }
+
+    @Override
+    @Transactional
+    public int saveNotNull(SysUserInfo sysUserInfo) {
+        int state = sysUserInfoMapper.insertSelective(sysUserInfo);
+        //新增用户角色关系
+        saveUserRole(sysUserInfo);
+        return state;
+    }
+
+
 
     @Override
     public int deleteById(String userId) {

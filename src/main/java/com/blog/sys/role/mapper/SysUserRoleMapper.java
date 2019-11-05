@@ -41,4 +41,14 @@ public interface SysUserRoleMapper {
      * @author: yanakai@126.com       
      */
     int deleteUserRole(@Param("roleId") String roleId, @Param("userIds")String[] userIds);
+
+    /**
+     * @Title: deleteUserRoleByUserId
+     * @Description:  通过用户id删除用户角色信息
+     * @Param: userId 用户id
+     * @return: int
+     * @author: yankai
+     * @date   2019-11-05
+     */
+    int deleteUserRoleByUserId(String userId);
 }

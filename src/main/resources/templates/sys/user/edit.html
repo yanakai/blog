@@ -139,6 +139,8 @@
 	function submitHandler() {
 		if ($.validate.form()) {
 			var data = $("#form-user-edit").serializeArray();
+			var roleIds = $.form.selectCheckeds("role");
+			data.push({"name": "roleIds", "value": roleIds});
 			$.operate.saveTab(prefix + "/saveOrUpdate", data);
 		}
 	}
