@@ -6,7 +6,9 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="true_name" jdbcType="VARCHAR" property="trueName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
@@ -16,7 +18,7 @@
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, email, user_name, true_name, password, salt, status, image_path, image_name, 
+    user_id, email, user_name, true_name, sex,password, phone_number,salt, status, image_path, image_name,
     create_time, login_Time, modify_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -31,12 +33,13 @@
   </delete>
   <insert id="insert" parameterType="com.blog.sys.user.model.SysUserInfo">
     insert into sys_user_info (user_id, email, user_name, 
-      true_name, password, salt, 
+      true_name, sex,password,phone_number, salt,
       status, image_path, image_name, 
       create_time, login_Time, modify_time
       )
     values (#{userId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{trueName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{trueName,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+       #{phoneNumber,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
       #{status,jdbcType=VARCHAR}, #{imagePath,jdbcType=VARCHAR}, #{imageName,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{loginTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
@@ -56,9 +59,15 @@
       <if test="trueName != null">
         true_name,
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
       <if test="password != null">
         password,
       </if>
+        <if test="phoneNumber != null">
+            phone_number,
+        </if>
       <if test="salt != null">
         salt,
       </if>
@@ -94,9 +103,15 @@
       <if test="trueName != null">
         #{trueName,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
+        <if test="phoneNumber != null">
+            #{phoneNumber,jdbcType=VARCHAR},
+        </if>
       <if test="salt != null">
         #{salt,jdbcType=VARCHAR},
       </if>
@@ -132,9 +147,15 @@
       <if test="trueName != null">
         true_name = #{trueName,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+        <if test="phoneNumber != null">
+            phone_number =  #{phoneNumber,jdbcType=VARCHAR},
+        </if>
       <if test="salt != null">
         salt = #{salt,jdbcType=VARCHAR},
       </if>
@@ -164,7 +185,9 @@
     set email = #{email,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       true_name = #{trueName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      phone_number =  #{phoneNumber,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       image_path = #{imagePath,jdbcType=VARCHAR},
@@ -174,4 +197,32 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+    <!--获取列表数据-->
+    <select id="getList" parameterType="com.blog.sys.user.model.SysUserInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user_info
+        <where>
+            <if test="vo != null">
+                <if test="vo.userId !=null ">
+                    and user_id = #{vo.userId,jdbcType=VARCHAR}
+                </if>
+                <if test="vo.email != null and vo.email != '' ">
+                    and email = #{vo.email,jdbcType=VARCHAR}
+                </if>
+                <if test="vo.userName != null and vo.userName != '' ">
+                    and user_name = #{vo.userName,jdbcType=VARCHAR}
+                </if>
+                <if test="vo.sex != null and vo.sex != '' ">
+                    and sex = #{vo.sex,jdbcType=VARCHAR}
+                </if>
+                <if test="vo.phoneNumber != null and vo.phoneNumber != '' ">
+                    and phone_number =  #{vo.phoneNumber,jdbcType=VARCHAR}
+                </if>
+                <if test="vo.trueName != null and vo.trueName != null">
+                    and true_name like CONCAT('%', #{vo.trueName}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
 </mapper>

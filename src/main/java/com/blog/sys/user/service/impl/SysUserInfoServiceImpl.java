@@ -1,10 +1,12 @@
 package com.blog.sys.user.service.impl;
 
 import com.blog.sys.user.mapper.SysUserInfoMapper;
+import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: blog
@@ -25,4 +27,9 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
      */
     @Resource
     private SysUserInfoMapper sysUserInfoMapper;
+
+    @Override
+    public List<SysUserInfo> getList(SysUserInfo sysUserInfo) {
+        return sysUserInfoMapper.getList(sysUserInfo);
+    }
 }

@@ -1,5 +1,9 @@
 package com.blog.sys.user.service;
 
+import com.blog.sys.user.model.SysUserInfo;
+
+import java.util.List;
+
 /**
  * @ProjectName: blog
  * @Package: com.blog.sys.user.service.ISysUserInfoService
@@ -13,4 +17,13 @@ package com.blog.sys.user.service;
  * @Version: 1.0
  */
 public interface ISysUserInfoService {
+    /**
+     * @method:  getList
+     * @description: <p>获取用户列表数据</p>
+     * @params:  sysUserInfo
+     * @return: java.util.List<com.blog.sys.user.model.SysUserInfo>
+     * @date: 2019/11/6 21:29
+     * @author: yanakai@126.com
+     */
+    List<SysUserInfo> getList(SysUserInfo sysUserInfo);
 }

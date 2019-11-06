@@ -23,22 +23,19 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成(实体)模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.yk.blog.column.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.blog.sys.user.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成XML映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="mybatis.column" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.user" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO接口的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yk.blog.column.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.blog.sys.user.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="sys_column_info" domainObjectName="sysColumnInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="article_abstract" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <columnOverride column="article_content" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>
+        <table tableName="sys_user_info" domainObjectName="SysUserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
 </generatorConfiguration>

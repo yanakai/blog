@@ -28,9 +28,19 @@ public class SysUserInfo implements Serializable {
     private String trueName;
 
     /**
+     * 性别 0：男；1：女 默认0
+     */
+    private String sex;
+
+    /**
      * 密码
      */
     private String password;
+
+    /**
+     * 手机号
+     */
+    private String phoneNumber;
 
     /**
      * salt码
@@ -126,6 +136,20 @@ public class SysUserInfo implements Serializable {
     }
 
     /**
+     * 性别 0：男；1：女 默认0
+     */
+    public String getSex() {
+        return sex;
+    }
+
+    /**
+     * 性别 0：男；1：女 默认0
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    /**
      * 密码
      */
     public String getPassword() {
@@ -137,6 +161,20 @@ public class SysUserInfo implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 手机号
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * 手机号
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim()  ;
     }
 
     /**
