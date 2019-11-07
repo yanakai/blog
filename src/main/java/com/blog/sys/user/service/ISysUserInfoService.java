@@ -26,4 +26,44 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     List<SysUserInfo> getList(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  getById
+     * @description: <p>通过主键查询用户信息</p>
+     * @params:  userId
+     * @return: com.blog.sys.user.model.SysUserInfo
+     * @date: 2019/11/7 21:33
+     * @author: yanakai@126.com
+     */
+    SysUserInfo getById(String userId);
+
+    /**
+     * @method:  updateNotNull
+     * @description: <p>修改不为空的数据</p>
+     * @params:  sysUserInfo
+     * @return: int
+     * @date: 2019/11/7 21:41
+     * @author: yanakai@126.com
+     */
+    int updateNotNull(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  saveNotNull
+     * @description: <p>保存不为空的数据</p>
+     * @params:  sysUserInfo
+     * @return: int
+     * @date: 2019/11/7 21:44
+     * @author: yanakai@126.com
+     */
+    int saveNotNull(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  deleteById
+     * @description: <p>通过主键删除</p>
+     * @params:  userId 用户id
+     * @return: int
+     * @date: 2019/11/7 21:48
+     * @author: yanakai@126.com
+     */
+    int deleteById(String userId);
 }

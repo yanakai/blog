@@ -1,10 +1,15 @@
 package com.blog.sys.user.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.blog.sys.common.base.BaseController;
+import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,15 +67,93 @@ public class SysUserInfoController extends BaseController {
      */
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo tableDatalist(HttpServletRequest request, SysUserInfo sysUserInfo){
+    public TableDataInfo tableDataList(HttpServletRequest request, SysUserInfo sysUserInfo){
         //初始化分页
         startPage();
         List<SysUserInfo> list = sysUserInfoService.getList(sysUserInfo);
         return getDataTable(list);
     }
 
+    /**
+     * @method:  add
+     * @description: <p>跳转至用户添加页面</p>
+     * @params:  request
+     * @Param modelMap
+     * @return: java.lang.String
+     * @date: 2019/11/7 21:30
+     * @author: yanakai@126.com
+     */
+    @GetMapping("/add")
+    public String add(HttpServletRequest request, ModelMap modelMap){
+        return SYS_USER_PATH+"/add";
+    }
 
+    /**
+     * @method:  edit
+     * @description: <p>跳转至用户编辑页面</p>
+     * @params:  request
+     * @Param userId 用户id
+     * @Param modelMap
+     * @return: java.lang.String
+     * @date: 2019/11/7 21:33
+     * @author: yanakai@126.com
+     */
+    @GetMapping("/edit/{userId}")
+    public String edit(HttpServletRequest request, @Param("userId") String userId, ModelMap modelMap){
+        SysUserInfo info = sysUserInfoService.getById(userId);
+        return SYS_USER_PATH + "/edit";
+    }
 
+    /**
+     * @method:  saveOrUpdate
+     * @description: <p>保存或修改</p>
+     * @params:  request
+     * @Param sysUserInfo 用户对象
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/7 21:45
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/saveOrUpdate")
+    @ResponseBody
+    public ResponseData saveOrUpdate(HttpServletRequest request,SysUserInfo sysUserInfo){
+        ResponseData data = operateFailed("保存失败");
+        int state = 0;
+        if (StringUtils.isNotEmpty(sysUserInfo.getUserId())){
+            sysUserInfo.setModifyTime(new Date());
+            state = sysUserInfoService.updateNotNull(sysUserInfo);
+        }else {
+            sysUserInfo.setUserId(UUID.randomUUID().toString());
+            sysUserInfo.setCreateTime(new Date());
+            state = sysUserInfoService.saveNotNull(sysUserInfo);
+        }
+        if (state>0){
+            data = operateSucess("保存成功");
+        }
+        return data;
+    }
+
+    /**
+     * @method:  deleteById
+     * @description: <p>通过主键删除对象</p>
+     * @params:  request
+     * @Param userId
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/7 21:51
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/deleteById")
+    @ResponseBody
+    public ResponseData deleteById(HttpServletRequest request,String userId){
+        ResponseData data = operateFailed("删除失败");
+        int state = 0;
+        if (StringUtils.isNotEmpty(userId)){
+            state = sysUserInfoService.deleteById(userId);
+        }
+        if (state>0){
+            data = operateSucess("删除成功");
+        }
+        return data;
+    }
 
 
 }

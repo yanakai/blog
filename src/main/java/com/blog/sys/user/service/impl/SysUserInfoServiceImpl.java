@@ -32,4 +32,24 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     public List<SysUserInfo> getList(SysUserInfo sysUserInfo) {
         return sysUserInfoMapper.getList(sysUserInfo);
     }
+
+    @Override
+    public SysUserInfo getById(String userId) {
+        return sysUserInfoMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public int updateNotNull(SysUserInfo sysUserInfo) {
+        return sysUserInfoMapper.updateByPrimaryKeySelective(sysUserInfo);
+    }
+
+    @Override
+    public int saveNotNull(SysUserInfo sysUserInfo) {
+        return sysUserInfoMapper.insertSelective(sysUserInfo);
+    }
+
+    @Override
+    public int deleteById(String userId) {
+        return sysUserInfoMapper.deleteByPrimaryKey(userId);
+    }
 }
