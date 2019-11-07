@@ -7,13 +7,9 @@ import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -99,8 +95,9 @@ public class SysUserInfoController extends BaseController {
      * @author: yanakai@126.com
      */
     @GetMapping("/edit/{userId}")
-    public String edit(HttpServletRequest request, @Param("userId") String userId, ModelMap modelMap){
+    public String edit(HttpServletRequest request, @PathVariable("userId") String userId, ModelMap modelMap){
         SysUserInfo info = sysUserInfoService.getById(userId);
+        modelMap.put("info",info);
         return SYS_USER_PATH + "/edit";
     }
 
