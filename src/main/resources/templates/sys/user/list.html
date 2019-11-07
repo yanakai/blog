@@ -30,8 +30,6 @@
 		<div class="row">
 			<div class="col-sm-12 search-collapse">
 				<form id="user-form">
-					<input type="hidden" id="deptId" name="deptId">
-					<input type="hidden" id="parentId" name="parentId">
 					<div class="select-list">
 						<ul>
 							<li>
@@ -99,7 +97,7 @@
 			url: prefix + "/list",
 			createUrl: prefix + "/add",
 			updateUrl: prefix + "/edit/{id}",
-			removeUrl: prefix + "/deleteById",
+            removeUrl: prefix + "/deleteById",
 			exportUrl: prefix + "/export",
 			importUrl: prefix + "/importData",
 			importTemplateUrl: prefix + "/importTemplate",
@@ -156,8 +154,9 @@
 					align: 'center',
 					formatter: function(value, row, index) {
 						var actions = [];
+						var userId = "userId"
 						actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.userId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-						actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a> ');
+						actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + userId + '\',\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a> ');
 						actions.push('<a class="btn btn-info btn-xs" href="javascript:void(0)" onclick="resetPwd(\'' + row.userId + '\')"><i class="fa fa-key"></i>重置</a>');
 						return actions.join('');
 					}
