@@ -27,4 +27,14 @@ public interface SysRoleInfoMapper {
      * @date   2019/11/8
      */
     List<SysRoleInfo> getList(@Param("vo") SysRoleInfo sysRoleInfo);
+
+    /**
+     * @method:  checkRoleNameUnique
+     * @description: <p>验证角色名称是否唯一</p>
+     * @params:  roleName
+     * @return: com.blog.sys.role.model.SysRoleInfo
+     * @date: 2019/11/8 22:53
+     * @author: yanakai@126.com
+     */
+    SysRoleInfo checkRoleNameUnique(String roleName);
 }

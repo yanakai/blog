@@ -54,4 +54,14 @@ public interface ISysRoleInfoService {
      * @date   2019/11/8
      */
     int deleteById(String roleId);
+
+    /**
+     * @method:  checkRoleNameUnique
+     * @description: <p>验证角色名称是否唯一</p>
+     * @params:  sysRoleInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 22:48
+     * @author: yanakai@126.com
+     */
+    String checkRoleNameUnique(SysRoleInfo sysRoleInfo);
 }

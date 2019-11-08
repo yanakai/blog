@@ -5,6 +5,7 @@ import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
+import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
 import org.springframework.stereotype.Controller;
@@ -106,6 +107,10 @@ public class SysRoleInfoController extends BaseController {
     public ResponseData saveOrUpdate(HttpServletRequest request, SysRoleInfo sysRoleInfo){
         ResponseData data = operateFailed("保存失败");
         int state = 0;
+        if (UserConstants.ROLE_NAME_NOT_UNIQUE.equals(sysRoleInfoService.checkRoleNameUnique(sysRoleInfo))){
+            data.setMsg("保存角色'" + sysRoleInfo.getRoleName() + "'失败，角色名称已存在");
+            return data;
+        }
         if (StringUtils.isNotEmpty(sysRoleInfo.getRoleId())){
             sysRoleInfo.setUpdateTime(new Date());
             sysRoleInfo.setUpdateBy("暂无登录者");
@@ -122,6 +127,15 @@ public class SysRoleInfoController extends BaseController {
         return data;
     }
 
+    /**
+     * @method:  deleteById
+     * @description: <p>通过主键删除对象信息</p>
+     * @params:  request
+     * @Param roleId
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/8 23:07
+     * @author: yanakai@126.com
+     */
     @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData deleteById(HttpServletRequest request,String roleId){
@@ -132,6 +146,44 @@ public class SysRoleInfoController extends BaseController {
         }
         if (state>0){
             data = operateSucess("删除成功");
+        }
+        return data;
+    }
+
+    /**
+     * @method:  checkRoleNameUnique
+     * @description: <p>验证角色名称是否唯一</p>
+     * @params:  request
+     * @Param sysRoleInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 23:03
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/checkRoleNameUnique")
+    @ResponseBody
+    public String checkRoleNameUnique(HttpServletRequest request,SysRoleInfo sysRoleInfo){
+     return sysRoleInfoService.checkRoleNameUnique(sysRoleInfo);
+    }
+
+    /**
+     * @method:  changeStatus
+     * @description: <p>启用、禁用角色</p>
+     * @params:  request
+     * @Param sysRoleInfo
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/8 23:05
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/changeStatus")
+    @ResponseBody
+    public ResponseData changeStatus(HttpServletRequest request,SysRoleInfo sysRoleInfo){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        sysRoleInfo.setUpdateTime(new Date());
+        sysRoleInfo.setUpdateBy("暂无登录者");
+        state = sysRoleInfoService.updateNotNull(sysRoleInfo);
+        if (state>0){
+            data = operateSucess("操作成功");
         }
         return data;
     }

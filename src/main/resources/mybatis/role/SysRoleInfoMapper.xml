@@ -200,4 +200,11 @@
       </if>
     </where>
   </select>
+<!-- 验证角色名称是否唯一 -->
+  <select id="checkRoleNameUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        role_id,role_name
+    from sys_role_info
+    where role_name = #{roleName,jdbcType=VARCHAR}
+  </select>
 </mapper>

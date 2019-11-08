@@ -119,23 +119,23 @@ public class SysUserInfoController extends BaseController {
         int state = 0;
         if (StringUtils.isNotEmpty(sysUserInfo.getUserId())){
             if (UserConstants.USER_PHONE_NOT_UNIQUE.equals(sysUserInfoService.checkPhoneUnique(sysUserInfo))){
-                data.setMsg("修改用户'" + sysUserInfo.getUserName() + "'失败，手机号码已存在");
+                data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，手机号码已存在");
                 return data;
             }else if (UserConstants.USER_EMAIL_NOT_UNIQUE.equals(sysUserInfoService.checkEmailUnique(sysUserInfo))){
-                data.setMsg("修改用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
+                data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
                 return data;
             }
             sysUserInfo.setModifyTime(new Date());
             state = sysUserInfoService.updateNotNull(sysUserInfo);
         }else {
             if (UserConstants.USER_NAME_NOT_UNIQUE.equals(sysUserInfoService.checkUserNameUnique(sysUserInfo))) {
-                data.setMsg("新增用户'" + sysUserInfo.getUserName() + "'失败，登录账号已存在");
+                data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，登录账号已存在");
                 return data;
             }else if (UserConstants.USER_PHONE_NOT_UNIQUE.equals(sysUserInfoService.checkPhoneUnique(sysUserInfo))){
-                data.setMsg("新增用户'" + sysUserInfo.getUserName() + "'失败，手机号码已存在");
+                data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，手机号码已存在");
                 return data;
             }else if (UserConstants.USER_EMAIL_NOT_UNIQUE.equals(sysUserInfoService.checkEmailUnique(sysUserInfo))){
-                data.setMsg("新增用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
+                data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
                 return data;
             }
             sysUserInfo.setUserId(UUID.randomUUID().toString());
