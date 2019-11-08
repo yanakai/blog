@@ -55,7 +55,7 @@ public class SysRoleInfo implements Serializable {
     /**
      * 更新者
      */
-    private Date updateBy;
+    private String updateBy;
 
     /**
      * 更新时间
@@ -199,14 +199,14 @@ public class SysRoleInfo implements Serializable {
     /**
      * 更新者
      */
-    public Date getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
     /**
      * 更新者
      */
-    public void setUpdateBy(Date updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 

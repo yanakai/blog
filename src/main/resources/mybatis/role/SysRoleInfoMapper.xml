@@ -11,7 +11,7 @@
     <result column="del_flag" jdbcType="CHAR" property="delFlag" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="TIMESTAMP" property="updateBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
@@ -174,4 +174,30 @@
       remark = #{remark,jdbcType=VARCHAR}
     where role_id = #{roleId,jdbcType=VARCHAR}
   </update>
+  <select id="getList" parameterType="com.blog.sys.role.model.SysRoleInfo" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from sys_role_info
+    <where>
+      <if test="vo !=null">
+        <if test="vo.roleId != null and vo.roleId != '' ">
+          role_id = #{vo.roleId,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.roleName != null and  vo.roleName = '' ">
+          role_name like CONCAT('%', #{vo.roleName}, '%')
+        </if>
+        <if test="vo.status != null and vo.status != '' ">
+          status = #{vo.status,jdbcType=CHAR}
+        </if>
+        <if test="vo.delFlag != null and vo.delFlag != '' ">
+          del_flag = #{vo.delFlag,jdbcType=CHAR}
+        </if>
+        <if test="vo.createBy != null and vo.createBy != '' ">
+          create_by = #{vo.createBy,jdbcType=VARCHAR}
+        </if>
+        <if test="vo.updateBy != null and vo.updateBy != '' ">
+          update_by = #{vo.updateBy,jdbcType=TIMESTAMP}
+        </if>
+      </if>
+    </where>
+  </select>
 </mapper>
