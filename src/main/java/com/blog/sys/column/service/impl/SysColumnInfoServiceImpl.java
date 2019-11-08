@@ -55,7 +55,7 @@ public class SysColumnInfoServiceImpl implements ISysColumnInfoService {
     @Override
     public String checkColumnNameUnique(SysColumnInfo sysColumnInfo) {
         String columnId = StrUtil.isEmpty(sysColumnInfo.getColumnId())?"":sysColumnInfo.getColumnId();
-       SysColumnInfo temp = sysColumnInfoMapper.checkColumnNameUnique(sysColumnInfo.getColumnName());
+       SysColumnInfo temp = sysColumnInfoMapper.checkColumnNameUnique(sysColumnInfo.getColumnName().trim());
         if (temp != null && !columnId.equals(temp.getColumnId())){
             return UserConstants.USER_COLUMN_NAME_NOT_UNIQUE;
         }
