@@ -5,9 +5,11 @@ import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
+import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -116,9 +118,26 @@ public class SysUserInfoController extends BaseController {
         ResponseData data = operateFailed("保存失败");
         int state = 0;
         if (StringUtils.isNotEmpty(sysUserInfo.getUserId())){
+            if (UserConstants.USER_PHONE_NOT_UNIQUE.equals(sysUserInfoService.checkPhoneUnique(sysUserInfo))){
+                data.setMsg("修改用户'" + sysUserInfo.getUserName() + "'失败，手机号码已存在");
+                return data;
+            }else if (UserConstants.USER_EMAIL_NOT_UNIQUE.equals(sysUserInfoService.checkEmailUnique(sysUserInfo))){
+                data.setMsg("修改用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
+                return data;
+            }
             sysUserInfo.setModifyTime(new Date());
             state = sysUserInfoService.updateNotNull(sysUserInfo);
         }else {
+            if (UserConstants.USER_NAME_NOT_UNIQUE.equals(sysUserInfoService.checkUserNameUnique(sysUserInfo))) {
+                data.setMsg("新增用户'" + sysUserInfo.getUserName() + "'失败，登录账号已存在");
+                return data;
+            }else if (UserConstants.USER_PHONE_NOT_UNIQUE.equals(sysUserInfoService.checkPhoneUnique(sysUserInfo))){
+                data.setMsg("新增用户'" + sysUserInfo.getUserName() + "'失败，手机号码已存在");
+                return data;
+            }else if (UserConstants.USER_EMAIL_NOT_UNIQUE.equals(sysUserInfoService.checkEmailUnique(sysUserInfo))){
+                data.setMsg("新增用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
+                return data;
+            }
             sysUserInfo.setUserId(UUID.randomUUID().toString());
             sysUserInfo.setCreateTime(new Date());
             state = sysUserInfoService.saveNotNull(sysUserInfo);
@@ -148,6 +167,107 @@ public class SysUserInfoController extends BaseController {
         }
         if (state>0){
             data = operateSucess("删除成功");
+        }
+        return data;
+    }
+
+    /**
+     * @method:  checkUserNameUnique
+     * @description: <p>验证用户名是否已存在</p>
+     * @params:  request
+     * @Param sysUserInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:41
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/checkUserNameUnique")
+    @ResponseBody
+    public String checkUserNameUnique(HttpServletRequest request,SysUserInfo sysUserInfo){
+        return sysUserInfoService.checkUserNameUnique(sysUserInfo);
+    }
+
+    /**
+     * @method:  checkPhoneUnique
+     * @description: <p>验证手机号是否已存在</p>
+     * @params:  request
+     * @Param sysUserInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:41
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/checkPhoneUnique")
+    @ResponseBody
+    public String checkPhoneUnique(HttpServletRequest request,SysUserInfo sysUserInfo){
+        return sysUserInfoService.checkPhoneUnique(sysUserInfo);
+    }
+
+    /**
+     * @method:  checkEmailUnique
+     * @description: <p>验证email是否已存在</p>
+     * @params:  request
+     * @Param sysUserInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:42
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/checkEmailUnique")
+    @ResponseBody
+    public String checkEmailUnique(HttpServletRequest request,SysUserInfo sysUserInfo){
+        return sysUserInfoService.checkEmailUnique(sysUserInfo);
+    }
+
+    /**
+     * @method:  changeStatus
+     * @description: <p>用户禁用、启用操作</p>
+     * @params:  sysUserInfo
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/8 21:43
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/changeStatus")
+    @ResponseBody
+    public ResponseData changeStatus(SysUserInfo sysUserInfo){
+        ResponseData data = operateFailed("操作失败");
+        sysUserInfo.setModifyTime(new Date());
+        int state=sysUserInfoService.updateNotNull(sysUserInfo);
+        if(state>0) {
+            data=operateSucess("操作成功");
+        }
+        return data;
+    }
+
+    /**
+     * @method:  resetPwd
+     * @description: <p>跳转至密码重置页面</p>
+     * @params:  userId 用户id
+     * @Param model
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:46
+     * @author: yanakai@126.com
+     */
+    @GetMapping("/resetPwd/{userId}")
+    public String resetPwd(@PathVariable("userId")String userId, Model model) {
+        SysUserInfo sysUserInfo=sysUserInfoService.getById(userId);
+        model.addAttribute("info", sysUserInfo);
+        return SYS_USER_PATH+"/resetPwd";
+    }
+
+    /**
+     * @method:  resetPwdSave
+     * @description: <p>保存重置的密码</p>
+     * @params:  sysUserInfo
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/8 21:48
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/resetPwd")
+    @ResponseBody
+    public ResponseData resetPwdSave(SysUserInfo sysUserInfo) {
+        ResponseData data=operateFailed("操作失败");
+        sysUserInfo.setModifyTime(new Date());
+        int state = sysUserInfoService.updateNotNull(sysUserInfo);
+        if (state>0) {
+            data=operateSucess("操作成功");
         }
         return data;
     }

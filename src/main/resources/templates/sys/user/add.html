@@ -78,7 +78,7 @@
 <th:block th:include="include :: footer" />
 <th:block th:include="include :: select2-js" />
 <script>
-	var prefix = "sys/user";
+	var prefix = "/sys/user";
 	$("#form-user-add").validate({
 		onkeyup: false,
 		rules:{
@@ -153,7 +153,7 @@
 	function submitHandler() {
 		if ($.validate.form()) {
 			var data = $("#form-user-add").serializeArray();
-			$.operate.saveTab(prefix + "/add", data);
+			$.operate.saveTab(prefix + "/saveOrUpdate", data);
 		}
 	}
 </script>

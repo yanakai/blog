@@ -66,4 +66,34 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     int deleteById(String userId);
+
+    /**
+     * @method:  checkUserNameUnique
+     * @description: <p>验证用户名是否已存在</p>
+     * @params:  sysUserInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:16
+     * @author: yanakai@126.com
+     */
+    String checkUserNameUnique(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  checkPhoneUnique
+     * @description: <p>验证手机号是否已存在</p>
+     * @params:  sysUserInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:33
+     * @author: yanakai@126.com
+     */
+    String checkPhoneUnique(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  checkEmailUnique
+     * @description: <p>验证email是否已存在</p>
+     * @params:  sysUserInfo
+     * @return: java.lang.String
+     * @date: 2019/11/8 21:33
+     * @author: yanakai@126.com
+     */
+    String checkEmailUnique(SysUserInfo sysUserInfo);
 }

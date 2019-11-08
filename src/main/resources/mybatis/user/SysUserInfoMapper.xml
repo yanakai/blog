@@ -197,32 +197,44 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-    <!--获取列表数据-->
-    <select id="getList" parameterType="com.blog.sys.user.model.SysUserInfo" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from sys_user_info
-        <where>
-            <if test="vo != null">
-                <if test="vo.userId !=null ">
-                    and user_id = #{vo.userId,jdbcType=VARCHAR}
-                </if>
-                <if test="vo.email != null and vo.email != '' ">
-                    and email = #{vo.email,jdbcType=VARCHAR}
-                </if>
-                <if test="vo.userName != null and vo.userName != '' ">
-                    and user_name = #{vo.userName,jdbcType=VARCHAR}
-                </if>
-                <if test="vo.sex != null and vo.sex != '' ">
-                    and sex = #{vo.sex,jdbcType=VARCHAR}
-                </if>
-                <if test="vo.phoneNumber != null and vo.phoneNumber != '' ">
-                    and phone_number =  #{vo.phoneNumber,jdbcType=VARCHAR}
-                </if>
-                <if test="vo.trueName != null and vo.trueName != null">
-                    and true_name like CONCAT('%', #{vo.trueName}, '%')
-                </if>
-            </if>
-        </where>
-    </select>
+  <!--获取列表数据-->
+  <select id="getList" parameterType="com.blog.sys.user.model.SysUserInfo" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from sys_user_info
+      <where>
+          <if test="vo != null">
+              <if test="vo.userId !=null ">
+                  and user_id = #{vo.userId,jdbcType=VARCHAR}
+              </if>
+              <if test="vo.email != null and vo.email != '' ">
+                  and email = #{vo.email,jdbcType=VARCHAR}
+              </if>
+              <if test="vo.userName != null and vo.userName != '' ">
+                  and user_name = #{vo.userName,jdbcType=VARCHAR}
+              </if>
+              <if test="vo.sex != null and vo.sex != '' ">
+                  and sex = #{vo.sex,jdbcType=VARCHAR}
+              </if>
+              <if test="vo.phoneNumber != null and vo.phoneNumber != '' ">
+                  and phone_number =  #{vo.phoneNumber,jdbcType=VARCHAR}
+              </if>
+              <if test="vo.trueName != null and vo.trueName != null">
+                  and true_name like CONCAT('%', #{vo.trueName}, '%')
+              </if>
+          </if>
+      </where>
+  </select>
+<!-- 验证用户名已存在 -->
+  <select id="checkUserNameUnique" parameterType="String" resultType="Integer">
+    select count(user_id) from sys_user_info where user_name = #{userName}
+  </select>
+<!--验证手机号是否已存在-->
+  <select id="checkPhoneUnique" parameterType="String" resultMap="BaseResultMap">
+    select user_id, phone from sys_user_info where phone_number = #{phoneNumber}
+  </select>
+<!--验证email是否已存在-->
+  <select id="checkEmailUnique" parameterType="String" resultMap="BaseResultMap">
+    select user_id, email from sys_user_info where email = #{email}
+  </select>
 </mapper>

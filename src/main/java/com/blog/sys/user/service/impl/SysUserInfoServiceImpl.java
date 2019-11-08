@@ -1,5 +1,7 @@
 package com.blog.sys.user.service.impl;
 
+import com.blog.sys.common.utils.StringUtils;
+import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.user.mapper.SysUserInfoMapper;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
@@ -51,5 +53,35 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     @Override
     public int deleteById(String userId) {
         return sysUserInfoMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
+    public String checkUserNameUnique(SysUserInfo sysUserInfo) {
+        //用户名是不允许修改的，所以此判断只有在添加的时候生效故只需验证用户名数量
+        int count = sysUserInfoMapper.checkUserNameUnique(sysUserInfo.getUserName());
+        if (count>0){
+            return UserConstants.USER_NAME_NOT_UNIQUE;
+        }
+        return UserConstants.USER_NAME_UNIQUE;
+    }
+
+    @Override
+    public String checkPhoneUnique(SysUserInfo sysUserInfo) {
+        String userId = StringUtils.isNull(sysUserInfo.getUserId()) ? "":sysUserInfo.getUserId();
+        SysUserInfo info = sysUserInfoMapper.checkPhoneUnique(sysUserInfo.getPhoneNumber());
+        if (StringUtils.isNotNull(info) && !userId.equals(info.getUserId())){
+            return UserConstants.USER_PHONE_NOT_UNIQUE;
+        }
+        return UserConstants.USER_PHONE_UNIQUE;
+    }
+
+    @Override
+    public String checkEmailUnique(SysUserInfo sysUserInfo) {
+        String userId = StringUtils.isNull(sysUserInfo.getUserId()) ?"":sysUserInfo.getUserId();
+        SysUserInfo info = sysUserInfoMapper.checkEmailUnique(sysUserInfo.getEmail());
+        if (StringUtils.isNotNull(info) && !userId.equals(info.getUserId())){
+            return UserConstants.USER_EMAIL_NOT_UNIQUE;
+        }
+        return UserConstants.USER_EMAIL_UNIQUE;
     }
 }

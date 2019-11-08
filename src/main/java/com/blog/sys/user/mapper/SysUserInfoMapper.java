@@ -27,4 +27,32 @@ public interface SysUserInfoMapper {
      * @author: yanakai@126.com
      */
     List<SysUserInfo> getList(@Param("vo") SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  checkUserNameUnique
+     * @description: <p>验证用户名是否已存在</p>
+     * @params:  userName 用户名
+     * @return: int
+     * @date: 2019/11/8 21:23
+     * @author: yanakai@126.com
+     */
+    int checkUserNameUnique(String userName);
+    /**
+     * @method:  checkPhoneUnique
+     * @description: <p>验证手机号是否已存在</p>
+     * @params:  phoneNumber 手机号
+     * @return: SysUserInfo
+     * @date: 2019/11/8 21:29
+     * @author: yanakai@126.com
+     */
+    SysUserInfo checkPhoneUnique(String phoneNumber);
+    /**
+     * @method:  checkEmailUnique
+     * @description: <p>验证email是否已存在</p>
+     * @params:  email 邮箱
+     * @return: SysUserInfo
+     * @date: 2019/11/8 21:30
+     * @author: yanakai@126.com
+     */
+    SysUserInfo checkEmailUnique(String email);
 }
