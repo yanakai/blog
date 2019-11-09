@@ -37,4 +37,24 @@ public interface SysRoleInfoMapper {
      * @author: yanakai@126.com
      */
     SysRoleInfo checkRoleNameUnique(String roleName);
+
+    /**
+     * @method:  checkRoleKeyUnique
+     * @description: <p>验证角色key是否唯一</p>
+     * @params:  roleKey
+     * @return: com.blog.sys.role.model.SysRoleInfo
+     * @date: 2019/11/9 15:24
+     * @author: yanakai@126.com
+     */
+    SysRoleInfo checkRoleKeyUnique(String roleKey);
+
+    /**
+     * @method:  getMaxSort
+     * @description: <p>获取最大的排序码</p>
+     * @params:
+     * @return: int
+     * @date: 2019/11/9 16:01
+     * @author: yanakai@126.com
+     */
+    int getMaxSort();
 }

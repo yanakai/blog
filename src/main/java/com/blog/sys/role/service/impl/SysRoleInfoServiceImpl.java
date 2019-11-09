@@ -54,4 +54,19 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
         }
         return UserConstants.ROLE_NAME_UNIQUE;
     }
+
+    @Override
+    public String checkRoleKeyUnique(SysRoleInfo sysRoleInfo) {
+        String roleId = StringUtils.isNotEmpty(sysRoleInfo.getRoleId())?sysRoleInfo.getRoleId().trim():"";
+        SysRoleInfo info = sysRoleInfoMapper.checkRoleKeyUnique(sysRoleInfo.getRoleKey());
+        if(info != null && !roleId.equals(info.getRoleId())){
+            return UserConstants.ROLE_KEY_NOT_UNIQUE;
+        }
+        return UserConstants.ROLE_KEY_UNIQUE;
+    }
+
+    @Override
+    public int getMaxSort() {
+        return sysRoleInfoMapper.getMaxSort();
+    }
 }

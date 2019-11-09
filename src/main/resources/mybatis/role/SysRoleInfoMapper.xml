@@ -182,7 +182,7 @@
         <if test="vo.roleId != null and vo.roleId != '' ">
           role_id = #{vo.roleId,jdbcType=VARCHAR}
         </if>
-        <if test="vo.roleName != null and  vo.roleName = '' ">
+        <if test="vo.roleName != null and vo.roleName != '' ">
           role_name like CONCAT('%', #{vo.roleName}, '%')
         </if>
         <if test="vo.status != null and vo.status != '' ">
@@ -206,5 +206,18 @@
         role_id,role_name
     from sys_role_info
     where role_name = #{roleName,jdbcType=VARCHAR}
+  </select>
+<!--  验证角色的可以是否唯一  -->
+  <select id="checkRoleKeyUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        role_id,role_key
+    from sys_role_info
+    where role_key = #{roleKey,jdbcType=VARCHAR}
+  </select>
+<!--获取最大的排序码-->
+  <select id="getMaxSort"  resultType="INTEGER">
+    select
+        max(role_sort)
+    from sys_role_info
   </select>
 </mapper>

@@ -72,6 +72,9 @@ public class SysRoleInfoController extends BaseController {
      */
     @GetMapping("/add")
     public String add(HttpServletRequest request,ModelMap modelMap){
+        //获取最大的排序码
+        int roleSort = sysRoleInfoService.getMaxSort();
+        modelMap.put("roleSort",roleSort);
         return SYS_ROLE_PATH + "/add";
     }
     /**
@@ -163,6 +166,21 @@ public class SysRoleInfoController extends BaseController {
     @ResponseBody
     public String checkRoleNameUnique(HttpServletRequest request,SysRoleInfo sysRoleInfo){
      return sysRoleInfoService.checkRoleNameUnique(sysRoleInfo);
+    }
+
+    /**
+     * @method:  checkRoleKeyUnique
+     * @description: <p>验证角色key是否唯一</p>
+     * @params:  request
+     * @Param sysRoleInfo
+     * @return: java.lang.String
+     * @date: 2019/11/9 15:18
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/checkRoleKeyUnique")
+    @ResponseBody
+    public String checkRoleKeyUnique(HttpServletRequest request,SysRoleInfo sysRoleInfo){
+        return sysRoleInfoService.checkRoleKeyUnique(sysRoleInfo);
     }
 
     /**

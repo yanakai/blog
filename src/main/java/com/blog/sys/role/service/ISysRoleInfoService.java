@@ -64,4 +64,24 @@ public interface ISysRoleInfoService {
      * @author: yanakai@126.com
      */
     String checkRoleNameUnique(SysRoleInfo sysRoleInfo);
+
+    /**
+     * @method:  checkRoleKeyUnique
+     * @description: <p>验证角色可以是否存在</p>
+     * @params:  sysRoleInfo
+     * @return: java.lang.String
+     * @date: 2019/11/9 15:20
+     * @author: yanakai@126.com
+     */
+    String checkRoleKeyUnique(SysRoleInfo sysRoleInfo);
+
+    /**
+     * @method:  getMaxSort
+     * @description: <p>获取最大的排序码</p>
+     * @params:
+     * @return: int
+     * @date: 2019/11/9 16:00
+     * @author: yanakai@126.com
+     */
+    int getMaxSort();
 }
