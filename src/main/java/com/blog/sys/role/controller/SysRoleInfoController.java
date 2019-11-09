@@ -114,6 +114,10 @@ public class SysRoleInfoController extends BaseController {
             data.setMsg("保存角色'" + sysRoleInfo.getRoleName() + "'失败，角色名称已存在");
             return data;
         }
+        if (UserConstants.ROLE_KEY_NOT_UNIQUE.equals(sysRoleInfoService.checkRoleKeyUnique(sysRoleInfo))){
+            data.setMsg("保存角色'" + sysRoleInfo.getRoleName() + "'失败，角色key已存在");
+            return data;
+        }
         if (StringUtils.isNotEmpty(sysRoleInfo.getRoleId())){
             sysRoleInfo.setUpdateTime(new Date());
             sysRoleInfo.setUpdateBy("暂无登录者");
