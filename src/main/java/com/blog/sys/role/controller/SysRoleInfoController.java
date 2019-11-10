@@ -7,7 +7,9 @@ import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.role.model.SysRoleInfo;
+import com.blog.sys.role.model.SysUserRole;
 import com.blog.sys.role.service.ISysRoleInfoService;
+import com.blog.sys.role.service.ISysUserRoleService;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,12 @@ public class SysRoleInfoController extends BaseController {
      */
     @Resource
     private ISysUserInfoService sysUserInfoService;
+
+    /**
+     * 用户角色业务层接口
+     */
+    @Resource
+    private ISysUserRoleService sysUserRoleService;
 
     /**
      * @Title: pageList
@@ -248,5 +256,26 @@ public class SysRoleInfoController extends BaseController {
     public TableDataInfo allocatedList(HttpServletRequest request, SysUserInfo sysUserInfo){
         List<SysUserInfo> list = sysUserInfoService.allocatedList(sysUserInfo);
         return getDataTable(list);
+    }
+
+    /**
+     * @method:  cancel
+     * @description: <p>删除用户角色关联信息</p>
+     * @params:  request
+     * @Param sysUserRole
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/10 13:29
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/authUser/cancel")
+    @ResponseBody
+    public ResponseData cancel(HttpServletRequest request, SysUserRole sysUserRole){
+        ResponseData data = operateFailed("取消失败");
+        int state = 0;
+        state = sysUserRoleService.deleteUserRoleInfo(sysUserRole);
+        if (state>0){
+            data = operateSucess("取消成功");
+        }
+        return data;
     }
 }

@@ -245,7 +245,7 @@
     left join sys_user_role sur on  sur.user_id = sui.user_id
     <where>
         and sui.status = '0' and sur.role_id = #{vo.roleId}
-        <if test="vo.trueName != null and vo.trueName != null">
+        <if test="vo.trueName != null and vo.trueName != '' ">
           and true_name like CONCAT('%', #{vo.trueName}, '%')
         </if>
     </where>

@@ -28,4 +28,8 @@
       </if>
     </trim>
   </insert>
+<!-- 删除用户角色信息 -->
+  <delete id="deleteUserRoleInfo" parameterType="com.blog.sys.role.model.SysUserRole" >
+    delete from sys_user_role where role_id = #{vo.roleId} and user_id = #{vo.userId}
+  </delete>
 </mapper>

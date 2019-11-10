@@ -1,6 +1,11 @@
 package com.blog.sys.role.service.impl;
 
+import com.blog.sys.role.mapper.SysUserRoleMapper;
+import com.blog.sys.role.model.SysUserRole;
 import com.blog.sys.role.service.ISysUserRoleService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @ProjectName: blog
@@ -14,5 +19,14 @@ import com.blog.sys.role.service.ISysUserRoleService;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
+@Service
 public class SysUserRoleServiceImpl implements ISysUserRoleService {
+
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
+
+    @Override
+    public int deleteUserRoleInfo(SysUserRole sysUserRole) {
+        return sysUserRoleMapper.deleteUserRoleInfo(sysUserRole);
+    }
 }
