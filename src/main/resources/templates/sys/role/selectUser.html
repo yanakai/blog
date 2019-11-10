@@ -9,14 +9,11 @@
 	<div class="row">
 		<div class="col-sm-12 search-collapse">
 			<form id="role-form">
-				<input type="hidden" id="roleId" name="roleId" th:value="${role.roleId}">
+				<input type="hidden" id="roleId" name="roleId" th:value="${info.roleId}">
 				<div class="select-list">
 					<ul>
 						<li>
-							登录名称：<input type="text" name="loginName"/>
-						</li>
-						<li>
-							手机号码：<input type="text" name="phonenumber"/>
+							真实姓名：<input type="text" name="trueName"/>
 						</li>
 						<li>
 							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -34,20 +31,13 @@
 </div>
 <th:block th:include="include :: footer" />
 <script th:inline="javascript">
-	var datas = [[${@dict.getType('sys_normal_disable')}]];
-	var prefix = ctx + "system/role/authUser";
+	var prefix = "/sys/role/authUser";
 
 	$(function() {
 		var options = {
 			url: prefix + "/unallocatedList",
-			createUrl: prefix + "/add",
-			updateUrl: prefix + "/edit/{id}",
-			removeUrl: prefix + "/remove",
-			exportUrl: prefix + "/export",
-			importUrl: prefix + "/importData",
-			importTemplateUrl: prefix + "/importTemplate",
 			queryParams: queryParams,
-			sortName: "createTime",
+			sortName: "create_time",
 			sortOrder: "desc",
 			modalName: "用户",
 			showSearch: false,
@@ -61,17 +51,14 @@
 				checkbox: true
 			},
 				{
-					field: 'userId',
-					title: '用户ID',
-					visible: false
+					title: '序号',
+					visible: false,
+					formatter: function (value, row, index) {
+						return index + 1;
+					}
 				},
 				{
-					field: 'loginName',
-					title: '登录名称',
-					sortable: true
-				},
-				{
-					field: 'userName',
+					field: 'trueName',
 					title: '用户名称'
 				},
 				{
@@ -79,7 +66,7 @@
 					title: '邮箱'
 				},
 				{
-					field: 'phonenumber',
+					field: 'phoneNumber',
 					title: '手机'
 				},
 				{
@@ -87,7 +74,13 @@
 					title: '用户状态',
 					align: 'center',
 					formatter: function (value, row, index) {
-						return $.table.selectDictLabel(datas, value);
+						var actions = [];
+						if(value =='0'){
+							actions.push('正常');
+						}else {
+							actions.push('禁用');
+						}
+						return actions.join('');
 					}
 				},
 				{

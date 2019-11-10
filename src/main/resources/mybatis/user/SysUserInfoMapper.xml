@@ -250,4 +250,18 @@
         </if>
     </where>
   </select>
+  <!-- 获取没有分配该角色的所有用户列表 -->
+  <select id="selectUnallocatedList" parameterType="com.blog.sys.user.model.SysUserInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user_info
+    <where>
+      and status = '0'
+      and user_id not in (select user_id from sys_user_role where role_id  = #{vo.roleId})
+      <if test="vo.trueName != null and vo.trueName != '' ">
+        and true_name like CONCAT('%', #{vo.trueName}, '%')
+      </if>
+    </where>
+  </select>
+
 </mapper>

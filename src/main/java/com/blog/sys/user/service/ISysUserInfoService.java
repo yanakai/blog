@@ -106,4 +106,14 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     List<SysUserInfo> allocatedList(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  selectUnallocatedList
+     * @description: <p>获取不在某个角色下的所有用户列表</p>
+     * @params:  sysUserInfo
+     * @return: java.util.List<com.blog.sys.user.model.SysUserInfo>
+     * @date: 2019/11/10 14:04
+     * @author: yanakai@126.com
+     */
+    List<SysUserInfo> selectUnallocatedList(SysUserInfo sysUserInfo);
 }

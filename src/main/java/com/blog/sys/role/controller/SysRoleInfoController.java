@@ -278,4 +278,38 @@ public class SysRoleInfoController extends BaseController {
         }
         return data;
     }
+
+    /**
+     * @method:  selectUser
+     * @description: <p>跳转至角色下选择用户</p>
+     * @params:  request
+     * @Param roleId
+     * @Param modelMap
+     * @return: java.lang.String
+     * @date: 2019/11/10 13:46
+     * @author: yanakai@126.com
+     */
+    @GetMapping("/authUser/selectUser/{roleId}")
+    public String selectUser(HttpServletRequest request,@PathVariable("roleId") String roleId,ModelMap modelMap){
+        SysRoleInfo info =sysRoleInfoService.getById(roleId);
+        modelMap.put("info",info);
+        return SYS_ROLE_PATH + "/selectUser";
+    }
+
+    /**
+     * @method:  unallocatedList
+     * @description: <p>获取不在某个角色下的所有用户列表</p>
+     * @params:  request
+     * @Param sysUserInfo
+     * @return: com.blog.sys.common.base.TableDataInfo
+     * @date: 2019/11/10 14:04
+     * @author: yanakai@126.com       
+     */
+    @PostMapping("/authUser/unallocatedList")
+    @ResponseBody
+    public TableDataInfo unallocatedList(HttpServletRequest request,SysUserInfo sysUserInfo){
+        List<SysUserInfo> list = sysUserInfoService.selectUnallocatedList(sysUserInfo);
+        return getDataTable(list);
+    }
+
 }
