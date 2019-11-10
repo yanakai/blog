@@ -84,4 +84,9 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
         }
         return UserConstants.USER_EMAIL_UNIQUE;
     }
+
+    @Override
+    public List<SysUserInfo> allocatedList(SysUserInfo sysUserInfo) {
+        return sysUserInfoMapper.allocatedList(sysUserInfo);
+    }
 }

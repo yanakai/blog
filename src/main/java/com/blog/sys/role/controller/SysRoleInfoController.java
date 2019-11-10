@@ -8,6 +8,8 @@ import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
+import com.blog.sys.user.model.SysUserInfo;
+import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,12 @@ public class SysRoleInfoController extends BaseController {
      */
     @Resource
     private ISysRoleInfoService sysRoleInfoService;
+
+    /**
+     * 用户业务层接口
+     */
+    @Resource
+    private ISysUserInfoService sysUserInfoService;
 
     /**
      * @Title: pageList
@@ -208,5 +216,37 @@ public class SysRoleInfoController extends BaseController {
             data = operateSucess("操作成功");
         }
         return data;
+    }
+
+    /**
+     * @method:  authUser
+     * @description: <p>跳转至角色下用户列表页</p>
+     * @params:  request
+     * @Param roleId 角色id
+     * @return: java.lang.String
+     * @date: 2019/11/9 17:50
+     * @author: yanakai@126.com
+     */
+    @GetMapping("/authUser/{roleId}")
+    public String authUser(HttpServletRequest request,@PathVariable("roleId") String roleId,ModelMap modelMap){
+        SysRoleInfo info =sysRoleInfoService.getById(roleId);
+        modelMap.put("info",info);
+        return SYS_ROLE_PATH + "/authUser";
+    }
+
+    /**
+     * @method:  allocatedList
+     * @description: <p>获取角色下用户信息 </p>
+     * @params:  request
+     * @Param sysUserInfo
+     * @return: com.blog.sys.common.base.TableDataInfo
+     * @date: 2019/11/9 18:05
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/authUser/allocatedList")
+    @ResponseBody
+    public TableDataInfo allocatedList(HttpServletRequest request, SysUserInfo sysUserInfo){
+        List<SysUserInfo> list = sysUserInfoService.allocatedList(sysUserInfo);
+        return getDataTable(list);
     }
 }

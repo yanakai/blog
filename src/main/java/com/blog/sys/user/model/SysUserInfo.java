@@ -80,6 +80,35 @@ public class SysUserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 角色id --只做查询不做持久化
+     */
+    private String roleId;
+
+    /**
+     * @method:  getRoleId
+     * @description: <p>角色id --只做查询不做持久化</p>
+     * @params:
+     * @return: java.lang.String
+     * @date: 2019/11/9 18:20
+     * @author: yanakai@126.com
+     */
+    public String getRoleId() {
+        return roleId;
+    }
+
+    /**
+     * @method:  setRoleId
+     * @description: <p>角色id --只做查询不做持久化</p>
+     * @params:  roleId
+     * @return: void
+     * @date: 2019/11/9 18:20
+     * @author: yanakai@126.com
+     */
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    /**
      * 
      */
     public String getUserId() {

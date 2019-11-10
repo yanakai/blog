@@ -96,4 +96,14 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     String checkEmailUnique(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  allocatedList
+     * @description: <p>获取角色下用户列表数据</p>
+     * @params:  sysUserInfo
+     * @return: java.util.List<com.blog.sys.user.model.SysUserInfo>
+     * @date: 2019/11/9 18:07
+     * @author: yanakai@126.com
+     */
+    List<SysUserInfo> allocatedList(SysUserInfo sysUserInfo);
 }
