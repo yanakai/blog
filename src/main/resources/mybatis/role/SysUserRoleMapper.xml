@@ -28,15 +28,23 @@
       </if>
     </trim>
   </insert>
-<!-- 删除用户角色信息 -->
+  <!-- 删除用户角色信息 -->
   <delete id="deleteUserRoleInfo" parameterType="com.blog.sys.role.model.SysUserRole" >
     delete from sys_user_role where role_id = #{vo.roleId} and user_id = #{vo.userId}
   </delete>
-<!-- 批量保存用户角色信息 -->
+  <!-- 批量保存用户角色信息 -->
   <insert id="saveUserRole" >
     insert into sys_user_role (user_id, role_id)  values
     <foreach item="item" index="index" collection="list" separator=",">
       (#{item.userId},#{item.roleId})
     </foreach>
   </insert>
+  <!-- 批量删除角色用户信息 -->
+  <delete id="deleteUserRole" >
+    delete from sys_user_role
+    where role_id = #{roleId} and user_id in
+    <foreach item="userId"  collection="userIds" open="(" separator="," close=")">
+      #{userId}
+    </foreach>
+  </delete>
 </mapper>

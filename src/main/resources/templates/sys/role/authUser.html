@@ -58,8 +58,14 @@
 				checkbox: true
 			},
 				{
-					field: 'userName',
-					title: '登录名称'
+					field: 'userId',
+					visible: false,// 隐藏列
+				},
+				{
+					title: '序号',
+					formatter:  function (value, row, index){
+						return index + 1;
+					}
 				},
 				{
 					field: 'trueName',

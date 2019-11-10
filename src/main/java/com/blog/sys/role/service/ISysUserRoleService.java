@@ -35,4 +35,15 @@ public interface ISysUserRoleService {
      * @author: yanakai@126.com
      */
     int saveUserRole(String roleId, String userIds);
+
+    /**
+     * @method:  deleteUserRole
+     * @description: <p> 批量删除用户角色信息</p>
+     * @params:  roleId 角色id
+     * @Param userIds 用户ids
+     * @return: int
+     * @date: 2019/11/10 16:53
+     * @author: yanakai@126.com
+     */
+    int deleteUserRole(String roleId, String userIds);
 }

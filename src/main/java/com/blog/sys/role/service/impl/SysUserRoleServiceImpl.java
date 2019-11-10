@@ -45,4 +45,9 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService {
         }
         return sysUserRoleMapper.saveUserRole(list);
     }
+
+    @Override
+    public int deleteUserRole(String roleId, String userIds) {
+        return sysUserRoleMapper.deleteUserRole(roleId, userIds.split(","));
+    }
 }

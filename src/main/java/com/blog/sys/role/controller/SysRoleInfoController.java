@@ -334,5 +334,27 @@ public class SysRoleInfoController extends BaseController {
         return data;
     }
 
+    /**
+     * @method:  cancelAll
+     * @description: <p>批量删除用户角色信息</p>
+     * @params:  request
+     * @Param roleId
+     * @Param userIds
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/10 16:53
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/authUser/cancelAll")
+    @ResponseBody
+    public ResponseData cancelAll(HttpServletRequest request, String roleId,String userIds){
+        ResponseData data = operateFailed("保存失败");
+        int state = 0;
+        state = sysUserRoleService.deleteUserRole(roleId,userIds);
+        if (state>0){
+            data = operateSucess("保存成功");
+        }
+        return data;
+    }
+
 
 }
