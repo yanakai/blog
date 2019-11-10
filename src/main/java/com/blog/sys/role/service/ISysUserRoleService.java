@@ -24,4 +24,15 @@ public interface ISysUserRoleService {
      * @author: yanakai@126.com
      */
     int deleteUserRoleInfo(SysUserRole sysUserRole);
+
+    /**
+     * @method:  saveUserRole
+     * @description: <p>批量保存用户角色信息</p>
+     * @params:  roleId
+     * @Param userIds
+     * @return: int
+     * @date: 2019/11/10 15:11
+     * @author: yanakai@126.com
+     */
+    int saveUserRole(String roleId, String userIds);
 }

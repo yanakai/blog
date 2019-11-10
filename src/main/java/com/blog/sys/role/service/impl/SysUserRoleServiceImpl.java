@@ -6,6 +6,9 @@ import com.blog.sys.role.service.ISysUserRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @ProjectName: blog
@@ -28,5 +31,18 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService {
     @Override
     public int deleteUserRoleInfo(SysUserRole sysUserRole) {
         return sysUserRoleMapper.deleteUserRoleInfo(sysUserRole);
+    }
+
+    @Override
+    public int saveUserRole(String roleId, String userIds) {
+        List<SysUserRole> list = new ArrayList<>();
+        String [] ids = userIds.split(",");
+        for (String id : ids){
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setUserId(id);
+            sysUserRole.setRoleId(roleId);
+            list.add(sysUserRole);
+        }
+        return sysUserRoleMapper.saveUserRole(list);
     }
 }
