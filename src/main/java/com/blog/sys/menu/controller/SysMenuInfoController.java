@@ -50,9 +50,9 @@ public class SysMenuInfoController extends BaseController {
      */
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo tableDataList(HttpServletRequest request, SysMenuInfo sysMenuInfo){
-        List<SysMenuInfo> list = new ArrayList<>();
-        return getDataTable(list);
+    public List<SysMenuInfo> tableDataList(HttpServletRequest request, SysMenuInfo sysMenuInfo){
+        List<SysMenuInfo> list = sysMenuInfoService.getMenuList(sysMenuInfo);
+        return list;
     }
 
 }

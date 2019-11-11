@@ -1,10 +1,12 @@
 package com.blog.sys.menu.service.impl;
 
 import com.blog.sys.menu.mapper.SysMenuInfoMapper;
+import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: blog
@@ -20,8 +22,15 @@ import javax.annotation.Resource;
  */
 @Service
 public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
+    /**
+     * 菜单持久层接口
+     */
     @Resource
     private SysMenuInfoMapper sysMenuInfoMapper;
-    
 
+
+    @Override
+    public List<SysMenuInfo> getMenuList(SysMenuInfo sysMenuInfo) {
+        return sysMenuInfoMapper.getMenuList(sysMenuInfo);
+    }
 }

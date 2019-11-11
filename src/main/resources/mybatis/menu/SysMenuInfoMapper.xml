@@ -209,4 +209,18 @@
       remark = #{remark,jdbcType=VARCHAR}
     where menu_id = #{menuId,jdbcType=VARCHAR}
   </update>
+<!-- 获取所有菜单列表数据 -->
+  <select id="getMenuList" parameterType="com.blog.sys.menu.model.SysMenuInfo" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from sys_menu_info
+    <where>
+      <if test="vo.menuName != null and vo.menuName != ''">
+        AND menu_name like concat('%', #{vo.menuName}, '%')
+      </if>
+      <if test="vo.visible != null and vo.visible != ''">
+        AND visible = #{vo.visible}
+      </if>
+    </where>
+    order by order_num
+  </select>
 </mapper>
