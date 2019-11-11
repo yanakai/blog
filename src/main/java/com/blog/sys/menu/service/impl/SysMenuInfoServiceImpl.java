@@ -33,4 +33,14 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
     public List<SysMenuInfo> getMenuList(SysMenuInfo sysMenuInfo) {
         return sysMenuInfoMapper.getMenuList(sysMenuInfo);
     }
+
+    @Override
+    public SysMenuInfo getById(String menuId) {
+        return sysMenuInfoMapper.selectByPrimaryKey(menuId);
+    }
+
+    @Override
+    public int getMaxSortByParentId(String parentId) {
+        return sysMenuInfoMapper.getMaxSortByParentId(parentId);
+    }
 }

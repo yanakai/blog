@@ -26,4 +26,24 @@ public interface ISysMenuInfoService {
      * @date   2019/11/11
      */
     List<SysMenuInfo> getMenuList(SysMenuInfo sysMenuInfo);
+
+    /**
+     * @Title: getById
+     * @Description:  通过主键查询对象
+     * @Param: menuId
+     * @return: com.blog.sys.menu.model.SysMenuInfo
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    SysMenuInfo getById(String menuId);
+
+    /**
+     * @Title: getMaxSortByParentId
+     * @Description:  获取同一级别的菜单最大的排序码
+     * @Param: parentId 菜单父id
+     * @return: int
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    int getMaxSortByParentId(String parentId);
 }

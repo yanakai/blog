@@ -27,4 +27,14 @@ public interface SysMenuInfoMapper {
      * @date   2019/11/11
      */
     List<SysMenuInfo> getMenuList(@Param("vo") SysMenuInfo sysMenuInfo);
+
+    /**
+     * @Title: getMaxSortByParentId
+     * @Description:  获取同一级别的菜单最大的排序码
+     * @Param: parentId 父id
+     * @return: int
+     * @author: yankai
+     * @date   2019/11/11 
+     */ 
+    int getMaxSortByParentId(String parentId);
 }

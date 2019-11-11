@@ -6,10 +6,7 @@ import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +32,15 @@ public class SysMenuInfoController extends BaseController {
     @Resource
     private ISysMenuInfoService sysMenuInfoService;
 
+    /**
+     * @Title: pageList
+     * @Description:  跳转至菜单列表页面
+     * @Param: request
+     * @Param modelMap
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/11
+     */
     @GetMapping("/list")
     public String pageList(HttpServletRequest request, ModelMap modelMap){
         return SYS_MENU_PATH + "/list";
@@ -54,5 +60,57 @@ public class SysMenuInfoController extends BaseController {
         List<SysMenuInfo> list = sysMenuInfoService.getMenuList(sysMenuInfo);
         return list;
     }
+
+    /**
+     * 选择菜单图标
+     */
+    @GetMapping("/icon")
+    public String icon(HttpServletRequest request){
+        return SYS_MENU_PATH + "/icon";
+    }
+
+    /**
+     * @Title: add
+     * @Description:  跳转至添加页面
+     * @Param: request
+     * @Param parentId
+     * @Param modelMap
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    @GetMapping("/add/{parentId}")
+    public String add(HttpServletRequest request,@PathVariable("parentId") String parentId,ModelMap modelMap){
+        SysMenuInfo sysMenuInfo = new SysMenuInfo();
+        if ("root".equals(parentId)){
+            sysMenuInfo.setMenuId("root");
+            sysMenuInfo.setMenuName("根目录");
+        }else {
+            sysMenuInfo = sysMenuInfoService.getById(parentId);
+        }
+        int maxSort = sysMenuInfoService.getMaxSortByParentId(parentId);
+        sysMenuInfo.setOrderNum(maxSort + 1);
+        modelMap.put("info",sysMenuInfo);
+        return SYS_MENU_PATH + "/add";
+    }
+
+    /**
+     * @Title: edit
+     * @Description:  跳转至菜单编辑页面
+     * @Param: request
+     * @Param menuId
+     * @Param modelMap
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    @GetMapping("/edit/{menuId}")
+    public String edit(HttpServletRequest request, @PathVariable("menuId") String menuId, ModelMap modelMap){
+        SysMenuInfo sysMenuInfo = sysMenuInfoService.getById(menuId);
+        modelMap.put("info",sysMenuInfo);
+        return SYS_MENU_PATH + "/edit";
+    }
+
+
 
 }

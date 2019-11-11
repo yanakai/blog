@@ -223,4 +223,10 @@
     </where>
     order by order_num
   </select>
+<!--  获取同级别的最大排序码-->
+  <select id="getMaxSortByParentId" parameterType="String" resultType="INTEGER">
+    select MAX(order_num)
+    from sys_menu_info where parent_id =#{parentId}
+  </select>
+
 </mapper>
