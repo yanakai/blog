@@ -1,7 +1,10 @@
 package com.blog.sys.menu.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.blog.sys.common.base.BaseController;
+import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,6 +113,55 @@ public class SysMenuInfoController extends BaseController {
         SysMenuInfo sysMenuInfo = sysMenuInfoService.getById(menuId);
         modelMap.put("info",sysMenuInfo);
         return SYS_MENU_PATH + "/edit";
+    }
+
+    /**
+     * @Title: saveOrUpdate
+     * @Description:  保存或修改操作
+     * @Param: request
+     * @Param sysMenuInfo
+     * @return: com.blog.sys.common.base.ResponseData
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    @PostMapping("/saveOrUpdate")
+    @ResponseBody
+    public ResponseData saveOrUpdate(HttpServletRequest request,SysMenuInfo sysMenuInfo){
+        ResponseData data  = operateFailed("保存失败");
+        int state = 0;
+        if (StringUtils.isNotEmpty(sysMenuInfo.getMenuId())){
+            sysMenuInfo.setUpdateTime(new Date());
+            sysMenuInfo.setUpdateBy("暂时没有登录者");
+            state = sysMenuInfoService.updateNotNull(sysMenuInfo);
+        }else {
+            sysMenuInfo.setMenuId(UUID.randomUUID().toString());
+            sysMenuInfo.setCreateTime(new Date());
+            sysMenuInfo.setCreateBy("暂时没有登录者");
+            state = sysMenuInfoService.saveNotNull(sysMenuInfo);
+        }
+        if (state > 0){
+            data = operateSucess("保存成功");
+        }
+        return data;
+    }
+    /**
+     * @Title: deleteById
+     * @Description:  通过主键删除菜单，有子菜单不允许删除
+     * @Param: menuId
+     * @return: com.blog.sys.common.base.ResponseData
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    @PostMapping("/deleteById")
+    @ResponseBody
+    public ResponseData deleteById(String menuId){
+        ResponseData data  = operateFailed("删除失败");
+        int state = 0;
+        state = sysMenuInfoService.deleteById(menuId);
+        if (state > 0){
+            data = operateSucess("删除成功");
+        }
+        return data;
     }
 
 

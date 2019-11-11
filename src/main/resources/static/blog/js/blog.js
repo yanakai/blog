@@ -966,15 +966,11 @@ var table = {
             },
             // 通过主键删除信息
             deleteById: function(idName,id) {
-                $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
-                    var url = $.common.isEmpty(id) ? $.table._option.removeUrl : $.table._option.removeUrl.replace("{id}", id);
-                    if($.table._option.type == table_type.bootstrapTreeTable) {
-                        $.operate.get(url);
-                    } else {
-						var data = {};
-						data[idName] = id;
-                        $.operate.submit(url, "post", "json", data);
-                    }
+                $.modal.confirm("确定删除该条" + table.options.modalName + "信息吗？", function() {
+                    var url = $.common.isEmpty(id) ? table.options.removeUrl : table.options.removeUrl.replace("{id}", id);
+					var data = {};
+					data[idName] = id;
+					$.operate.submit(url, "post", "json", data);
                 });
 
             },

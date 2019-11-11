@@ -46,4 +46,34 @@ public interface ISysMenuInfoService {
      * @date   2019/11/11
      */
     int getMaxSortByParentId(String parentId);
+
+    /**
+     * @Title: updateNotNull
+     * @Description: 根据主键修改不为空的数据
+     * @Param: sysMenuInfo
+     * @return: int
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    int updateNotNull(SysMenuInfo sysMenuInfo);
+
+    /**
+     * @Title: saveNotNull
+     * @Description:  保存不为的数据
+     * @Param: sysMenuInfo
+     * @return: int
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    int saveNotNull(SysMenuInfo sysMenuInfo);
+
+    /**
+     * @Title: deleteIdById
+     * @Description:  通过主键删除信息
+     * @Param: menuId  菜单id
+     * @return: int
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    int deleteById(String menuId);
 }

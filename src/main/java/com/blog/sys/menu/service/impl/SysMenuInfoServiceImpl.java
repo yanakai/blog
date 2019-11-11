@@ -43,4 +43,19 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
     public int getMaxSortByParentId(String parentId) {
         return sysMenuInfoMapper.getMaxSortByParentId(parentId);
     }
+
+    @Override
+    public int updateNotNull(SysMenuInfo sysMenuInfo) {
+        return sysMenuInfoMapper.updateByPrimaryKeySelective(sysMenuInfo);
+    }
+
+    @Override
+    public int saveNotNull(SysMenuInfo sysMenuInfo) {
+        return sysMenuInfoMapper.insertSelective(sysMenuInfo);
+    }
+
+    @Override
+    public int deleteById(String menuId) {
+        return sysMenuInfoMapper.deleteByPrimaryKey(menuId);
+    }
 }
