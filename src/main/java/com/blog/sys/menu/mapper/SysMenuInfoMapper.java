@@ -37,4 +37,15 @@ public interface SysMenuInfoMapper {
      * @date   2019/11/11 
      */ 
     int getMaxSortByParentId(String parentId);
+
+    /**
+     * @Title: checkMenuNameUnique
+     * @Description:  校验同级别的菜单名称是否唯一
+     * @Param: menuName 菜单名称
+     * @Param: parentId 父级id
+     * @return: com.blog.sys.menu.model.SysMenuInfo
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    SysMenuInfo checkMenuNameUnique(@Param("parentId") String parentId,@Param("menuName")String menuName);
 }

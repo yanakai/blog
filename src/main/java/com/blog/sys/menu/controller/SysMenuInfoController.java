@@ -116,6 +116,20 @@ public class SysMenuInfoController extends BaseController {
     }
 
     /**
+     * @Title: checkMenuNameUnique
+     * @Description:  校验同级别的菜单名称是否唯一
+     * @Param: sysMenuInfo
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/11
+     */
+    @PostMapping("/checkMenuNameUnique")
+    @ResponseBody
+    public String checkMenuNameUnique(SysMenuInfo sysMenuInfo){
+        return sysMenuInfoService.checkMenuNameUnique(sysMenuInfo);
+    }
+
+    /**
      * @Title: saveOrUpdate
      * @Description:  保存或修改操作
      * @Param: request

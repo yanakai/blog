@@ -1,5 +1,7 @@
 package com.blog.sys.menu.service.impl;
 
+import com.blog.sys.common.utils.StringUtils;
+import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.menu.mapper.SysMenuInfoMapper;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
@@ -57,5 +59,15 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
     @Override
     public int deleteById(String menuId) {
         return sysMenuInfoMapper.deleteByPrimaryKey(menuId);
+    }
+
+    @Override
+    public String checkMenuNameUnique(SysMenuInfo sysMenuInfo) {
+        String menuId = StringUtils.isNotEmpty(sysMenuInfo.getMenuId())?sysMenuInfo.getMenuId() : "";
+        SysMenuInfo info = sysMenuInfoMapper.checkMenuNameUnique(sysMenuInfo.getParentId(),sysMenuInfo.getMenuName());
+        if (StringUtils.isNotNull(info) && !menuId.equals(info.getMenuId())){
+            return UserConstants.MENU_NAME_NOT_UNIQUE;
+        }
+        return UserConstants.MENU_NAME_UNIQUE;
     }
 }

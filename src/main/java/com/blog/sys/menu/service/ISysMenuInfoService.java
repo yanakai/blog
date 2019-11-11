@@ -76,4 +76,14 @@ public interface ISysMenuInfoService {
      * @date   2019/11/11
      */
     int deleteById(String menuId);
+
+    /**
+     * @Title: checkMenuNameUnique
+     * @Description:  校验同级别的菜单名称是否唯一
+     * @Param: sysMenuInfo 
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/11 
+     */ 
+    String checkMenuNameUnique(SysMenuInfo sysMenuInfo);
 }

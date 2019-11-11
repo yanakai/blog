@@ -229,4 +229,10 @@
     from sys_menu_info where parent_id =#{parentId}
   </select>
 
+  <!--  获取同级别的最大排序码-->
+  <select id="checkMenuNameUnique" parameterType="String" resultMap="BaseResultMap" >
+    select menu_id,parent_id,menu_name
+    from sys_menu_info where parent_id =#{parentId} and menu_name = #{menuName}
+  </select>
+
 </mapper>
