@@ -1,7 +1,31 @@
 /**
  * 通用js方法封装处理
  * Copyright (c) 2019 ruoyi   ---blog二次改造
+ *
  */
+// 当前table相关信息
+var table = {
+	config: {},
+	// 当前实例配置
+	options: {},
+	// 设置实例配置
+	set: function(id) {
+		if($.common.getLength(table.config) > 1) {
+			var tableId = $.common.isEmpty(id) ? $(event.currentTarget).parents(".bootstrap-table").find(".table").attr("id") : id;
+			if ($.common.isNotEmpty(tableId)) {
+				table.options = table.get(tableId);
+			}
+		}
+	},
+	// 获取实例配置
+	get: function(id) {
+		return table.config[id];
+	},
+	// 记住选择实例组
+	rememberSelecteds: {},
+	// 记住选择ID组
+	rememberSelectedIds: {}
+};
 (function ($) {
     $.extend({
 		//时间格式化
