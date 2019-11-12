@@ -4,9 +4,11 @@ import cn.hutool.core.lang.UUID;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.base.model.Ztree;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
+import com.blog.sys.role.model.SysRoleInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -199,6 +201,16 @@ public class SysMenuInfoController extends BaseController {
         return SYS_MENU_PATH + "/tree";
     }
 
+    /**
+     * 加载角色菜单列表树
+     */
+    @GetMapping("/roleMenuTreeData")
+    @ResponseBody
+    public List<Ztree> roleMenuTreeData(SysRoleInfo sysRoleInfo){
+        String userId = "admin";
+        List<Ztree> ztrees = sysMenuInfoService.roleMenuTreeData(sysRoleInfo, userId);
+        return ztrees;
+    }
 
 
 }

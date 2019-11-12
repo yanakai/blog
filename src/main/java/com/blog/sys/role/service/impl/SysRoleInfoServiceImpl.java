@@ -2,12 +2,15 @@ package com.blog.sys.role.service.impl;
 
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
+import com.blog.sys.menu.mapper.SysRoleMenuMapper;
+import com.blog.sys.menu.model.SysRoleMenu;
 import com.blog.sys.role.mapper.SysRoleInfoMapper;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +21,12 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
      */
     @Resource
     private SysRoleInfoMapper sysRoleInfoMapper;
+
+    /**
+     * 角色菜单持久层接口
+     */
+    @Resource
+    private SysRoleMenuMapper sysRoleMenuMapper;
 
 
     @Override
@@ -37,7 +46,33 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
 
     @Override
     public int saveNotNull(SysRoleInfo sysRoleInfo) {
-        return sysRoleInfoMapper.insertSelective(sysRoleInfo);
+        sysRoleInfoMapper.insertSelective(sysRoleInfo);
+
+        return saveRoleMenu(sysRoleInfo);
+    }
+
+    /**
+     * @Title: 返回角色信息
+     * @Description:  
+     * @Param: sysRoleInfo 
+     * @return: int
+     * @author: yankai
+     * @date   2019/11/12 
+     */ 
+    public int saveRoleMenu(SysRoleInfo sysRoleInfo) {
+        int rows = 1;
+        // 新增用户与角色管理
+        List<SysRoleMenu> list = new ArrayList<SysRoleMenu>();
+        for (String menuId : sysRoleInfo.getMenuIds()){
+            SysRoleMenu rm = new SysRoleMenu();
+            rm.setRoleId(sysRoleInfo.getRoleId());
+            rm.setMenuId(menuId);
+            list.add(rm);
+        }
+        if (list.size() > 0){
+            rows = sysRoleMenuMapper.insertRoleMenu(list);
+        }
+        return rows;
     }
 
     @Override

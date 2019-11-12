@@ -68,4 +68,34 @@ public interface SysMenuInfoMapper {
      * @date   2019/11/12
      */
     List<SysMenuInfo> getChildMenuInfoById(String menuId);
+
+    /**
+     * @Title: selectMenuAll
+     * @Description:  获取所有的菜单列表
+     * @Param:
+     * @return: java.util.List<com.blog.sys.menu.model.SysMenuInfo>
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    List<SysMenuInfo> selectMenuAll();
+
+    /**
+     * @Title: selectMenuAllByUserId
+     * @Description:  通过用户id获取用户所拥有的菜单权限数据
+     * @Param: userId 用户id
+     * @return: java.util.List<com.blog.sys.menu.model.SysMenuInfo>
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    List<SysMenuInfo> selectMenuAllByUserId(String userId);
+
+    /**
+     * @Title: selectMenuTree
+     * @Description:  通过角色id获取菜单树
+     * @Param: roleId 角色id
+     * @return: java.util.List<java.lang.String>
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    List<String> selectMenuTree(String roleId);
 }

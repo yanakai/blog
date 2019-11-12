@@ -249,4 +249,34 @@
     from sys_menu_info where parent_id =#{menu_id}
   </select>
 
+  <!-- 获取所有的菜单数据 -->
+  <select id="selectMenuAll"  resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/>
+    from sys_menu_info
+    order by order_num
+  </select>
+
+  <!-- 通过用户id获取用户所拥有的菜单权限数据-->
+  <select id="selectMenuAllByUserId" parameterType="String" resultType="com.blog.sys.menu.model.SysMenuInfo" >
+    select distinct
+      smi.menu_id menuId, smi.menu_name menuName, smi.parent_id parentId, smi.order_num orderNum, smi.url,
+      smi.target, smi.menu_type menuType, smi.visible,smi.perms,smi.icon, smi.create_by createBy,
+      smi.create_time createTime, smi.update_by updateBy, smi.update_time updateTime, smi.remark
+    from sys_menu_info smi
+    left join sys_role_menu srm on srm.menu_id = smi.menu_id
+    left join sys_user_role sur on sur.role_id = srm.role_id
+    where sur.user_id = #{userId}
+    order by order_num
+  </select>
+
+  <!-- 通过角色id获取角色拥有的菜单权限-->
+  <select id="selectMenuTree" parameterType="String" resultType="String" >
+    select concat(smi.menu_id, ifnull(smi.perms,'')) as perms
+	from sys_menu_info smi
+	left join sys_role_menu srm on smi.menu_id = srm.menu_id
+	where srm.role_id = #{roleId}
+	order by  smi.order_num
+  </select>
+
+
 </mapper>

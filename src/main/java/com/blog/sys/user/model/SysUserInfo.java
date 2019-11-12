@@ -80,6 +80,30 @@ public class SysUserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * @Title: isAdmin
+     * @Description: 验证用户是否是admin超级管理员
+     * @Param:
+     * @return: boolean
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    public boolean isAdmin() {
+        return isAdmin(this.userId);
+    }
+
+    /**
+     * @Title: isAdmin
+     * @Description:  验证用户是否是admin超级管理员
+     * @Param: userId 用户id
+     * @return: boolean
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    public static boolean isAdmin(String userId){
+        return userId != null && "admin" == userId;
+    }
+
+    /**
      * 角色id --只做查询不做持久化
      */
     private String roleId;

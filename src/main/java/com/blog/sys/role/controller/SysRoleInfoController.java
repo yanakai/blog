@@ -4,8 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.base.model.Ztree;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
+import com.blog.sys.menu.service.ISysMenuInfoService;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.model.SysUserRole;
 import com.blog.sys.role.service.ISysRoleInfoService;
@@ -44,6 +46,11 @@ public class SysRoleInfoController extends BaseController {
      */
     @Resource
     private ISysUserRoleService sysUserRoleService;
+    /**
+     * 菜单信息业务层接口
+     */
+    @Resource
+    private ISysMenuInfoService sysMenuInfoService;
 
     /**
      * @Title: pageList
@@ -355,6 +362,5 @@ public class SysRoleInfoController extends BaseController {
         }
         return data;
     }
-
 
 }

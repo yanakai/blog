@@ -41,11 +41,28 @@
 				<input id="remark" name="remark" class="form-control" type="text">
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">菜单权限</label>
+			<div class="col-sm-8">
+				<div id="menuTrees" class="ztree"></div>
+			</div>
+		</div>
 	</form>
 </div>
 <th:block th:include="include :: footer" />
 <th:block th:include="include :: ztree-js" />
 <script type="text/javascript">
+	$(function() {
+		//获取菜单树形结构数据
+		var url = "/sys/menu/roleMenuTreeData";
+		var options = {
+			id: "menuTrees",
+			url: url,
+			check: { enable: true },
+			expandLevel: 0
+		};
+		$.tree.init(options);
+	});
 	$("#form-role-add").validate({
 		rules:{
 			onkeyup: false,
@@ -106,6 +123,7 @@
 		var roleSort = $("input[name='roleSort']").val();
 		var status = $("input[id='status']").is(':checked') == true ? 0 : 1;
 		var remark = $("input[name='remark']").val();
+		var menuIds = $.tree.getCheckedNodes();
 		$.ajax({
 			cache : true,
 			type : "POST",
@@ -115,7 +133,8 @@
 				"roleKey": roleKey,
 				"roleSort": roleSort,
 				"status": status,
-				"remark": remark
+				"remark": remark,
+				"menuIds": menuIds
 			},
 			async : false,
 			error : function(request) {

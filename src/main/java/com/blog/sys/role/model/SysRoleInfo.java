@@ -70,6 +70,33 @@ public class SysRoleInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** 菜单组 */
+    private String[] menuIds;
+
+    /**
+     * @Title: getMenuIds
+     * @Description:  菜单组ids
+     * @Param:
+     * @return: java.lang.String[]
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    public String[] getMenuIds() {
+        return menuIds;
+    }
+
+    /**
+     * @Title: setMenuIds
+     * @Description:  菜单组ids
+     * @Param: menuIds
+     * @return: void
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    public void setMenuIds(String[] menuIds) {
+        this.menuIds = menuIds;
+    }
+
     /**
      * 角色id
      */

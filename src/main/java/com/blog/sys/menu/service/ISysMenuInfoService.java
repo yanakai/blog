@@ -1,6 +1,8 @@
 package com.blog.sys.menu.service;
 
+import com.blog.sys.common.base.model.Ztree;
 import com.blog.sys.menu.model.SysMenuInfo;
+import com.blog.sys.role.model.SysRoleInfo;
 
 import java.util.List;
 
@@ -106,4 +108,15 @@ public interface ISysMenuInfoService {
      * @date   2019/11/12
      */
     List<SysMenuInfo> getChildMenuInfoById(String menuId);
+
+    /**
+     * @Title: roleMenuTreeData
+     * @Description: 获取角色菜单列表树
+     * @Param: sysRoleInfo 角色信息
+     * @Param userId 用户id
+     * @return: java.util.List<com.blog.sys.common.base.model.Ztree>
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    List<Ztree> roleMenuTreeData(SysRoleInfo sysRoleInfo, String userId);
 }
