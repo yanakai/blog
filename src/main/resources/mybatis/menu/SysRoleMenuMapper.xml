@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.sys.menu.mapper.SysRoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.blog.sys.menu.model.SysRoleMenu">
+    <id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.blog.sys.menu.model.SysRoleMenu">
+    delete from sys_role_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+      and role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.blog.sys.menu.model.SysRoleMenu">
+    insert into sys_role_menu (menu_id, role_id)
+    values (#{menuId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+</mapper>
