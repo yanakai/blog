@@ -217,7 +217,7 @@
 <!--获取最大的排序码-->
   <select id="getMaxSort"  resultType="INTEGER">
     select
-        max(role_sort)
+        IFNULL(MAX(role_sort),0)
     from sys_role_info
   </select>
 </mapper>

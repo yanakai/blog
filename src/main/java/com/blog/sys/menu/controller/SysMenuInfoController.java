@@ -179,5 +179,21 @@ public class SysMenuInfoController extends BaseController {
     }
 
 
+    /**
+     * @Title: selectMenuTree
+     * @Description:  跳转至菜单树页面
+     * @Param: menuId
+     * @Param modelMap
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    @GetMapping("/selectMenuTree/{menuId}")
+    public String selectMenuTree(@PathVariable("menuId") String menuId,ModelMap modelMap){
+        modelMap.put("info",sysMenuInfoService.getMenuInfoById(menuId));
+        return SYS_MENU_PATH + "/tree";
+    }
+
+
 
 }

@@ -9,8 +9,8 @@
 	button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
 </style>
 <body class="hold-transition box box-main">
-	<input id="treeId"   name="treeId"    type="hidden" th:value="${menu.menuId}"/>
-	<input id="treeName" name="treeName"  type="hidden" th:value="${menu.menuName}"/>
+	<input id="treeId"   name="treeId"    type="hidden" th:value="${info.menuId}"/>
+	<input id="treeName" name="treeName"  type="hidden" th:value="${info.menuName}"/>
 	<div class="wrapper"><div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
 		<label id="btnShow" title="显示搜索" style="display:none;">︾</label>
 		<label id="btnHide" title="隐藏搜索">︽</label>
@@ -29,7 +29,7 @@
 	<th:block th:include="include :: ztree-js" />
 	<script th:inline="javascript">
 		$(function() {
-			var url = ctx + "system/menu/menuTreeData";
+			var url = "sys/menu/menuTreeData";
 			var options = {
 		        url: url,
 		        expandLevel: 1,
