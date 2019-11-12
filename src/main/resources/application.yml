@@ -23,7 +23,7 @@ server:
     max-connections: 200000
     max-http-post-size: 9000000
 spring :
-  # 环境 dev 开发|test 测试|prod生产
+  # 环境 dev":开发 | test: 测试 | prod: 生产
   profiles :
     active : dev
   servlet:
