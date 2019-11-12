@@ -243,5 +243,10 @@
     from sys_menu_info smi
     where menu_id = #{menuId}
   </select>
+  <!--  通过主键id查询其子菜单数据-->
+  <select id="getChildMenuInfoById" parameterType="String" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/>
+    from sys_menu_info where parent_id =#{menu_id}
+  </select>
 
 </mapper>

@@ -171,6 +171,11 @@ public class SysMenuInfoController extends BaseController {
     public ResponseData deleteById(String menuId){
         ResponseData data  = operateFailed("删除失败");
         int state = 0;
+        List<SysMenuInfo> list = sysMenuInfoService.getChildMenuInfoById(menuId);
+        if (list !=null && list.size()>0){
+            data  = operateFailed("存在子菜单,不允许删除");
+            return data;
+        }
         state = sysMenuInfoService.deleteById(menuId);
         if (state > 0){
             data = operateSucess("删除成功");

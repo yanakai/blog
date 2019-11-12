@@ -75,4 +75,10 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
     public SysMenuInfo getMenuInfoById(String menuId) {
         return sysMenuInfoMapper.getMenuInfoById(menuId);
     }
+
+    @Override
+    public List<SysMenuInfo> getChildMenuInfoById(String menuId) {
+        return sysMenuInfoMapper.getChildMenuInfoById(menuId);
+    }
+
 }

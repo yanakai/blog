@@ -96,4 +96,14 @@ public interface ISysMenuInfoService {
      * @date   2019/11/12
      */
     SysMenuInfo getMenuInfoById(String menuId);
+
+    /**
+     * @Title: getChildMenuInfoById
+     * @Description:  通过追按id查询其子菜单数据
+     * @Param: menuId 菜单id'
+     * @return: java.util.List<com.blog.sys.menu.model.SysMenuInfo>
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    List<SysMenuInfo> getChildMenuInfoById(String menuId);
 }
