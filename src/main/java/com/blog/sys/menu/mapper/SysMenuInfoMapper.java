@@ -48,4 +48,14 @@ public interface SysMenuInfoMapper {
      * @date   2019/11/11
      */
     SysMenuInfo checkMenuNameUnique(@Param("parentId") String parentId,@Param("menuName")String menuName);
+
+    /**
+     * @Title: getMenuInfoById
+     * @Description:  通过主键查询菜单信息 包含父级菜单名称
+     * @Param: menuId 菜单主键
+     * @return: com.blog.sys.menu.model.SysMenuInfo
+     * @author: yankai
+     * @date   2019/11/12 
+     */ 
+    SysMenuInfo getMenuInfoById(String menuId);
 }

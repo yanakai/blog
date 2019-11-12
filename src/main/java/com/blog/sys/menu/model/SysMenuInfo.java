@@ -85,6 +85,35 @@ public class SysMenuInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 父级菜单名称
+     */
+    private String parentName;
+
+    /**
+     * @Title: getParentName
+     * @Description:  父级菜单名称
+     * @Param:
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    public String getParentName() {
+        return parentName;
+    }
+
+    /**
+     * @Title: setParentName
+     * @Description:  父级菜单名称
+     * @Param: parentName  父级菜单名称
+     * @return: void
+     * @author: yankai
+     * @date   2019/11/12
+     */
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    /**
      * 菜单ID
      */
     public String getMenuId() {

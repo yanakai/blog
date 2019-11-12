@@ -70,4 +70,9 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
         }
         return UserConstants.MENU_NAME_UNIQUE;
     }
+
+    @Override
+    public SysMenuInfo getMenuInfoById(String menuId) {
+        return sysMenuInfoMapper.getMenuInfoById(menuId);
+    }
 }

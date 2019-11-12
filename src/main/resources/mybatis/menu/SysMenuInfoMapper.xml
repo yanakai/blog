@@ -234,5 +234,14 @@
     select menu_id,parent_id,menu_name
     from sys_menu_info where parent_id =#{parentId} and menu_name = #{menuName}
   </select>
+  <!-- 通过主键查询菜单信息 包含父级菜单名称 -->
+  <select id="getMenuInfoById" parameterType="String" resultType="com.blog.sys.menu.model.SysMenuInfo">
+    select
+        smi.menu_id menuId, smi.menu_name menuName, smi.parent_id parentId, smi.order_num orderNum, smi.url, smi.target, smi.menu_type menuType, smi.visible,
+        smi.perms,smi.icon, smi.create_by createBy, smi.create_time createTime, smi.update_by updateBy, smi.update_time updateTime, smi.remark,
+        (select menu_name FROM sys_menu_info where menu_id = smi.parent_id) parentName
+    from sys_menu_info smi
+    where menu_id = #{menuId}
+  </select>
 
 </mapper>

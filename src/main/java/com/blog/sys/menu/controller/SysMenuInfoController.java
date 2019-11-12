@@ -110,7 +110,7 @@ public class SysMenuInfoController extends BaseController {
      */
     @GetMapping("/edit/{menuId}")
     public String edit(HttpServletRequest request, @PathVariable("menuId") String menuId, ModelMap modelMap){
-        SysMenuInfo sysMenuInfo = sysMenuInfoService.getById(menuId);
+        SysMenuInfo sysMenuInfo = sysMenuInfoService.getMenuInfoById(menuId);
         modelMap.put("info",sysMenuInfo);
         return SYS_MENU_PATH + "/edit";
     }
