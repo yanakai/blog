@@ -8,6 +8,7 @@ import com.blog.sys.role.mapper.SysRoleInfoMapper;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -40,14 +41,19 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
     }
 
     @Override
+    @Transactional
     public int updateNotNull(SysRoleInfo sysRoleInfo) {
-        return sysRoleInfoMapper.updateByPrimaryKeySelective(sysRoleInfo);
+        //修改角色信息
+        sysRoleInfoMapper.updateByPrimaryKeySelective(sysRoleInfo);
+        // 删除角色与菜单关联
+        sysRoleMenuMapper.deleteRoleMenuByRoleId(sysRoleInfo.getRoleId());
+        return saveRoleMenu(sysRoleInfo);
     }
 
     @Override
+    @Transactional
     public int saveNotNull(SysRoleInfo sysRoleInfo) {
         sysRoleInfoMapper.insertSelective(sysRoleInfo);
-
         return saveRoleMenu(sysRoleInfo);
     }
 
