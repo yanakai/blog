@@ -94,4 +94,9 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     public List<SysUserInfo> selectUnallocatedList(SysUserInfo sysUserInfo) {
         return sysUserInfoMapper.selectUnallocatedList(sysUserInfo);
     }
+
+    @Override
+    public SysUserInfo findByUserName(String userName) {
+        return sysUserInfoMapper.findByUserName(userName);
+    }
 }

@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
@@ -109,5 +108,17 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
     @Override
     public int getMaxSort() {
         return sysRoleInfoMapper.getMaxSort();
+    }
+
+    @Override
+    public Set<String> getRoleKeysByUserId(String userId) {
+        List<SysRoleInfo> sysRoleInfoList=sysRoleInfoMapper.getRoleListByUserId(userId);
+        Set<String> permsSet = new HashSet<>();
+        for (SysRoleInfo sysRoleInfo : sysRoleInfoList) {
+            if (StringUtils.isNotNull(sysRoleInfo)){
+                permsSet.add(String.valueOf(Arrays.asList(sysRoleInfo.getRoleKey().trim().split(","))));
+            }
+        }
+        return permsSet;
     }
 }

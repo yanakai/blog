@@ -116,4 +116,14 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     List<SysUserInfo> selectUnallocatedList(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  findByUserName
+     * @description: <p>通过用户名查询用户信息</p>
+     * @params:  userName
+     * @return: com.blog.sys.user.model.SysUserInfo
+     * @date: 2019/11/12 22:50
+     * @author: yanakai@126.com
+     */
+    SysUserInfo findByUserName(String userName);
 }

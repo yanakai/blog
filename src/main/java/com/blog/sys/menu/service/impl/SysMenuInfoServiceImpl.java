@@ -11,8 +11,7 @@ import com.blog.sys.user.model.SysUserInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ProjectName: blog
@@ -97,6 +96,18 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
             ztrees = initZtree(menuList, null, true);
         }
         return ztrees;
+    }
+
+    @Override
+    public Set<String> getMenuPermsByUserId(String userId) {
+        List<String> params=sysMenuInfoMapper.getMenuParamsByUserId(userId);
+        Set<String> permsSet = new HashSet<>();
+        for(String perm : params){
+            if (StringUtils.isNotEmpty(perm)){
+                permsSet.addAll(Arrays.asList(perm.trim().split(",")));
+            }
+        }
+        return permsSet;
     }
 
     /**

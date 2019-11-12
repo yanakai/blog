@@ -5,6 +5,7 @@ import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.role.model.SysRoleInfo;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ProjectName: blog
@@ -119,4 +120,14 @@ public interface ISysMenuInfoService {
      * @date   2019/11/12
      */
     List<Ztree> roleMenuTreeData(SysRoleInfo sysRoleInfo, String userId);
+
+    /**
+     * @method:  getMenuPermsByUserId
+     * @description: <p>根据用户id查询功能权限</p>
+     * @params:  userId
+     * @return: java.util.Set<java.lang.String>
+     * @date: 2019/11/12 22:56
+     * @author: yanakai@126.com
+     */
+    Set<String> getMenuPermsByUserId(String userId);
 }

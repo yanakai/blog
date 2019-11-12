@@ -57,4 +57,14 @@ public interface SysRoleInfoMapper {
      * @author: yanakai@126.com
      */
     int getMaxSort();
+
+    /**
+     * @method:  getRoleListByUserId
+     * @description: <p>根据用户id查询用户的角色列表</p>
+     * @params:  userId
+     * @return: java.util.List<com.blog.sys.role.model.SysRoleInfo>
+     * @date: 2019/11/12 22:58
+     * @author: yanakai@126.com
+     */
+    List<SysRoleInfo> getRoleListByUserId(String userId);
 }

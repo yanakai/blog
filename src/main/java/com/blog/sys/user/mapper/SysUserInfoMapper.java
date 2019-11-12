@@ -75,4 +75,14 @@ public interface SysUserInfoMapper {
      * @author: yanakai@126.com
      */
     List<SysUserInfo> selectUnallocatedList(@Param("vo")SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  findByUserName
+     * @description: <p>通过用户名查询用户信息</p>
+     * @params:  userName 用户名
+     * @return: com.blog.sys.user.model.SysUserInfo
+     * @date: 2019/11/12 22:51
+     * @author: yanakai@126.com
+     */
+    SysUserInfo findByUserName(String userName);
 }

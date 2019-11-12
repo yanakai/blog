@@ -263,5 +263,12 @@
       </if>
     </where>
   </select>
+  <!-- 通过用户名查询用户 -->
+  <select id="findByUserName" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user_info
+    where user_name = #{userName}
+  </select>
 
 </mapper>

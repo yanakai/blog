@@ -98,4 +98,14 @@ public interface SysMenuInfoMapper {
      * @date   2019/11/12
      */
     List<String> selectMenuTree(String roleId);
+
+    /**
+     * @method:  getMenuParamsByUserId
+     * @description: <p>根据用户查询功能权限</p>
+     * @params:  userId 用户id
+     * @return: java.util.List<java.lang.String>
+     * @date: 2019/11/12 23:01
+     * @author: yanakai@126.com       
+     */
+    List<String> getMenuParamsByUserId(String userId);
 }

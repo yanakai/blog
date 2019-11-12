@@ -277,6 +277,15 @@
 	where srm.role_id = #{roleId}
 	order by  smi.order_num
   </select>
+  <!-- 查询用户的功能权限 -->
+  <select id="getMenuParamsByUserId" parameterType="String" resultType="String" >
+      SELECT
+           distinct smi.perms
+      FROM sys_menu_info AS smi
+      LEFT JOIN sys_role_menu AS srm  ON smi.menu_id=srm.menu_id
+      LEFT JOIN  sys_user_role AS sur ON sur.role_id=srm.role_id
+      WHERE sur.user_id=#{userId}
+  </select>
 
 
 </mapper>

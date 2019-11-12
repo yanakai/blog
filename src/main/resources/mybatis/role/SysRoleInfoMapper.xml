@@ -220,4 +220,10 @@
         IFNULL(MAX(role_sort),0)
     from sys_role_info
   </select>
+<!--  根据用户id查询用户的角色列表-->
+  <select id="getRoleListByUserId" parameterType="String"   resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from sys_role_info as sri where exists (select role_id from sys_user_role where sri.role_id=role_id and user_id=#{userId} )
+  </select>
 </mapper>

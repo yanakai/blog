@@ -3,6 +3,7 @@ package com.blog.sys.role.service;
 import com.blog.sys.role.model.SysRoleInfo;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ISysRoleInfoService {
     /**
@@ -84,4 +85,14 @@ public interface ISysRoleInfoService {
      * @author: yanakai@126.com
      */
     int getMaxSort();
+
+    /**
+     * @method:  getRoleKeysByUserId
+     * @description: <p>根据用户id查询角色的key</p>
+     * @params:  userId 用户id
+     * @return: java.util.Set<java.lang.String>
+     * @date: 2019/11/12 22:56
+     * @author: yanakai@126.com
+     */
+    Set<String> getRoleKeysByUserId(String userId);
 }
