@@ -4,6 +4,7 @@ import com.blog.sys.role.mapper.SysUserRoleMapper;
 import com.blog.sys.role.model.SysUserRole;
 import com.blog.sys.role.service.ISysUserRoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService {
     }
 
     @Override
+    @Transactional
     public int saveUserRole(String roleId, String userIds) {
         List<SysUserRole> list = new ArrayList<>();
         String [] ids = userIds.split(",");
