@@ -43,7 +43,7 @@ public class LoginController extends BaseController {
 
     @GetMapping({"/login","/sys"})
     public String login() {
-        return "login";
+        return "/sys/login";
     }
     /**
      * @method:  unauthorize
