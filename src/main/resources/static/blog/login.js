@@ -3,7 +3,7 @@ $(function() {
 	validateKickout();
     validateRule();
 	$('.imgcode').click(function() {
-		var url = ctx + "captcha/captchaImage?type=" + captchaType + "&s=" + Math.random();
+		var url = "/captcha/captchaImage?type=" + captchaType + "&s=" + Math.random();
 		$(".imgcode").attr("src", url);
 	});
 });
@@ -16,7 +16,7 @@ $.validator.setDefaults({
 
 function login() {
 	$.modal.loading($("#btnSubmit").data("loading"));
-	var username = $.common.trim($("input[name='username']").val());
+	var userName = $.common.trim($("input[name='userName']").val());
     var password = $.common.trim($("input[name='password']").val());
     var validateCode = $("input[name='validateCode']").val();
     var rememberMe = $("input[name='rememberme']").is(':checked');
@@ -24,7 +24,7 @@ function login() {
         type: "post",
         url: ctx + "login",
         data: {
-            "username": username,
+            "userName": userName,
             "password": password,
             "validateCode" : validateCode,
             "rememberMe": rememberMe
