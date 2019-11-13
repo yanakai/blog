@@ -5,7 +5,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<title th:text="${title}"></title>
-	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="shortcut icon" th:href="@{/favicon.ico}">
 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 	<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
 	<!-- bootstrap-table 表格插件样式 -->
@@ -41,7 +41,7 @@
 	<script th:src="@{/ajax/libs/layui/layui.js}"></script>
 	<script th:src="@{/blog/js/common.js?v=4.1.0}"></script>
 	<script th:src="@{/blog/js/blog.js?v=4.1.0}"></script>
-	<script th:inline="javascript"> var ctx = [[@{/}]]; </script>
+	<script th:inline="javascript"> var ctx = [[;@{/}]]; ;</script>
 </div>
 
 <!-- ztree树插件 -->
