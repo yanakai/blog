@@ -110,6 +110,103 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
         return permsSet;
     }
 
+    @Override
+    public List<SysMenuInfo> getMenuListByUser(SysUserInfo sysUserInfo) {
+        List<SysMenuInfo> menuList = new LinkedList<SysMenuInfo>();
+        // 判断当前登录是否是超级管理员，显示所有菜单信息
+        if (SysUserInfo.isAdmin(sysUserInfo.getUserName())){
+            //true 查询所有菜单和功能点  false查询目录和菜单
+            menuList = sysMenuInfoMapper.getMenuParamsList(false);
+        }else{
+            menuList = sysMenuInfoMapper.getMenuListByUserId(false,sysUserInfo.getUserId());
+        }
+        return getChildPerms(menuList, "root");
+    }
+
+    /**
+     *
+     * <p>Title: getChildPerms</p>
+     * <p>Description: 根据传入的节点列表和根父id获取所有子节点</p>
+     * @param menuList 节点集合
+     * @param parentId 根节点父id
+     * @return
+     * @author yanakai@126.com
+     * @date 2019年8月4日
+     */
+    public List<SysMenuInfo> getChildPerms(List<SysMenuInfo> menuList, String parentId) {
+        List<SysMenuInfo> returnList = new ArrayList<SysMenuInfo>();
+        for (Iterator<SysMenuInfo> iterator = menuList.iterator(); iterator.hasNext();){
+            SysMenuInfo t = (SysMenuInfo) iterator.next();
+            // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
+            if (parentId.equals(t.getParentId().trim())){
+                recursionFn(menuList, t);
+                returnList.add(t);
+            }
+        }
+        return returnList;
+    }
+
+    /**
+     *
+     * <p>Title: recursionFn</p>
+     * <p>Description: 递归节点列表 </p>
+     * @param: menuList
+     * @param: t
+     * @author yanakai@126.com
+     * @date 2019年8月4日
+     */
+    private void recursionFn(List<SysMenuInfo> menuList, SysMenuInfo t) {
+        // 得到子节点列表
+        List<SysMenuInfo> childList = getChildList(menuList, t);
+        t.setChildList(childList);
+        for (SysMenuInfo tChild : childList){
+            if (hasChild(menuList, tChild)){
+                // 判断是否有子节点
+                Iterator<SysMenuInfo> it = childList.iterator();
+                while (it.hasNext()){
+                    SysMenuInfo n = (SysMenuInfo) it.next();
+                    recursionFn(menuList, n);
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     * <p>Title: hasChild</p>
+     * <p>Description: </p>
+     * @param menuList
+     * @param tChild
+     * @return
+     * @author yanakai@126.com
+     * @date 2019年8月4日
+     */
+    private boolean hasChild(List<SysMenuInfo> menuList, SysMenuInfo tChild) {
+        return getChildList(menuList, tChild).size() > 0 ? true : false;
+    }
+
+    /**
+     *
+     * <p>Title: getChildList</p>
+     * <p>Description: 得到子节点列表</p>
+     * @param menuList
+     * @param t
+     * @return
+     * @author yanakai@126.com
+     * @date 2019年8月4日
+     */
+    private List<SysMenuInfo> getChildList(List<SysMenuInfo> menuList, SysMenuInfo t) {
+        List<SysMenuInfo> tlist = new ArrayList<SysMenuInfo>();
+        Iterator<SysMenuInfo> it = menuList.iterator();
+        while (it.hasNext()){
+            SysMenuInfo n = (SysMenuInfo) it.next();
+            if (n.getParentId().equals(t.getMenuId())){
+                tlist.add(n);
+            }
+        }
+        return tlist;
+    }
+
     /**
      * @Title: initZtree
      * @Description:  初始化ztree数据 对象转ztree结构

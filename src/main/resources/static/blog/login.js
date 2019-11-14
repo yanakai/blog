@@ -22,16 +22,16 @@ function login() {
     var rememberMe = $("input[name='rememberme']").is(':checked');
     $.ajax({
         type: "post",
-        url: ctx + "login",
+        url: "/login",
         data: {
             "userName": userName,
             "password": password,
             "validateCode" : validateCode,
             "rememberMe": rememberMe
         },
-        success: function(r) {
-            if (r.code == 0) {
-                location.href = ctx + 'index';
+        success: function(data) {
+            if (data.state == 1) {
+                location.href = '/index';
             } else {
             	$.modal.closeLoading();
             	$('.imgcode').click();

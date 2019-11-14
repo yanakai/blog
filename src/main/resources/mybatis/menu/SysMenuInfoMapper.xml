@@ -287,5 +287,36 @@
       WHERE sur.user_id=#{userId}
   </select>
 
+<!--通过用户id获取所拥有的目录和菜单； flag true查询所有菜单和功能点  false查询目录和菜单-->
+  <select id="getMenuListByUserId" parameterType="String" resultMap="BaseResultMap" >
+    SELECT
+    smi.menu_id,smi.menu_name,smi.parent_id,smi.order_num,smi.url,smi.target,smi.menu_type,smi.visible,smi.perms,smi.icon,
+    smi.create_by,smi.create_time,smi.update_by,smi.update_time,smi.remark
+    FROM sys_menu_info AS smi
+    INNER JOIN sys_role_menu AS srm  ON smi.menu_id=srm.menu_id
+    INNER JOIN  sys_user_role AS sur ON sur.role_id=srm.role_id
+    <where>
+      <if test="flag != null and flag == false ">
+        and  smi.menu_type in ("M","C")
+      </if>
+      <if test="userId != null and userId != '' ">
+        and  sur.user_id=#{userId}
+      </if>
+    </where>
+    ORDER BY smi.order_num
+  </select>
+
+<!--  flag true查询所有菜单和功能点  false查询目录和菜单-->
+  <select id="getMenuParamsList" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from sys_menu_info
+    <where>
+      <if test="flag != null and flag == false ">
+        and  menu_type in ("M","C")
+      </if>
+    </where>
+    ORDER BY order_num
+  </select>
+
 
 </mapper>

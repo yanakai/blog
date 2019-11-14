@@ -2,6 +2,7 @@ package com.blog.sys.menu.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 菜单权限表
@@ -88,6 +89,34 @@ public class SysMenuInfo implements Serializable {
      * 父级菜单名称
      */
     private String parentName;
+    /**
+     * 子菜单列表
+     */
+    private List<SysMenuInfo> childList;
+
+    /**
+     * @method:  getChildList
+     * @description: <p>子菜单列表   </p>
+     * @params:
+     * @return: java.util.List<com.blog.sys.menu.model.SysMenuInfo>
+     * @date: 2019/11/14 21:46
+     * @author: yanakai@126.com
+     */
+    public List<SysMenuInfo> getChildList() {
+        return childList;
+    }
+
+    /**
+     * @method:  setChildList
+     * @description: <p>子菜单列表</p>
+     * @params:  childList 子菜单列表
+     * @return: void
+     * @date: 2019/11/14 21:46
+     * @author: yanakai@126.com
+     */
+    public void setChildList(List<SysMenuInfo> childList) {
+        this.childList = childList;
+    }
 
     /**
      * @Title: getParentName

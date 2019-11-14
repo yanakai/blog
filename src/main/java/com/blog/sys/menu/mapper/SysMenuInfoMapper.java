@@ -108,4 +108,27 @@ public interface SysMenuInfoMapper {
      * @author: yanakai@126.com       
      */
     List<String> getMenuParamsByUserId(String userId);
+
+    /**
+     *
+     * <p>Title: selectMenuAllByUserId</p>
+     * <p>Description: 查询当前用户id下的菜单数据</p>
+     * @param： userId 用户id
+     * @param： flag true查询所有菜单和功能点  false查询目录和菜单
+     * @return
+     * @author yanakai@126.com
+     * @date 2019年8月10日
+     */
+    List<SysMenuInfo> getMenuListByUserId(@Param("flag")boolean flag,@Param("userId")String userId);
+
+    /**
+     *
+     * <p>Title: getMenuParamsList</p>
+     * <p>Description: 查询菜单和功能点</p>
+     * @param： flag true查询所有菜单和功能点  false查询目录和菜单
+     * @return
+     * @author yanakai@126.com
+     * @date 2019年8月11日
+     */
+    List<SysMenuInfo> getMenuParamsList(@Param("flag")boolean flag);
 }

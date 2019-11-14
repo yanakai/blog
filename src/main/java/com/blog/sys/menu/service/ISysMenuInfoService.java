@@ -3,6 +3,7 @@ package com.blog.sys.menu.service;
 import com.blog.sys.common.base.model.Ztree;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.role.model.SysRoleInfo;
+import com.blog.sys.user.model.SysUserInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -130,4 +131,6 @@ public interface ISysMenuInfoService {
      * @author: yanakai@126.com
      */
     Set<String> getMenuPermsByUserId(String userId);
+
+    List<SysMenuInfo> getMenuListByUser(SysUserInfo sysUserInfo);
 }

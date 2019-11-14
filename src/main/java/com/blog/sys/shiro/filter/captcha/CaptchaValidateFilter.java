@@ -34,13 +34,11 @@ public class CaptchaValidateFilter extends AccessControlFilter {
      */
     private String captchaType = "math";
 
-    public void setCaptchaEnabled(boolean captchaEnabled)
-    {
+    public void setCaptchaEnabled(boolean captchaEnabled) {
         this.captchaEnabled = captchaEnabled;
     }
 
-    public void setCaptchaType(String captchaType)
-    {
+    public void setCaptchaType(String captchaType) {
         this.captchaType = captchaType;
     }
 
@@ -53,8 +51,7 @@ public class CaptchaValidateFilter extends AccessControlFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
-            throws Exception
-    {
+            throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         // 验证码禁用 或不是表单提交 允许访问
         if (captchaEnabled == false || !"post".equals(httpServletRequest.getMethod().toLowerCase())) {
@@ -66,8 +63,7 @@ public class CaptchaValidateFilter extends AccessControlFilter {
     public boolean validateResponse(HttpServletRequest request, String validateCode) {
         Object obj = ShiroUtils.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         String code = String.valueOf(obj != null ? obj : "");
-        if (StringUtils.isEmpty(validateCode) || !validateCode.equalsIgnoreCase(code))
-        {
+        if (StringUtils.isEmpty(validateCode) || !validateCode.equalsIgnoreCase(code)){
             return false;
         }
         return true;

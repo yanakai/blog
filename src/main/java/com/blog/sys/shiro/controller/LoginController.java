@@ -2,7 +2,10 @@ package com.blog.sys.shiro.controller;
 
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
+import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
+import com.blog.sys.shiro.utils.ShiroUtils;
+import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -10,9 +13,11 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: blog
@@ -115,5 +120,31 @@ public class LoginController extends BaseController {
             ae.printStackTrace();
             return operateFailed("用户名或密码不正确");
         }
+    }
+
+    /**
+     *
+     * <p>Title: index</p>
+     * <p>Description: 跳转值系统首页</p>
+     * @param: model
+     * @return
+     * @author yanakai@126.com
+     * @date 2019年7月27日
+     */
+    @RequestMapping(value="index",method = RequestMethod.GET)
+    public String index(Model model){
+        SysUserInfo sysUserInfo= ShiroUtils.getSysUser();
+        //查询目录和菜单
+        List<SysMenuInfo> menuList=sysMenuInfoService.getMenuListByUser(sysUserInfo);
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("user", sysUserInfo);
+        return "/sys/index";
+    }
+
+    // 系统介绍页
+    @GetMapping("/sys/main")
+    public String main(Model model){
+
+        return "/sys/main";
     }
 }
