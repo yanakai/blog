@@ -140,11 +140,10 @@ public class LoginController extends BaseController {
         model.addAttribute("user", sysUserInfo);
         return "/sys/index";
     }
-
     // 系统介绍页
     @GetMapping("/sys/main")
-    public String main(Model model){
-
+    public String main(Model model) {
         return "/sys/main";
     }
+
 }

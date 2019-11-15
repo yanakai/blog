@@ -1,17 +1,22 @@
 package com.blog.sys.shiro.config;
 
-import org.apache.shiro.mgt.SecurityManager;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.blog.sys.shiro.filter.captcha.CaptchaValidateFilter;
 import com.blog.sys.shiro.realm.CredentialMatcher;
 import com.blog.sys.shiro.realm.UserRealm;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @ProjectName: blog
@@ -28,16 +33,26 @@ import java.util.LinkedHashMap;
 @Configuration
 public class ShiroConfig {
 
+    // 验证码开关
+    @Value("${shiro.user.captchaEnabled}")
+    private boolean captchaEnabled;
+
+    // 验证码类型
+    @Value("${shiro.user.captchaType}")
+    private String captchaType;
+
+
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager securityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+        // Shiro的核心安全接口,这个属性是必须的
         bean.setSecurityManager(securityManager);
         // 登录的url
-        bean.setLoginUrl("/login");
+        bean.setLoginUrl("/sys/login");
         // 登录成功后跳转的url
-        bean.setSuccessUrl("/index");
+        bean.setSuccessUrl("/sys/index");
         // 权限拒绝时跳转的url
-        bean.setUnauthorizedUrl("/unauthorize");
+        bean.setUnauthorizedUrl("/error/unauth");
         // Shiro连接约束配置，即过滤链的定义
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 对静态资源设置匿名访问
@@ -49,16 +64,34 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/ajax/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/blog/**", "anon");
+        filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         // 不需要拦截就能访问
-        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/login", "anon,captchaValidate");
         filterChainDefinitionMap.put("/**/api/**", "anon");
         // 指定admin接口只允许admin角色的用户访问
         filterChainDefinitionMap.put("/admin", "roles[admin]");
+
+        Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
+        filters.put("captchaValidate", captchaValidateFilter());
+        bean.setFilters(filters);
+
         // 所有请求需要认证
         filterChainDefinitionMap.put("/**", "user");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
+
+    /**
+     * 自定义验证码过滤器
+     */
+    @Bean
+    public CaptchaValidateFilter captchaValidateFilter(){
+        CaptchaValidateFilter captchaValidateFilter = new CaptchaValidateFilter();
+        captchaValidateFilter.setCaptchaEnabled(captchaEnabled);
+        captchaValidateFilter.setCaptchaType(captchaType);
+        return captchaValidateFilter;
+    }
+
 
     @Bean("securityManager")
     public SecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm) {
@@ -97,5 +130,13 @@ public class ShiroConfig {
         DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
         creator.setProxyTargetClass(true);
         return creator;
+    }
+
+    /**
+     * thymeleaf模板引擎和shiro框架的整合
+     */
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
     }
 }

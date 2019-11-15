@@ -57,3 +57,10 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+# Shiro
+shiro:
+  user:
+    # 验证码开关
+    captchaEnabled: true
+    # 验证码类型 math 数组计算 char 字符
+    captchaType: math
