@@ -230,11 +230,11 @@
     select count(user_id) from sys_user_info where user_name = #{userName}
   </select>
 <!--验证手机号是否已存在-->
-  <select id="checkPhoneUnique" parameterType="String" resultMap="BaseResultMap">
+  <select id="findUserByPhoneNumber" parameterType="String" resultMap="BaseResultMap">
     select user_id, phone from sys_user_info where phone_number = #{phoneNumber}
   </select>
 <!--验证email是否已存在-->
-  <select id="checkEmailUnique" parameterType="String" resultMap="BaseResultMap">
+  <select id="findUserByEmail" parameterType="String" resultMap="BaseResultMap">
     select user_id, email from sys_user_info where email = #{email}
   </select>
   <!-- 获取角色下用户列表数据-->

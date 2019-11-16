@@ -45,7 +45,7 @@ public interface SysUserInfoMapper {
      * @date: 2019/11/8 21:29
      * @author: yanakai@126.com
      */
-    SysUserInfo checkPhoneUnique(String phoneNumber);
+    SysUserInfo findUserByPhoneNumber(String phoneNumber);
     /**
      * @method:  checkEmailUnique
      * @description: <p>验证email是否已存在</p>
@@ -54,7 +54,7 @@ public interface SysUserInfoMapper {
      * @date: 2019/11/8 21:30
      * @author: yanakai@126.com
      */
-    SysUserInfo checkEmailUnique(String email);
+    SysUserInfo findUserByEmail(String email);
 
     /**
      * @method:  allocatedList

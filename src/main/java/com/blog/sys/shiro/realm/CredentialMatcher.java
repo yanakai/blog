@@ -8,7 +8,7 @@ import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 /**
  * shiro
   * <p>Title: CredentialMatcher </p>  
-  * <p>Description:自定义密码校验规则 </p>  
+  * <p>Description:自定义密码校验规则 ,在shiro的config中使用</p>
   * @author yanakai@126.com  
   * @date 2019年7月2日
  */

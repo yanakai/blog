@@ -68,7 +68,7 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     @Override
     public String checkPhoneUnique(SysUserInfo sysUserInfo) {
         String userId = StringUtils.isNull(sysUserInfo.getUserId()) ? "":sysUserInfo.getUserId();
-        SysUserInfo info = sysUserInfoMapper.checkPhoneUnique(sysUserInfo.getPhoneNumber());
+        SysUserInfo info = sysUserInfoMapper.findUserByPhoneNumber(sysUserInfo.getPhoneNumber());
         if (StringUtils.isNotNull(info) && !userId.equals(info.getUserId())){
             return UserConstants.USER_PHONE_NOT_UNIQUE;
         }
@@ -78,7 +78,7 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     @Override
     public String checkEmailUnique(SysUserInfo sysUserInfo) {
         String userId = StringUtils.isNull(sysUserInfo.getUserId()) ?"":sysUserInfo.getUserId();
-        SysUserInfo info = sysUserInfoMapper.checkEmailUnique(sysUserInfo.getEmail());
+        SysUserInfo info = sysUserInfoMapper.findUserByEmail(sysUserInfo.getEmail());
         if (StringUtils.isNotNull(info) && !userId.equals(info.getUserId())){
             return UserConstants.USER_EMAIL_NOT_UNIQUE;
         }
@@ -98,5 +98,15 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     @Override
     public SysUserInfo findByUserName(String userName) {
         return sysUserInfoMapper.findByUserName(userName);
+    }
+
+    @Override
+    public SysUserInfo selectUserByPhoneNumber(String phoneNumber) {
+        return sysUserInfoMapper.findUserByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public SysUserInfo selectUserByEmail(String email) {
+        return sysUserInfoMapper.findUserByEmail(email);
     }
 }

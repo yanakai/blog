@@ -1,7 +1,9 @@
 package com.blog.sys.shiro.realm;
 
+import com.blog.sys.common.exception.user.*;
 import com.blog.sys.menu.service.ISysMenuInfoService;
 import com.blog.sys.role.service.ISysRoleInfoService;
+import com.blog.sys.shiro.service.SysLoginService;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
@@ -11,6 +13,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
@@ -29,6 +33,7 @@ import java.util.Set;
  * @Version: 1.0
  */
 public class UserRealm extends AuthorizingRealm {
+    private static final Logger log = LoggerFactory.getLogger(UserRealm.class);
 
     @Resource
     private ISysUserInfoService sysUserInfoService;
@@ -36,6 +41,8 @@ public class UserRealm extends AuthorizingRealm {
     private ISysRoleInfoService sysRoleInfoService;
     @Resource
     private ISysMenuInfoService sysMenuInfoService;
+    @Resource
+    private SysLoginService loginService;
 
     //授权方法   用户权限查询
     @Override
@@ -65,12 +72,33 @@ public class UserRealm extends AuthorizingRealm {
     //认证方法  登录认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
-        // 获取登录的用户名
-        String userName = usernamePasswordToken.getUsername();
-        // 从数据库中查询用户  在此可判断登录状态用户名和密码
-        SysUserInfo sysUserInfo  = sysUserInfoService.findByUserName(userName);
-        return new SimpleAuthenticationInfo(sysUserInfo, sysUserInfo.getPassword(), this.getClass().getName());
+        UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
+        String username = upToken.getUsername();
+        String password = "";
+        if (upToken.getPassword() != null){
+            password = new String(upToken.getPassword());
+        }
+        SysUserInfo user = null;
+        try{
+            user = loginService.login(username, password);
+        }catch (CaptchaException e){
+            throw new AuthenticationException(e.getMessage(), e);
+        }catch (UserNotExistsException e){
+            throw new UnknownAccountException(e.getMessage(), e);
+        }catch (UserPasswordNotMatchException e){
+            throw new IncorrectCredentialsException(e.getMessage(), e);
+        }catch (UserPasswordRetryLimitExceedException e){
+            throw new ExcessiveAttemptsException(e.getMessage(), e);
+        }catch (UserBlockedException e){
+            throw new LockedAccountException(e.getMessage(), e);
+        }catch (RoleBlockedException e){
+            throw new LockedAccountException(e.getMessage(), e);
+        }catch (Exception e){
+            log.info("对用户[" + username + "]进行登录验证..验证未通过{}", e.getMessage());
+            throw new AuthenticationException(e.getMessage(), e);
+        }
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
+        return info;
     }
 
     /**

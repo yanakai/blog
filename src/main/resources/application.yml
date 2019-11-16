@@ -22,6 +22,13 @@ server:
     #shiro 报错修改的地方
     max-connections: 200000
     max-http-post-size: 9000000
+
+# 用户配置
+user:
+  password:
+    # 密码错误{maxRetryCount}次锁定10分钟
+    maxRetryCount: 5
+
 spring :
   # 环境 dev":开发 | test: 测试 | prod: 生产
   profiles :
@@ -38,10 +45,10 @@ spring :
     prefix: classpath:/templates/
     suffix: .html
     cache: false #开发时关闭缓存,不然没法看到实时页面
-    # 资源信息
-    messages:
-      # 国际化资源文件路径
-      basename: static/i18n/messages
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: static/i18n/messages
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -64,3 +71,23 @@ shiro:
     captchaEnabled: true
     # 验证码类型 math 数组计算 char 字符
     captchaType: math
+  cookie:
+    # 设置Cookie的域名 默认空，即当前访问的域名
+    domain:
+    # 设置cookie的有效访问路径
+    path: /
+    # 设置HttpOnly属性
+    httpOnly: true
+    # 设置Cookie的过期时间，天为单位
+    maxAge: 30
+  session:
+    # Session超时时间，-1代表永不过期（默认30分钟）
+    expireTime: 30
+    # 同步session到数据库的周期（默认1分钟）
+    dbSyncPeriod: 1
+    # 相隔多久检查一次session的有效性，默认就是10分钟
+    validationInterval: 10
+    # 同一个用户最大会话数，比如2的意思是同一个账号允许最多同时两个人登录（默认-1不限制）
+    maxSession: -1
+    # 踢出之前登录的/之后登录的用户，默认踢出之前登录的用户
+    kickoutAfter: false

@@ -126,4 +126,24 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     SysUserInfo findByUserName(String userName);
+
+    /**
+     * @method:  selectUserByPhoneNumber
+     * @description: <p>通过手机号查询用户信息</p>
+     * @params:  phoneNumber
+     * @return: com.blog.sys.user.model.SysUserInfo
+     * @date: 2019/11/16 15:52
+     * @author: yanakai@126.com
+     */
+    SysUserInfo selectUserByPhoneNumber(String phoneNumber);
+
+    /**
+     * @method:  selectUserByEmail
+     * @description: <p>通过Email查询用户信息</p>
+     * @params:  email
+     * @return: com.blog.sys.user.model.SysUserInfo
+     * @date: 2019/11/16 15:52
+     * @author: yanakai@126.com
+     */
+    SysUserInfo selectUserByEmail(String email);
 }
