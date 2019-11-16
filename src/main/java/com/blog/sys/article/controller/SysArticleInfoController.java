@@ -3,13 +3,16 @@ package com.blog.sys.article.controller;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.blog.sys.article.model.SysArticleInfo;
+import com.blog.sys.article.service.ISysArticleInfoService;
 import com.blog.sys.column.model.SysColumnInfo;
+import com.blog.sys.column.service.ISysColumnInfoService;
+import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
-import com.blog.sys.article.service.ISysArticleInfoService;
-import com.blog.sys.column.service.ISysColumnInfoService;
-import com.blog.sys.common.base.BaseController;
+import com.blog.sys.shiro.utils.ShiroUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +60,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/22 23:26
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:article:view")
     @GetMapping("/list")
     public String articleList(){
         return SYS_ARTICLE_PATH+"/list";
@@ -70,6 +74,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/22 23:27
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:article:list")
     @PostMapping("list")
     @ResponseBody
     public TableDataInfo articlePage(HttpServletRequest request, SysArticleInfo sysArticleInfo){
@@ -88,13 +93,14 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/22 23:27
      * @author: yanakai@126.com
      */
+    @RequiresPermissions(value={"sys:article:rel","sys:article:top"},logical= Logical.OR)
     @PostMapping("/changeStatus")
     @ResponseBody
     public ResponseData changeStatus(HttpServletRequest request, SysArticleInfo sysArticleInfo){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
         sysArticleInfo.setReleaseTime(new Date());
-        sysArticleInfo.setReleaseName("暂时没有问题登录系统");
+        sysArticleInfo.setReleaseName(ShiroUtils.getSysUser().getTrueName());
         state = sysArticleInfoService.updateNotNull(sysArticleInfo);
         if (state>0) data = operateSucess("操作成功");
         return data;
@@ -108,6 +114,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/23 0:06
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:article:del")
     @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData virtualDeleteById(HttpServletRequest request,String articleId){
@@ -128,6 +135,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
+    @RequiresPermissions("sys:article:add")
     @GetMapping("/add")
     public String add(ModelMap modelMap){
         //获取所有的文章栏目
@@ -145,6 +153,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
+    @RequiresPermissions("sys:article:edit")
     @GetMapping("/edit/{articleId}")
     public String edit(@PathVariable("articleId") String articleId, ModelMap modelMap){
         //获取所有的文章栏目
@@ -163,6 +172,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
+    @RequiresPermissions(value={"sys:article:add","sys:article:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
     public ResponseData saveOrUpdate(SysArticleInfo sysArticleInfo){
@@ -194,6 +204,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/29
      */
+    @RequiresPermissions("sys:article:pre")
     @GetMapping("/detail/{articleId}")
     public String detail(HttpServletRequest request,@PathVariable("articleId") String articleId,ModelMap modelMap){
         if (StringUtils.isNotEmpty(articleId)){
