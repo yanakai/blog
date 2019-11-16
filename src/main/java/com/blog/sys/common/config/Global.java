@@ -4,6 +4,8 @@ import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.YamlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -22,6 +24,8 @@ import java.util.Map;
  * @UpdateRemark:   更新内容
  * @Version:        1.0
  */
+@Component
+@ConfigurationProperties(prefix = "blog")
 public class Global{
     private static final Logger log = LoggerFactory.getLogger(Global.class);
 
@@ -100,7 +104,7 @@ public class Global{
      * 获取文件上传路径
      */
     public static String getProfile(){
-        return getConfig("yk.profile");
+        return getConfig("blog.profile");
     }
 
     /**
