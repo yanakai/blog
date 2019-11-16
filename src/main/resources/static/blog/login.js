@@ -36,7 +36,7 @@ function login() {
             	$.modal.closeLoading();
             	$('.imgcode').click();
             	$(".code").val("");
-            	$.modal.msg(r.msg);
+            	$.modal.msg(data.msg);
             }
         }
     });
