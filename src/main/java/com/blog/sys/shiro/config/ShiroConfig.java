@@ -48,11 +48,11 @@ public class ShiroConfig {
         // Shiro的核心安全接口,这个属性是必须的
         bean.setSecurityManager(securityManager);
         // 登录的url
-        bean.setLoginUrl("/sys/login");
+        bean.setLoginUrl("/login");
         // 登录成功后跳转的url
-        bean.setSuccessUrl("/sys/index");
+        bean.setSuccessUrl("/index");
         // 权限拒绝时跳转的url
-        bean.setUnauthorizedUrl("/error/unauth");
+        bean.setUnauthorizedUrl("/unauth");
         // Shiro连接约束配置，即过滤链的定义
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 对静态资源设置匿名访问
