@@ -35,8 +35,7 @@ public class SysPasswordService {
         loginRecordCache = cacheManager.getCache(ShiroConstants.LOGINRECORDCACHE);
     }
 
-    public void validate(SysUserInfo user, String password)
-    {
+    public void validate(SysUserInfo user, String password){
         String loginName = user.getUserName();
 
         AtomicInteger retryCount = loginRecordCache.get(loginName);
@@ -52,9 +51,7 @@ public class SysPasswordService {
         if (!matches(user, password)){
             loginRecordCache.put(loginName, retryCount);
             throw new UserPasswordNotMatchException();
-        }
-        else
-        {
+        }else{
             clearLoginRecordCache(loginName);
         }
     }
@@ -79,3 +76,4 @@ public class SysPasswordService {
     }
 
 }
+
