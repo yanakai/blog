@@ -6,8 +6,11 @@ import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
+import com.blog.sys.shiro.service.SysPasswordService;
+import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -40,6 +43,9 @@ public class SysUserInfoController extends BaseController {
      */
     @Resource
     private ISysUserInfoService sysUserInfoService;
+
+    @Autowired
+    private SysPasswordService passwordService;
 
     /**
      * @method:  pageList
@@ -138,7 +144,10 @@ public class SysUserInfoController extends BaseController {
                 data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，邮箱账号已存在");
                 return data;
             }
+            //生成用户盐
+            sysUserInfo.setSalt(ShiroUtils.randomSalt());
             sysUserInfo.setUserId(UUID.randomUUID().toString());
+            sysUserInfo.setPassword(passwordService.encryptPassword(sysUserInfo.getUserName(), sysUserInfo.getPassword(), sysUserInfo.getSalt()));
             sysUserInfo.setCreateTime(new Date());
             state = sysUserInfoService.saveNotNull(sysUserInfo);
         }
@@ -265,8 +274,13 @@ public class SysUserInfoController extends BaseController {
     public ResponseData resetPwdSave(SysUserInfo sysUserInfo) {
         ResponseData data=operateFailed("操作失败");
         sysUserInfo.setModifyTime(new Date());
+        sysUserInfo.setSalt(ShiroUtils.randomSalt());
+        sysUserInfo.setPassword(passwordService.encryptPassword(sysUserInfo.getUserName(), sysUserInfo.getPassword(), sysUserInfo.getSalt()));
         int state = sysUserInfoService.updateNotNull(sysUserInfo);
         if (state>0) {
+            if (ShiroUtils.getUserId() == sysUserInfo.getUserId()){
+                ShiroUtils.setSysUser(sysUserInfoService.getById(sysUserInfo.getUserId()));
+            }
             data=operateSucess("操作成功");
         }
         return data;
