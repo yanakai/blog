@@ -30,36 +30,19 @@
                 <li class="logo">
 				     <span class="logo-lg">VBlog</span>
             	</li>
-                <li>
-                	<a href="#">
-                		<i class="fa fa-bar-chart-o fa fa-file-archive-o" ></i>
-                    	<span class="nav-label" >文章管理</span>
-                    	<span class="fa arrow"></span>
-                	</a>
-                    <ul class="nav nav-second-level collapse">
-						<li class="selected">
-							<a class="menuItem" href="/sys/article/list" data-index="1">文章列表</a>
-						</li>
-						<li>
-							<a class="menuItem" href="/sys/column/list" data-index="2">栏目列表</a>
-						</li>
-					</ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-bar-chart-o fa fa-file-archive-o" ></i>
-                        <span class="nav-label" >系统管理</span>
-                        <span class="fa arrow"></span>
+                <li th:each="menu : ${menuList}">
+                    <a th:class="@{${menu.url != '' && menu.url != '#'} ? ${menu.target}}" th:href="@{${menu.url == ''} ? |#| : ${menu.url}}">
+                        <i class="fa fa-bar-chart-o" th:class="${menu.icon}"></i>
+                        <span class="nav-label" th:text="${menu.menuName}">一级菜单</span>
+                        <span th:class="${menu.url == '' || menu.url == '#'} ? |fa arrow|"></span>
                     </a>
                     <ul class="nav nav-second-level collapse">
-                        <li >
-                            <a class="menuItem" href="/sys/user/list" data-index="1">用户列表</a>
-                        </li>
-                        <li >
-                            <a class="menuItem" href="/sys/role/list" data-index="1">角色列表</a>
-                        </li>
-                        <li >
-                            <a class="menuItem" href="/sys/menu/list" data-index="1">菜单列表</a>
+                        <li th:each="cmenu : ${menu.childList}">
+                            <a th:if="${#lists.isEmpty(cmenu.childList)}" th:class="${cmenu.target == ''} ? |menuItem| : ${cmenu.target}" th:utext="${cmenu.menuName}" th:href="@{${cmenu.url}}">二级菜单</a>
+                            <a th:if="${not #lists.isEmpty(cmenu.childList)}" href="#">[[${cmenu.menuName}]]<span class="fa arrow"></span></a>
+                            <ul th:if="${not #lists.isEmpty(cmenu.childList)}" class="nav nav-third-level">
+                                <li th:each="emenu : ${cmenu.childList}"><a th:class="${emenu.target == ''} ? |menuItem| : ${emenu.target}" th:text="${emenu.menuName}" th:href="@{${emenu.url}}">三级菜单</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -79,6 +62,31 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right welcome-message">
 	                <li><a title="全屏显示" href="javascript:void(0)" id="fullScreen"><i class="fa fa-arrows-alt"></i> 全屏显示</a></li>
+                    <li class="dropdown user-menu">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-hover="dropdown">
+                            <img th:src="(${user.imagePath} == null) ? @{/img/profile.jpg} : @{${user.imagePath}}" class="user-image">
+                            <span class="hidden-xs">[[${user.trueName}]]</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="mt5">
+                                <a th:href="@{/sys/user/profile}" class="menuItem">
+                                    <i class="fa fa-user"></i> 个人中心</a>
+                            </li>
+                            <li>
+                                <a onclick="resetPwd()">
+                                    <i class="fa fa-key"></i> 修改密码</a>
+                            </li>
+                            <li>
+                                <a onclick="switchSkin()">
+                                    <i class="fa fa-dashboard"></i> 切换主题</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a th:href="@{logout}">
+                                    <i class="fa fa-sign-out"></i> 退出登录</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
