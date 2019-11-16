@@ -1,5 +1,6 @@
 ${AnsiColor.BRIGHT_BLUE}
-Application Version: ${yk.version}
+Application Version: ${blog.version}
+Application Name: ${blog.name}
 Spring Boot Version: ${spring-boot.version}
 *******************************************
 * 码云地址                                 *
