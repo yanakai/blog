@@ -1,6 +1,7 @@
 package com.blog.sys.common.base;
 
 import cn.hutool.core.date.DateUtil;
+import com.blog.sys.common.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.WebDataBinder;
@@ -173,6 +174,13 @@ public class BaseController {
         ResponseData result = operateFailed(msg, data);
         result.setCode(code);
         return result;
+    }
+
+    /**
+     * 页面跳转
+     */
+    public String redirect(String url){
+        return StringUtils.format("redirect:{}", url);
     }
 
 
