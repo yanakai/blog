@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
-import com.blog.sys.common.base.model.Ztree;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.menu.service.ISysMenuInfoService;
@@ -12,6 +11,7 @@ import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.model.SysUserRole;
 import com.blog.sys.role.service.ISysRoleInfoService;
 import com.blog.sys.role.service.ISysUserRoleService;
+import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Controller;
@@ -141,6 +141,8 @@ public class SysRoleInfoController extends BaseController {
             data.setMsg("保存角色'" + sysRoleInfo.getRoleName() + "'失败，角色key已存在");
             return data;
         }
+        //清除权限缓存
+        ShiroUtils.clearCachedAuthorizationInfo();
         if (StringUtils.isNotEmpty(sysRoleInfo.getRoleId())){
             sysRoleInfo.setUpdateTime(new Date());
             sysRoleInfo.setUpdateBy("暂无登录者");
