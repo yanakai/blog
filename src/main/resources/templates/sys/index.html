@@ -125,8 +125,30 @@
 <script th:src="@{/js/jquery.contextMenu.min.js}"></script>
 <script th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
-<script th:src="@{/blog/js/blog.js?v=4.0.0}"></script>
+<script th:src="@{/blog/js/blog.js}"></script>
 <script th:src="@{/blog/index.js}"></script>
 <script th:src="@{/ajax/libs/fullscreen/jquery.fullscreen.js}"></script>
+<script th:inline="javascript">
+
+        /* 用户管理-重置密码 */
+        function resetPwd() {
+            var url ='/sys/user/profile/resetPwd';
+            $.modal.open("重置密码", url, '770', '380');
+        }
+
+// 排除非左侧菜单链接
+        var excludesUrl = ["/sys/user/profile"];
+
+        $(function() {
+            var hash = location.hash;
+            if (hash !== '') {
+                var url = hash.substring(1, hash.length);
+                $('a[href$="' + decodeURI(url) + '"]').click();
+                if($.inArray(url, excludesUrl)){
+                    $('a[href$="' + url + '"]').parent("li").addClass("selected").parents("li").addClass("active").end().parents("ul").addClass("in");
+                }
+            }
+        });
+</script>
 </body>
 </html>
