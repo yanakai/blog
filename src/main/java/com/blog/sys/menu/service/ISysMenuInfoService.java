@@ -132,5 +132,13 @@ public interface ISysMenuInfoService {
      */
     Set<String> getMenuPermsByUserId(String userId);
 
+    /**
+     * @method:  getMenuListByUser
+     * @description: <p>通过用户信息查询菜单列表</p>
+     * @params:  sysUserInfo
+     * @return: java.util.List<com.blog.sys.menu.model.SysMenuInfo>
+     * @date: 2019/11/17 18:06
+     * @author: yanakai@126.com
+     */
     List<SysMenuInfo> getMenuListByUser(SysUserInfo sysUserInfo);
 }
