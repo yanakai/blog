@@ -119,7 +119,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="index",method = RequestMethod.GET)
     public String index(Model model){
         SysUserInfo sysUserInfo= ShiroUtils.getSysUser();
-        //查询目录和菜单
+        //根据当前登录用户信息查询目录和菜单
         List<SysMenuInfo> menuList=sysMenuInfoService.getMenuListByUser(sysUserInfo);
         model.addAttribute("menuList", menuList);
         model.addAttribute("user", sysUserInfo);
