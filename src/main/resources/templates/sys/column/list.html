@@ -24,7 +24,7 @@
 			</div>
 			
 	        <div class="btn-group-sm" id="toolbar" role="group">
-		        <a class="btn btn-success" onclick="$.operate.add()" >
+		        <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="sys:column:add" >
 		            <i class="fa fa-plus"></i> 新增
 		        </a>
 	        </div>
@@ -36,6 +36,8 @@
     </div>
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
+		var editFlag = [[${@permission.hasPermi('sys:article:edit')}]];
+		var delFlag = [[${@permission.hasPermi('sys:article:del')}]];
         var prefix = "/sys/column";
         $(function() {
             var options = {
@@ -70,8 +72,8 @@
 		            formatter: function(value, row, index) {
 		            	var actions = [];
 		            	var columnId = "columnId";
-		            	actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.columnId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs " href="javascript:void(0)" onclick="$.operate.deleteById(\'' + columnId + '\',\'' + row.columnId + '\')"><i class="fa fa-remove"></i>删除</a>');
+		            	actions.push('<a class="btn btn-success btn-xs '+editFlag+'" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.columnId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs '+delFlag+'" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + columnId + '\',\'' + row.columnId + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]

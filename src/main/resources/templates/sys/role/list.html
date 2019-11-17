@@ -29,11 +29,8 @@
 		</div>
 
 		<div class="btn-group-sm" id="toolbar" role="group">
-			<a class="btn btn-success" onclick="$.operate.add()" >
+			<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="sys:role:add" >
 				<i class="fa fa-plus"></i> 新增
-			</a>
-			<a class="btn btn-warning" onclick="$.table.exportExcel()" >
-				<i class="fa fa-download"></i> 导出
 			</a>
 		</div>
 
@@ -44,6 +41,9 @@
 </div>
 <th:block th:include="include :: footer" />
 <script th:inline="javascript">
+	var editFlag = [[${@permission.hasPermi('sys:user:edit')}]];
+	var delFlag = [[${@permission.hasPermi('sys:user:del')}]];
+	var addUserFlag = [[${@permission.hasPermi('sys:user:addUser')}]];
 	var prefix =  "/sys/role";
 	$(function() {
 		var options = {
@@ -99,9 +99,9 @@
 					formatter: function(value, row, index) {
 						var actions = [];
 						var roleId = "roleId";
-						actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.roleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-						actions.push('<a class="btn btn-info btn-xs" href="javascript:void(0)" onclick="authUser(\'' + row.roleId + '\')"><i class="fa fa-user"></i>分配用户</a> ');
-						actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + roleId + '\',\'' + row.roleId + '\')"><i class="fa fa-remove"></i>删除</a> ');
+						actions.push('<a class="btn btn-success btn-xs '+editFlag+'" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.roleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+						actions.push('<a class="btn btn-info btn-xs '+addUserFlag+'" href="javascript:void(0)" onclick="authUser(\'' + row.roleId + '\')"><i class="fa fa-user"></i>分配用户</a> ');
+						actions.push('<a class="btn btn-danger btn-xs '+delFlag+'" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + roleId + '\',\'' + row.roleId + '\')"><i class="fa fa-remove"></i>删除</a> ');
 						return actions.join('');
 					}
 				}]

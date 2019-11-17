@@ -35,13 +35,13 @@
 			</div>
 
 			<div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.addTab()" >
+				<a class="btn btn-success" onclick="$.operate.addTab()"  shiro:hasPermission="sys:user:add">
 					<i class="fa fa-plus"></i> 新增
 				</a>
-				<a class="btn btn-primary single disabled" onclick="$.operate.editTab()" >
+				<a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="sys:user:edit">
 					<i class="fa fa-edit"></i> 修改
 				</a>
-				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" >
+				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="sys:user:del">
 					<i class="fa fa-remove"></i> 删除
 				</a>
 			</div>
@@ -56,6 +56,9 @@
 <th:block th:include="include :: footer" />
 <th:block th:include="include :: layout-latest-js" />
 <script th:inline="javascript">
+	var editFlag = [[${@permission.hasPermi('sys:user:edit')}]];
+	var delFlag = [[${@permission.hasPermi('sys:user:del')}]];
+	var restPwdFlag = [[${@permission.hasPermi('sys:user:restPwd')}]];
 	var prefix ="/sys/user";
 	$(function() {
 		var panehHidden = false;
@@ -125,9 +128,9 @@
 					formatter: function(value, row, index) {
 						var actions = [];
 						var userId = "userId"
-						actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.userId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-						actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + userId + '\',\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a> ');
-						actions.push('<a class="btn btn-info btn-xs" href="javascript:void(0)" onclick="resetPwd(\'' + row.userId + '\')"><i class="fa fa-key"></i>重置</a>');
+						actions.push('<a class="btn btn-success btn-xs '+editFlag+'" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.userId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+						actions.push('<a class="btn btn-danger btn-xs '+delFlag+'" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + userId + '\',\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a> ');
+						actions.push('<a class="btn btn-info btn-xs '+restPwdFlag+'" href="javascript:void(0)" onclick="resetPwd(\'' + row.userId + '\')"><i class="fa fa-key"></i>重置</a>');
 						return actions.join('');
 					}
 				}]
