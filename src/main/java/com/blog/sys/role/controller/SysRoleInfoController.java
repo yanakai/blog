@@ -14,6 +14,8 @@ import com.blog.sys.role.service.ISysUserRoleService;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +63,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @RequiresPermissions("sys:role:view")
     @GetMapping("/list")
     public String pageList(HttpServletRequest request, ModelMap modelMap){
         return SYS_ROLE_PATH + "/list";
@@ -75,6 +78,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @RequiresPermissions("sys:role:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataList(HttpServletRequest request, SysRoleInfo sysRoleInfo){
@@ -93,6 +97,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @RequiresPermissions("sys:role:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request,ModelMap modelMap){
         //获取最大的排序码
@@ -110,6 +115,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @RequiresPermissions("sys:role:edit")
     @GetMapping("/edit/{roleId}")
     public String edit(HttpServletRequest request, @PathVariable("roleId") String roleId,ModelMap modelMap){
         if (StrUtil.isNotEmpty(roleId)){
@@ -128,6 +134,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @RequiresPermissions(value={"sys:column:add","sys:column:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
     public ResponseData saveOrUpdate(HttpServletRequest request, SysRoleInfo sysRoleInfo){
@@ -168,6 +175,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/8 23:07
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:role:del")
     @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData deleteById(HttpServletRequest request,String roleId){
@@ -221,6 +229,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/8 23:05
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
     public ResponseData changeStatus(HttpServletRequest request,SysRoleInfo sysRoleInfo){
@@ -244,6 +253,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/9 17:50
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:role:addUser")
     @GetMapping("/authUser/{roleId}")
     public String authUser(HttpServletRequest request,@PathVariable("roleId") String roleId,ModelMap modelMap){
         SysRoleInfo info =sysRoleInfoService.getById(roleId);
@@ -260,6 +270,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/9 18:05
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:role:addUser")
     @PostMapping("/authUser/allocatedList")
     @ResponseBody
     public TableDataInfo allocatedList(HttpServletRequest request, SysUserInfo sysUserInfo){

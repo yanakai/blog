@@ -10,6 +10,8 @@ import com.blog.sys.shiro.service.SysPasswordService;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +57,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/6 21:26
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:view")
     @GetMapping("/list")
     public String pageList(HttpServletRequest request){
         return SYS_USER_PATH + "/list";
@@ -69,6 +72,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/6 21:26
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataList(HttpServletRequest request, SysUserInfo sysUserInfo){
@@ -87,6 +91,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:30
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request, ModelMap modelMap){
         return SYS_USER_PATH+"/add";
@@ -102,6 +107,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:33
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:edit")
     @GetMapping("/edit/{userId}")
     public String edit(HttpServletRequest request, @PathVariable("userId") String userId, ModelMap modelMap){
         SysUserInfo info = sysUserInfoService.getById(userId);
@@ -118,6 +124,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:45
      * @author: yanakai@126.com
      */
+    @RequiresPermissions(value={"sys:user:add","sys:user:edit"},logical = Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
     public ResponseData saveOrUpdate(HttpServletRequest request,SysUserInfo sysUserInfo){
@@ -166,6 +173,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:51
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:del")
     @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData deleteById(HttpServletRequest request,String userId){
@@ -233,6 +241,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/8 21:43
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:user:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
     public ResponseData changeStatus(SysUserInfo sysUserInfo){

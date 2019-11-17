@@ -7,6 +7,8 @@ import com.blog.sys.column.service.ISysColumnInfoService;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:column:view")
     @GetMapping("/list")
     public String columnList(){
         return SYS_COLUMN_PATH+"/list";
@@ -59,6 +62,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:column:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo columnPage(HttpServletRequest request, SysColumnInfo sysColumnInfo){
@@ -75,6 +79,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:column:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request){
         return SYS_COLUMN_PATH+"/add";
@@ -88,6 +93,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:53
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:column:edit")
     @GetMapping("/edit/{columnId}")
     public String add(HttpServletRequest request, @PathVariable("columnId") String columnId, ModelMap modelMap){
         if (StrUtil.isNotEmpty(columnId)){
@@ -105,6 +111,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:49
      * @author: yanakai@126.com
      */
+    @RequiresPermissions(value={"sys:column:add","sys:column:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
     public ResponseData saveOrUpdate(HttpServletRequest request, SysColumnInfo sysColumnInfo){
@@ -130,6 +137,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:56
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:column:del")
     @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData deleteById(String columnId){

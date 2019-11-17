@@ -3,19 +3,19 @@ package com.blog.sys.menu.controller;
 import cn.hutool.core.lang.UUID;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
-import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.base.model.Ztree;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
 import com.blog.sys.role.model.SysRoleInfo;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +47,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @RequiresPermissions("sys:menu:view")
     @GetMapping("/list")
     public String pageList(HttpServletRequest request, ModelMap modelMap){
         return SYS_MENU_PATH + "/list";
@@ -60,6 +61,7 @@ public class SysMenuInfoController extends BaseController {
      * @date: 2019/11/10 21:10
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:menu:list")
     @PostMapping("/list")
     @ResponseBody
     public List<SysMenuInfo> tableDataList(HttpServletRequest request, SysMenuInfo sysMenuInfo){
@@ -85,6 +87,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @RequiresPermissions("sys:menu:add")
     @GetMapping("/add/{parentId}")
     public String add(HttpServletRequest request,@PathVariable("parentId") String parentId,ModelMap modelMap){
         SysMenuInfo sysMenuInfo = new SysMenuInfo();
@@ -110,6 +113,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @RequiresPermissions("sys:menu:edit")
     @GetMapping("/edit/{menuId}")
     public String edit(HttpServletRequest request, @PathVariable("menuId") String menuId, ModelMap modelMap){
         SysMenuInfo sysMenuInfo = sysMenuInfoService.getMenuInfoById(menuId);
@@ -140,6 +144,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @RequiresPermissions(value={"sys:menu:add","sys:menu:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
     public ResponseData saveOrUpdate(HttpServletRequest request,SysMenuInfo sysMenuInfo){
@@ -168,6 +173,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @RequiresPermissions("sys:menu:del")
     @PostMapping("/deleteById")
     @ResponseBody
     public ResponseData deleteById(String menuId){
