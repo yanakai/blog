@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 	<th:block th:include="include :: header('文章列表')" />
 </head>
@@ -131,8 +131,8 @@
 							actions.push('<a class="btn btn-danger btn-xs ' + topFlag + '" href="javascript:void(0)" onclick="disableTop(\'' + row.articleId + '\')"><i class="fa fa-refresh"></i>取消置顶</a> ')
 						}
 		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editFull(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-						actions.push('<a class="btn btn-success btn-xs ' + delFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>预览</a> ');
-						actions.push('<a class="btn btn-danger btn-xs ' + preFlag + '" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + articleId + '\',\'' + row.articleId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						actions.push('<a class="btn btn-success btn-xs ' + preFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.articleId + '\')"><i class="fa fa-edit"></i>预览</a> ');
+						actions.push('<a class="btn btn-danger btn-xs ' + delFlag + '" href="javascript:void(0)" onclick="$.operate.deleteById(\'' + articleId + '\',\'' + row.articleId + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]

@@ -163,8 +163,7 @@ public class PermissionService{
      * @param role 角色字符串
      * @return 用户是否具备某角色
      */
-    public boolean isRole(String role)
-    {
+    public boolean isRole(String role){
         return SecurityUtils.getSubject().hasRole(role);
     }
 
@@ -174,8 +173,7 @@ public class PermissionService{
      * @param role 角色名称
      * @return 用户是否不具备某角色
      */
-    public boolean isLacksRole(String role)
-    {
+    public boolean isLacksRole(String role){
         return isRole(role) != true;
     }
 
@@ -185,8 +183,7 @@ public class PermissionService{
      * @param roles 以 ROLE_NAMES_DELIMETER 为分隔符的角色列表
      * @return 用户是否具有以下任意一个角色
      */
-    public boolean isAnyRoles(String roles)
-    {
+    public boolean isAnyRoles(String roles){
         return isAnyRoles(roles, ROLE_DELIMETER);
     }
 
@@ -197,8 +194,7 @@ public class PermissionService{
      * @param delimeter 角色列表分隔符
      * @return 用户是否具有以下任意一个角色
      */
-    public boolean isAnyRoles(String roles, String delimeter)
-    {
+    public boolean isAnyRoles(String roles, String delimeter){
         Subject subject = SecurityUtils.getSubject();
         if (subject != null)
         {
@@ -225,8 +221,7 @@ public class PermissionService{
      * @param property 属性名称
      * @return 用户属性值
      */
-    public Object getPrincipalProperty(String property)
-    {
+    public Object getPrincipalProperty(String property){
         Subject subject = SecurityUtils.getSubject();
         if (subject != null)
         {
