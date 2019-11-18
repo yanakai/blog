@@ -101,7 +101,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:30
      * @author: yanakai@126.com
      */
-    @Log(title = "角色管理-->添加页面", businessType = BusinessType.SEARCH)
+    @Log(title = "用户管理-->添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:user:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request, ModelMap modelMap){
@@ -122,7 +122,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:33
      * @author: yanakai@126.com
      */
-    @Log(title = "角色管理-->编辑页面", businessType = BusinessType.SEARCH)
+    @Log(title = "用户管理-->编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:user:edit")
     @GetMapping("/edit/{userId}")
     public String edit(HttpServletRequest request, @PathVariable("userId") String userId, ModelMap modelMap){
@@ -141,7 +141,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:45
      * @author: yanakai@126.com
      */
-    @Log(title = "角色管理-->保存数据", businessType = BusinessType.INSERT)
+    @Log(title = "用户管理-->保存数据", businessType = BusinessType.INSERT)
     @RequiresPermissions(value={"sys:user:add","sys:user:edit"},logical = Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
@@ -191,7 +191,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:51
      * @author: yanakai@126.com
      */
-    @Log(title = "角色管理-->删除角色", businessType = BusinessType.DELETE)
+    @Log(title = "用户管理-->删除用户", businessType = BusinessType.DELETE)
     @RequiresPermissions("sys:user:del")
     @PostMapping("/deleteById")
     @ResponseBody
@@ -260,7 +260,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/8 21:43
      * @author: yanakai@126.com
      */
-    @Log(title = "角色管理-->用户启用/禁用", businessType = BusinessType.UPDATE)
+    @Log(title = "用户管理-->用户启用/禁用", businessType = BusinessType.UPDATE)
     @RequiresPermissions("sys:user:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
@@ -298,7 +298,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/8 21:48
      * @author: yanakai@126.com
      */
-    @Log(title = "角色管理-->修改密码", businessType = BusinessType.UPDATE)
+    @Log(title = "用户管理-->修改密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
     public ResponseData resetPwdSave(SysUserInfo sysUserInfo) {
