@@ -2,6 +2,7 @@ package com.blog.sys.shiro.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.blog.sys.common.utils.StringUtils;
+import com.blog.sys.shiro.filter.LogoutFilter;
 import com.blog.sys.shiro.filter.captcha.CaptchaValidateFilter;
 import com.blog.sys.shiro.realm.CredentialMatcher;
 import com.blog.sys.shiro.realm.UserRealm;
@@ -128,6 +129,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/blog/**", "anon");
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
+        // 退出 logout地址，shiro去清除session
+        filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截就能访问
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");
         filterChainDefinitionMap.put("/**/api/**", "anon");
@@ -136,12 +139,29 @@ public class ShiroConfig {
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         filters.put("captchaValidate", captchaValidateFilter());
+        // 注销成功，则跳转到指定页面
+        filters.put("logout", logoutFilter());
         bean.setFilters(filters);
 
         // 所有请求需要认证
         filterChainDefinitionMap.put("/**", "user");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
+    }
+
+    /**
+     * @method:  logoutFilter
+     * @description: <p>退出过滤器</p>
+     * @params:
+     * @return: javax.servlet.Filter
+     * @date: 2019/11/19 22:46
+     * @author: yanakai@126.com       
+     */
+    public Filter logoutFilter() {
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setCacheManager(getEhCacheManager());
+        logoutFilter.setLoginUrl("/login");
+        return logoutFilter;
     }
 
     /**
