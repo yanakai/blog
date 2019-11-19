@@ -44,7 +44,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
                 其它 %p 表示level,%t表示线程名
             -->
             <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
-            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) -> %highlight(%-5level) %boldMagenta(%logger{50}) - %cyan(%msg%n)</pattern>
+            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) -> %highlight(%-5level) -> %F -> %boldMagenta(%logger{50}) - %cyan(%msg%n)</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>
