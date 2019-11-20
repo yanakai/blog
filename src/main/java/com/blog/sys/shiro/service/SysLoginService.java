@@ -5,6 +5,7 @@ import com.blog.sys.common.exception.user.*;
 import com.blog.sys.common.manager.factory.AsyncFactory;
 import com.blog.sys.common.utils.*;
 import com.blog.sys.shiro.constant.ShiroConstants;
+import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Component;
@@ -70,6 +71,7 @@ public class SysLoginService {
             throw new UserBlockedException();
         }
         passwordService.validate(user, password);
+        recordLoginInfo(user);
         return user;
     }
 
@@ -92,7 +94,7 @@ public class SysLoginService {
      */
     public void recordLoginInfo(SysUserInfo user){
         user.setLoginTime(DateUtils.getNowDate());
-        user.setModifyTime(DateUtils.getNowDate());
+        user.setLoginIp(ShiroUtils.getIp());
         sysUserInfoService.updateNotNull(user);
     }
 
