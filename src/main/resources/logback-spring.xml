@@ -18,6 +18,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <property name="LOG_HOME" value="E:\\blog-log" />
     <!-- 定义日志文件名称 -->
     <property name="appName" value="blog"></property>
+    <!--继承ClassicConverter实现logback-spring.xml日志打印服务器主机名-->
     <conversionRule conversionWord="ip" converterClass="com.blog.sys.LogClass" />
 
     <!-- 控制台输出 -->
@@ -43,7 +44,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
             -->
 
             <!--格式化输出：%d:表示日期    %thread:表示线程名     %-5level:级别从左显示5个字符宽度  %msg:日志消息    %n:是换行符-->
-            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) -> %highlight(%-5level) ->%contextName -->[%ip]  -> %F -> %M -> %boldMagenta(%logger{50}) - %cyan(%msg%n)</pattern>
+            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) -> %highlight(%-5level) -->[%ip]  -> %F -> %M -> %boldMagenta(%logger{50}) - %cyan(%msg%n)</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>
