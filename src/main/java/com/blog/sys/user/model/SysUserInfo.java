@@ -132,6 +132,33 @@ public class SysUserInfo implements Serializable {
         this.roleId = roleId;
     }
 
+    /** 角色组 */
+    private String[] roleIds;
+
+    /**
+     * @method:  getRoleIds
+     * @description: <p>角色组</p>
+     * @params:
+     * @return: java.lang.String[]
+     * @date: 2019/11/19 23:06
+     * @author: yanakai@126.com
+     */
+    public String[] getRoleIds() {
+        return roleIds;
+    }
+
+    /**
+     * @method:  setRoleIds
+     * @description: <p>角色组</p>
+     * @params:  roleIds
+     * @return: void
+     * @date: 2019/11/19 23:06
+     * @author: yanakai@126.com
+     */
+    public void setRoleIds(String[] roleIds) {
+        this.roleIds = roleIds;
+    }
+
     /**
      * 
      */

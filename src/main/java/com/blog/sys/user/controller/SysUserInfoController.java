@@ -6,6 +6,8 @@ import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
+import com.blog.sys.role.model.SysRoleInfo;
+import com.blog.sys.role.service.ISysRoleInfoService;
 import com.blog.sys.shiro.service.SysPasswordService;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
@@ -45,6 +47,11 @@ public class SysUserInfoController extends BaseController {
      */
     @Resource
     private ISysUserInfoService sysUserInfoService;
+    /**
+     * 角色业务层接口
+     */
+    @Resource
+    private ISysRoleInfoService sysRoleInfoService;
 
     @Autowired
     private SysPasswordService passwordService;
@@ -94,6 +101,10 @@ public class SysUserInfoController extends BaseController {
     @RequiresPermissions("sys:user:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request, ModelMap modelMap){
+        //获取所有的角色
+        SysRoleInfo sysRoleInfo = new SysRoleInfo();
+        List<SysRoleInfo> roleInfos = sysRoleInfoService.getList(sysRoleInfo);
+        modelMap.put("roles",roleInfos);
         return SYS_USER_PATH+"/add";
     }
 
@@ -111,6 +122,9 @@ public class SysUserInfoController extends BaseController {
     @GetMapping("/edit/{userId}")
     public String edit(HttpServletRequest request, @PathVariable("userId") String userId, ModelMap modelMap){
         SysUserInfo info = sysUserInfoService.getById(userId);
+        SysRoleInfo sysRoleInfo = new SysRoleInfo();
+        List<SysRoleInfo> roleInfos = sysRoleInfoService.getList(sysRoleInfo);
+        modelMap.put("roles",roleInfos);
         modelMap.put("info",info);
         return SYS_USER_PATH + "/edit";
     }

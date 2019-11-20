@@ -66,6 +66,18 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label class="col-xs-2 control-label">角色：</label>
+					<div class="col-xs-10">
+						<label th:each="role:${roles}" class="check-box">
+							<input name="role" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}" th:disabled="${role.status == '1'}">
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
 	</form>
 </div>
 
@@ -153,6 +165,8 @@
 	function submitHandler() {
 		if ($.validate.form()) {
 			var data = $("#form-user-add").serializeArray();
+			var roleIds = $.form.selectCheckeds("role");
+			data.push({"name": "roleIds", "value": roleIds});
 			$.operate.saveTab(prefix + "/saveOrUpdate", data);
 		}
 	}

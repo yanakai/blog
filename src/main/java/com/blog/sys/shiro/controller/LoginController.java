@@ -64,22 +64,6 @@ public class LoginController extends BaseController {
     public String unauthorize() {
         return "/error/unauth";
     }
-    /**
-     * @method:  logout
-     * @description: <p>退出返回登录页面</p>
-     * @params:
-     * @return: java.lang.String
-     * @date: 2019/11/12 22:35
-     * @author: yanakai@126.com
-     */
-    @RequestMapping("/logout")
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject != null) {
-            subject.logout();
-        }
-        return "login";
-    }
 
     /**
      * @method:  userLoginWithRealmAction

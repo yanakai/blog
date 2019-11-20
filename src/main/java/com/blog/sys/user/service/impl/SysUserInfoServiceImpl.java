@@ -2,12 +2,16 @@ package com.blog.sys.user.service.impl;
 
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
+import com.blog.sys.role.mapper.SysUserRoleMapper;
+import com.blog.sys.role.model.SysUserRole;
 import com.blog.sys.user.mapper.SysUserInfoMapper;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +33,11 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
      */
     @Resource
     private SysUserInfoMapper sysUserInfoMapper;
+    /**
+     * 用户角色持久层
+     */
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public List<SysUserInfo> getList(SysUserInfo sysUserInfo) {
@@ -46,8 +55,18 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     }
 
     @Override
+    @Transactional
     public int saveNotNull(SysUserInfo sysUserInfo) {
-        return sysUserInfoMapper.insertSelective(sysUserInfo);
+        sysUserInfoMapper.insertSelective(sysUserInfo);
+        List<SysUserRole> list = new ArrayList<>();
+        String [] roleIds = sysUserInfo.getRoleIds();
+        for (String roleId : roleIds){
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setUserId(sysUserInfo.getUserId());
+            sysUserRole.setRoleId(roleId);
+            list.add(sysUserRole);
+        }
+        return sysUserRoleMapper.saveUserRole(list);
     }
 
     @Override
