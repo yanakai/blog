@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 16/11/2019 22:10:35
+ Date: 20/11/2019 22:01:26
 */
 
 SET NAMES utf8mb4;
@@ -89,6 +89,23 @@ CREATE TABLE `sys_dept_info`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for sys_login_info
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_login_info`;
+CREATE TABLE `sys_login_info`  (
+  `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+  `login_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录账号',
+  `ipaddr` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录IP地址',
+  `login_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录地点',
+  `browser` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '浏览器类型',
+  `os` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作系统',
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
+  `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '提示消息',
+  `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
+  PRIMARY KEY (`info_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 129 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for sys_menu_info
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu_info`;
@@ -149,6 +166,30 @@ INSERT INTO `sys_menu_info` VALUES ('fb93c087-841f-4b6d-b81a-5b9d5a09626a', '角
 INSERT INTO `sys_menu_info` VALUES ('ffa65704-de6c-461a-85c1-af55fb007dbf', '菜单编辑', 'ca345f90-0100-4eda-8ebd-b73f1cb7fa29', 4, '', 'menuItem', 'F', '0', 'sys:menu:edit', '', '暂时没有登录者', '2019-11-16 14:00:37', '暂时没有登录者', '2019-11-16 14:01:20', '');
 
 -- ----------------------------
+-- Table structure for sys_oper_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_oper_log`;
+CREATE TABLE `sys_oper_log`  (
+  `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '模块标题',
+  `business_type` int(2) NULL DEFAULT 0 COMMENT '业务类型（0其它 1新增 2修改 3删除）',
+  `method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '方法名称',
+  `request_method` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求方式',
+  `operator_type` int(1) NULL DEFAULT 0 COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
+  `oper_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作人员',
+  `dept_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '部门名称',
+  `oper_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求URL',
+  `oper_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '主机地址',
+  `oper_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作地点',
+  `oper_param` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求参数',
+  `json_result` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '返回参数',
+  `status` int(1) NULL DEFAULT 0 COMMENT '操作状态（0正常 1异常）',
+  `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
+  `oper_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`oper_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for sys_role_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
@@ -181,7 +222,8 @@ CREATE TABLE `sys_role_info`  (
 -- ----------------------------
 -- Records of sys_role_info
 -- ----------------------------
-INSERT INTO `sys_role_info` VALUES ('1', '管理员', 'admin', 1, '1', '0', '0', 'admin', '2018-03-16 11:33:00', '暂无登录者', '2019-11-16 12:28:25', '');
+INSERT INTO `sys_role_info` VALUES ('1', '管理员', 'admin', 1, '1', '1', '0', 'admin', '2018-03-16 11:33:00', '暂无登录者', '2019-11-19 15:19:44', '');
+INSERT INTO `sys_role_info` VALUES ('7106387b-3bb3-4416-9d79-a2501abadd01', '测试角色', 'test', 1, '1', '0', '0', '暂无登录者', '2019-11-16 14:54:57', '暂无登录者', '2019-11-17 06:44:13', '');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -196,20 +238,41 @@ CREATE TABLE `sys_role_menu`  (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('197e7325-9867-4d1e-8875-e18b83e0ddd8', '1');
-INSERT INTO `sys_role_menu` VALUES ('1a03644c-6e98-430f-98c3-99295567e0a7', '1');
-INSERT INTO `sys_role_menu` VALUES ('4bac578d-1052-448f-91f6-6b4129c58d40', '1');
-INSERT INTO `sys_role_menu` VALUES ('5a951602-4815-4bb1-9e2b-07cf2091528a', '1');
-INSERT INTO `sys_role_menu` VALUES ('646428ba-ff5e-4a81-a9d2-68c0ef31a439', '1');
-INSERT INTO `sys_role_menu` VALUES ('7721b1d9-b3c1-499b-9b4d-8b2f48f12566', '1');
-INSERT INTO `sys_role_menu` VALUES ('8314746a-0aeb-4c54-9f92-c32fce41183e', '1');
-INSERT INTO `sys_role_menu` VALUES ('ca345f90-0100-4eda-8ebd-b73f1cb7fa29', '1');
-INSERT INTO `sys_role_menu` VALUES ('cfd727d1-7a4a-4812-823c-ce78b19faff3', '1');
-INSERT INTO `sys_role_menu` VALUES ('d832be47-75b7-4145-85f0-940a4bdcf7cb', '1');
-INSERT INTO `sys_role_menu` VALUES ('eb2d09f8-5211-4591-8802-3c7231fe90ac', '1');
+INSERT INTO `sys_role_menu` VALUES ('03acecc5-15ec-4902-bc72-6ac08453c266', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('1893fc3f-2b1b-4971-a91c-e7c4d7974dcc', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('197e7325-9867-4d1e-8875-e18b83e0ddd8', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('1a03644c-6e98-430f-98c3-99295567e0a7', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('1f442996-7d1e-4250-b4b5-ae1c11a1350f', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('26ac5406-7bc4-4963-9c19-63826c75ec4e', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('3cc0cc85-ebbe-4dc4-a350-3da6770230c7', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('3f49aa82-0029-466d-89b0-733b77fdc278', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('49d7030c-7a22-48f3-8b4b-487f9f61ac0b', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('4bac578d-1052-448f-91f6-6b4129c58d40', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('53d60f5a-014b-45d4-87af-4439d079fd7c', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('5a951602-4815-4bb1-9e2b-07cf2091528a', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('646428ba-ff5e-4a81-a9d2-68c0ef31a439', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('7721b1d9-b3c1-499b-9b4d-8b2f48f12566', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('7e897877-8cb5-4bf0-8a1a-d382198640e9', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('8314746a-0aeb-4c54-9f92-c32fce41183e', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('837a0833-6ce2-4f72-b959-cb900c229818', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('9b63400a-8c9b-45af-aafb-dd9e481c9935', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('a0aea9d9-9836-4c56-8f72-bae046525321', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('a5a7a52a-7c87-4c70-8043-00f20c3ffdb7', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('b82ce26b-9c21-4662-bf15-1ee6f6781e8a', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('b85e77a6-31fc-43d3-9de1-b9ef4fee372f', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('ca345f90-0100-4eda-8ebd-b73f1cb7fa29', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('cfd727d1-7a4a-4812-823c-ce78b19faff3', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('d4ea59ce-45dc-4dc8-b6a3-d33368b2892e', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('d832be47-75b7-4145-85f0-940a4bdcf7cb', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('e41cb303-c561-4385-a645-22250c52277c', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('e5ec2ddb-bbc2-40b9-a22d-71e0f7d58c5f', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('eb2d09f8-5211-4591-8802-3c7231fe90ac', '7106387b-3bb3-4416-9d79-a2501abadd01');
 INSERT INTO `sys_role_menu` VALUES ('eb2d09f8-5211-4591-8802-3c7231fe90ac', 'b5365e0d-c291-4539-9df7-25e33bd596b7');
-INSERT INTO `sys_role_menu` VALUES ('fb1f89bf-fdcd-4994-b57b-1c228b54dfaa', '1');
+INSERT INTO `sys_role_menu` VALUES ('fb1f89bf-fdcd-4994-b57b-1c228b54dfaa', '7106387b-3bb3-4416-9d79-a2501abadd01');
 INSERT INTO `sys_role_menu` VALUES ('fb1f89bf-fdcd-4994-b57b-1c228b54dfaa', 'b5365e0d-c291-4539-9df7-25e33bd596b7');
+INSERT INTO `sys_role_menu` VALUES ('fb4625e2-ee79-463d-8fc3-f011521b2d1f', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('fb93c087-841f-4b6d-b81a-5b9d5a09626a', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_role_menu` VALUES ('ffa65704-de6c-461a-85c1-af55fb007dbf', '7106387b-3bb3-4416-9d79-a2501abadd01');
 
 -- ----------------------------
 -- Table structure for sys_user_info
@@ -231,15 +294,16 @@ CREATE TABLE `sys_user_info`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `login_Time` timestamp(0) NULL DEFAULT NULL COMMENT '最后登录时间',
   `modify_time` timestamp(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `login_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最后登陆IP',
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户信息表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sys_user_info
 -- ----------------------------
-INSERT INTO `sys_user_info` VALUES ('1f6cb2c5-a267-4a6f-b9ec-97ba14673413', 'yankai2', '07696e6486a23439c9bd942704b79e65', '15538157826', 'kai yan', '0', '15538157829', 'yanakai@127.com', 'c86d03', '0', NULL, NULL, '2019-08-05 14:44:41', NULL, '2019-11-16 10:20:01');
-INSERT INTO `sys_user_info` VALUES ('512ae24c-f0a0-43fa-ac4c-7b830e152036', 'yankai', 'f848fed3262133c8bf6bafc827660b9a', '15538157823', 'kai yan', '1', '15538157826', 'yanakai@126.com', '7c8c65', '0', NULL, NULL, '2019-08-01 15:31:02', NULL, '2019-11-16 10:20:18');
-INSERT INTO `sys_user_info` VALUES ('admin', 'admin', '6e46bc8bfd6617fb29fd152ada99c3dc', '', '超级管理员', '0', NULL, 'yanakai@124.com', 'ba36d3', '0', '/profile/avatar/2019/11/16/14d52b633c9d852f0c8ae4e40c0bd295.png', NULL, NULL, NULL, '2019-11-16 10:20:16');
+INSERT INTO `sys_user_info` VALUES ('9722a28d-a85e-4216-8d51-72da46fe7f25', 'yankai', 'ff210928e31eff77dab8aae4a042cbae', '15538157826', '闫凯', '0', NULL, 'yanakai@127.com', 'a08cc4', '0', NULL, NULL, '2019-11-17 03:24:27', '2019-11-20 13:03:25', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_user_info` VALUES ('admin', 'admin', '6e46bc8bfd6617fb29fd152ada99c3dc', '', '超级管理员', '0', NULL, 'yanakai@124.com', 'ba36d3', '0', '/profile/avatar/2019/11/16/14d52b633c9d852f0c8ae4e40c0bd295.png', NULL, NULL, '2019-11-20 21:48:07', '2019-11-16 10:20:16', '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_user_info` VALUES ('b8837a0a-5cc9-42b7-b062-3b71ac3147f8', 'dudu', '13b60a3cfdb05c30e51a1e12b3c44d3e', '15538157822', 'dudu', '0', NULL, 'yanakai@129.com', 'a48946', '0', NULL, NULL, '2019-11-19 15:18:49', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -254,10 +318,13 @@ CREATE TABLE `sys_user_role`  (
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-INSERT INTO `sys_user_role` VALUES ('1f6cb2c5-a267-4a6f-b9ec-97ba14673413', '1');
-INSERT INTO `sys_user_role` VALUES ('512ae24c-f0a0-43fa-ac4c-7b830e152036', '1');
+INSERT INTO `sys_user_role` VALUES ('1f6cb2c5-a267-4a6f-b9ec-97ba14673413', '7106387b-3bb3-4416-9d79-a2501abadd01');
+INSERT INTO `sys_user_role` VALUES ('512ae24c-f0a0-43fa-ac4c-7b830e152036', '7106387b-3bb3-4416-9d79-a2501abadd01');
 INSERT INTO `sys_user_role` VALUES ('670886ba-dad1-4b53-8b08-a4a0d871ba19', '1');
 INSERT INTO `sys_user_role` VALUES ('7f6da361-72f7-44a7-a23b-ba53342f4b1e', '1');
+INSERT INTO `sys_user_role` VALUES ('9722a28d-a85e-4216-8d51-72da46fe7f25', '7106387b-3bb3-4416-9d79-a2501abadd01');
 INSERT INTO `sys_user_role` VALUES ('admin', '1');
+INSERT INTO `sys_user_role` VALUES ('b8837a0a-5cc9-42b7-b062-3b71ac3147f8', '1');
+INSERT INTO `sys_user_role` VALUES ('b8837a0a-5cc9-42b7-b062-3b71ac3147f8', '7106387b-3bb3-4416-9d79-a2501abadd01');
 
 SET FOREIGN_KEY_CHECKS = 1;
