@@ -76,28 +76,28 @@ public class Global{
      * 获取项目名称
      */
     public static String getName(){
-        return StringUtils.nvl(getConfig("yk.name"), "blog");
+        return StringUtils.nvl(getConfig("blog.name"), "blog");
     }
 
     /**
      * 获取项目版本
      */
     public static String getVersion(){
-        return StringUtils.nvl(getConfig("yk.version"), "1.0");
+        return StringUtils.nvl(getConfig("blog.version"), "1.0");
     }
 
     /**
      * 获取版权年份
      */
     public static String getCopyrightYear(){
-        return StringUtils.nvl(getConfig("yk.copyrightYear"), "2019");
+        return StringUtils.nvl(getConfig("blog.copyrightYear"), "2019");
     }
 
     /**
      * 获取ip地址开关
      */
     public static Boolean isAddressEnabled(){
-        return Boolean.valueOf(getConfig("yk.addressEnabled"));
+        return Boolean.valueOf(getConfig("blog.addressEnabled"));
     }
 
     /**
