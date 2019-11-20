@@ -1,4 +1,4 @@
-package com.blog.sys;
+package com.blog.sys.common.utils;
 
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
  * @author: yankai
  * @date   2019-11-20
  */
-public class LogClass extends ClassicConverter {
+public class LogUtil extends ClassicConverter {
 
     @Override
     public String convert(ILoggingEvent iLoggingEvent) {

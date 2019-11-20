@@ -19,7 +19,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <!-- 定义日志文件名称 -->
     <property name="appName" value="blog"></property>
     <!--继承ClassicConverter实现logback-spring.xml日志打印服务器主机名-->
-    <conversionRule conversionWord="ip" converterClass="com.blog.sys.LogClass" />
+    <conversionRule conversionWord="ip" converterClass="com.blog.sys.common.utils.LogUtil" />
 
     <!-- 控制台输出 -->
 
