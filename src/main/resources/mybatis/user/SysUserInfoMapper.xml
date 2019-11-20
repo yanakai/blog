@@ -16,10 +16,12 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="login_Time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+
   </resultMap>
   <sql id="Base_Column_List">
     user_id, email, user_name, true_name, sex,password, phone_number,salt, status, image_path, image_name,
-    create_time, login_Time, modify_time
+    create_time, login_Time, modify_time,login_ip
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -35,13 +37,14 @@
     insert into sys_user_info (user_id, email, user_name, 
       true_name, sex,password,phone_number, salt,
       status, image_path, image_name, 
-      create_time, login_Time, modify_time
+      create_time, login_Time, modify_time,login_ip
       )
     values (#{userId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{trueName,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
        #{phoneNumber,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
       #{status,jdbcType=VARCHAR}, #{imagePath,jdbcType=VARCHAR}, #{imageName,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{loginTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      ,#{loginIp,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.blog.sys.user.model.SysUserInfo">
@@ -89,6 +92,9 @@
       <if test="modifyTime != null">
         modify_time,
       </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -132,6 +138,9 @@
       </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -177,6 +186,9 @@
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
@@ -194,7 +206,8 @@
       image_name = #{imageName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       login_Time = #{loginTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      login_ip = #{loginIp,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <!--获取列表数据-->

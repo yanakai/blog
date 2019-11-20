@@ -77,6 +77,11 @@ public class SysUserInfo implements Serializable {
      */
     private Date modifyTime;
 
+    /**
+     *最后登陆IP
+     */
+    private String loginIp;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -355,6 +360,20 @@ public class SysUserInfo implements Serializable {
         this.modifyTime = modifyTime;
     }
 
+    /**
+     * 最后登录ip
+     */
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    /**
+     * 最后登录ip
+     */
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -373,6 +392,7 @@ public class SysUserInfo implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", loginTime=").append(loginTime);
         sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", loginIp=").append(loginIp);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
