@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 20/11/2019 22:01:26
+ Date: 21/11/2019 21:53:46
 */
 
 SET NAMES utf8mb4;
@@ -93,7 +93,7 @@ CREATE TABLE `sys_dept_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_info`;
 CREATE TABLE `sys_login_info`  (
-  `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+  `info_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '访问ID',
   `login_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录账号',
   `ipaddr` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录IP地址',
   `login_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '登录地点',
@@ -103,7 +103,7 @@ CREATE TABLE `sys_login_info`  (
   `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 129 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_menu_info
@@ -135,6 +135,7 @@ INSERT INTO `sys_menu_info` VALUES ('03acecc5-15ec-4902-bc72-6ac08453c266', '文
 INSERT INTO `sys_menu_info` VALUES ('1893fc3f-2b1b-4971-a91c-e7c4d7974dcc', '用户分配', '646428ba-ff5e-4a81-a9d2-68c0ef31a439', 4, '', 'menuItem', 'F', '0', 'sys:role:addUser', '', '暂时没有登录者', '2019-11-16 13:57:18', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('197e7325-9867-4d1e-8875-e18b83e0ddd8', '用户查询', 'fb1f89bf-fdcd-4994-b57b-1c228b54dfaa', 11, '#', 'menuItem', 'F', '0', 'sys:user:list', '', '', '2019-08-10 18:17:09', '', '2019-08-10 19:47:46', '');
 INSERT INTO `sys_menu_info` VALUES ('1a03644c-6e98-430f-98c3-99295567e0a7', '用户添加', 'fb1f89bf-fdcd-4994-b57b-1c228b54dfaa', 12, '#', 'menuItem', 'F', '0', 'sys:user:add', '', '', '2019-08-10 19:47:34', '', NULL, '');
+INSERT INTO `sys_menu_info` VALUES ('1b852066-2669-4327-a386-3530179bbfd7', '登陆日志', 'd00135cb-068f-4146-b45c-5262ecc00070', 1, '/sys/loginLog/list', 'menuItem', 'C', '0', 'sys:loginLog:view', '', '暂时没有登录者', '2019-11-21 21:06:43', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('1f442996-7d1e-4250-b4b5-ae1c11a1350f', '菜单查询', 'ca345f90-0100-4eda-8ebd-b73f1cb7fa29', 1, '', 'menuItem', 'F', '0', 'sys:menu:list', '', '暂时没有登录者', '2019-11-16 13:59:27', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('26ac5406-7bc4-4963-9c19-63826c75ec4e', '文章新增', '7721b1d9-b3c1-499b-9b4d-8b2f48f12566', 2, '', 'menuItem', 'F', '0', 'sys:article:add', '', '暂时没有登录者', '2019-11-16 14:05:03', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('3cc0cc85-ebbe-4dc4-a350-3da6770230c7', '角色编辑', '646428ba-ff5e-4a81-a9d2-68c0ef31a439', 3, '', 'menuItem', 'F', '0', 'sys:role:edit', '', '暂时没有登录者', '2019-11-16 13:55:31', '', NULL, '');
@@ -155,6 +156,7 @@ INSERT INTO `sys_menu_info` VALUES ('b82ce26b-9c21-4662-bf15-1ee6f6781e8a', '角
 INSERT INTO `sys_menu_info` VALUES ('b85e77a6-31fc-43d3-9de1-b9ef4fee372f', '栏目编辑', 'd832be47-75b7-4145-85f0-940a4bdcf7cb', 3, '', 'menuItem', 'F', '0', 'sys:column:edit', '', '暂时没有登录者', '2019-11-16 14:09:53', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('ca345f90-0100-4eda-8ebd-b73f1cb7fa29', '菜单管理', 'eb2d09f8-5211-4591-8802-3c7231fe90ac', 3, '/sys/menu/list', 'menuItem', 'C', '0', 'sys:menu:view', '', '', '2019-08-04 17:52:53', '', '2019-08-04 18:07:29', '');
 INSERT INTO `sys_menu_info` VALUES ('cfd727d1-7a4a-4812-823c-ce78b19faff3', '用户编辑', 'fb1f89bf-fdcd-4994-b57b-1c228b54dfaa', 14, '#', 'menuItem', 'F', '0', 'sys:user:edit', '', '', '2019-08-10 19:48:13', '', '2019-08-10 19:48:57', '');
+INSERT INTO `sys_menu_info` VALUES ('d00135cb-068f-4146-b45c-5262ecc00070', '日志管理', 'eb2d09f8-5211-4591-8802-3c7231fe90ac', 4, '', 'menuItem', 'M', '0', '', '', '暂时没有登录者', '2019-11-21 21:05:52', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('d4ea59ce-45dc-4dc8-b6a3-d33368b2892e', '栏目查询', 'd832be47-75b7-4145-85f0-940a4bdcf7cb', 1, '', 'menuItem', 'F', '0', 'sys:column:list', '', '暂时没有登录者', '2019-11-16 14:09:09', '', NULL, '');
 INSERT INTO `sys_menu_info` VALUES ('d832be47-75b7-4145-85f0-940a4bdcf7cb', '栏目列表', '4bac578d-1052-448f-91f6-6b4129c58d40', 2, '/sys/column/list', 'menuItem', 'C', '0', 'sys:column:view', '', '暂时没有登录者', '2019-11-16 12:24:47', '暂时没有登录者', '2019-11-16 12:26:47', '');
 INSERT INTO `sys_menu_info` VALUES ('e41cb303-c561-4385-a645-22250c52277c', '文章发布', '7721b1d9-b3c1-499b-9b4d-8b2f48f12566', 3, '', 'menuItem', 'F', '0', 'sys:article:rel', '', '暂时没有登录者', '2019-11-16 14:06:18', '', NULL, '');
@@ -170,7 +172,7 @@ INSERT INTO `sys_menu_info` VALUES ('ffa65704-de6c-461a-85c1-af55fb007dbf', '菜
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log`  (
-  `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `oper_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '日志主键',
   `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '模块标题',
   `business_type` int(2) NULL DEFAULT 0 COMMENT '业务类型（0其它 1新增 2修改 3删除）',
   `method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '方法名称',
@@ -187,7 +189,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -302,7 +304,7 @@ CREATE TABLE `sys_user_info`  (
 -- Records of sys_user_info
 -- ----------------------------
 INSERT INTO `sys_user_info` VALUES ('9722a28d-a85e-4216-8d51-72da46fe7f25', 'yankai', 'ff210928e31eff77dab8aae4a042cbae', '15538157826', '闫凯', '0', NULL, 'yanakai@127.com', 'a08cc4', '0', NULL, NULL, '2019-11-17 03:24:27', '2019-11-20 13:03:25', NULL, '0:0:0:0:0:0:0:1');
-INSERT INTO `sys_user_info` VALUES ('admin', 'admin', '6e46bc8bfd6617fb29fd152ada99c3dc', '', '超级管理员', '0', NULL, 'yanakai@124.com', 'ba36d3', '0', '/profile/avatar/2019/11/16/14d52b633c9d852f0c8ae4e40c0bd295.png', NULL, NULL, '2019-11-20 21:48:07', '2019-11-16 10:20:16', '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_user_info` VALUES ('admin', 'admin', '6e46bc8bfd6617fb29fd152ada99c3dc', '', '超级管理员', '0', NULL, 'yanakai@124.com', 'ba36d3', '0', '/profile/avatar/2019/11/16/14d52b633c9d852f0c8ae4e40c0bd295.png', NULL, NULL, '2019-11-21 21:48:27', '2019-11-16 10:20:16', '0:0:0:0:0:0:0:1');
 INSERT INTO `sys_user_info` VALUES ('b8837a0a-5cc9-42b7-b062-3b71ac3147f8', 'dudu', '13b60a3cfdb05c30e51a1e12b3c44d3e', '15538157822', 'dudu', '0', NULL, 'yanakai@129.com', 'a48946', '0', NULL, NULL, '2019-11-19 15:18:49', NULL, NULL, NULL);
 
 -- ----------------------------
