@@ -105,7 +105,7 @@ public class SysUserInfo implements Serializable {
      * @date   2019/11/12
      */
     public static boolean isAdmin(String userId){
-        return userId != null && "admin" == userId;
+        return userId != null && "admin".equals(userId);
     }
 
     /**
