@@ -1,8 +1,11 @@
 package com.blog.sys.common.manager.factory;
 
+import com.blog.sys.common.utils.AddressUtils;
 import com.blog.sys.common.utils.Constants;
 import com.blog.sys.common.utils.ServletUtils;
 import com.blog.sys.common.utils.spring.SpringUtils;
+import com.blog.sys.log.model.SysLoginInfo;
+import com.blog.sys.log.service.impl.SysLoginInfoServiceImpl;
 import com.blog.sys.shiro.utils.LogUtils;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -39,8 +42,10 @@ public class AsyncFactory
             @Override
             public void run()
             {
+                String address = AddressUtils.getRealAddressByIP(ip);
                 StringBuilder s = new StringBuilder();
                 s.append(LogUtils.getBlock(ip));
+                s.append(address);
                 s.append(LogUtils.getBlock(username));
                 s.append(LogUtils.getBlock(status));
                 s.append(LogUtils.getBlock(message));
@@ -50,6 +55,22 @@ public class AsyncFactory
                 String os = userAgent.getOperatingSystem().getName();
                 // 获取客户端浏览器
                 String browser = userAgent.getBrowser().getName();
+                // 封装对象
+                SysLoginInfo loginInfo = new SysLoginInfo();
+                loginInfo.setLoginName(username);
+                loginInfo.setIpaddr(ip);
+                loginInfo.setLoginLocation(address);
+                loginInfo.setBrowser(browser);
+                loginInfo.setOs(os);
+                loginInfo.setMsg(message);
+                // 日志状态
+                if (Constants.LOGIN_SUCCESS.equals(status) || Constants.LOGOUT.equals(status)){
+                    loginInfo.setStatus(Constants.SUCCESS);
+                }else if (Constants.LOGIN_FAIL.equals(status)){
+                    loginInfo.setStatus(Constants.FAIL);
+                }
+                // 插入数据
+                SpringUtils.getBean(SysLoginInfoServiceImpl.class).saveLoginInfo(loginInfo);
             }
         };
     }

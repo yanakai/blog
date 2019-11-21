@@ -36,4 +36,14 @@ public interface ISysLoginInfoService {
      * @author: yanakai@126.com
      */
     int cleanLoginInfo();
+
+    /**
+     * @method:  saveLoginInfo
+     * @description: <p>保存数据</p>
+     * @params:  sysLoginInfo
+     * @return: int
+     * @date: 2019/11/21 21:27
+     * @author: yanakai@126.com
+     */
+    int saveLoginInfo(SysLoginInfo sysLoginInfo);
 }

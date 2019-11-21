@@ -37,4 +37,8 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
     public int cleanLoginInfo() {
         return sysLoginInfoMapper.cleanLoginInfo();
     }
+
+    public int saveLoginInfo(SysLoginInfo loginInfo) {
+        return sysLoginInfoMapper.insertSelective(loginInfo);
+    }
 }

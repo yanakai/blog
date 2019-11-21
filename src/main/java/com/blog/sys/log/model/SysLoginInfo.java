@@ -11,7 +11,7 @@ public class SysLoginInfo extends BaseEntity {
     /**
      * 访问ID
      */
-    private Long infoId;
+    private String infoId;
 
     /**
      * 登录账号
@@ -57,14 +57,14 @@ public class SysLoginInfo extends BaseEntity {
     /**
      * 访问ID
      */
-    public Long getInfoId() {
+    public String getInfoId() {
         return infoId;
     }
 
     /**
      * 访问ID
      */
-    public void setInfoId(Long infoId) {
+    public void setInfoId(String infoId) {
         this.infoId = infoId;
     }
 
