@@ -1,12 +1,13 @@
 package com.blog.sys.log.model;
 
-import java.io.Serializable;
+import com.blog.sys.common.base.model.BaseEntity;
+
 import java.util.Date;
 
 /**
  * 系统访问记录
  */
-public class SysLoginInfo implements Serializable  {
+public class SysLoginInfo extends BaseEntity {
     /**
      * 访问ID
      */
@@ -52,7 +53,6 @@ public class SysLoginInfo implements Serializable  {
      */
     private Date loginTime;
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 访问ID
@@ -195,7 +195,6 @@ public class SysLoginInfo implements Serializable  {
         sb.append(", status=").append(status);
         sb.append(", msg=").append(msg);
         sb.append(", loginTime=").append(loginTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
