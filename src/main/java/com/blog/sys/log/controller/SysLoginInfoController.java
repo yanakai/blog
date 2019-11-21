@@ -49,7 +49,7 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/20 22:27
      * @author: yanakai@126.com
      */
-    @GetMapping("/loginInfo")
+    @GetMapping("/list")
     public String pageList(HttpServletRequest request, ModelMap modelMap){
         return SYS_LOGININFO_PATH + "/loginInfo";
     }
@@ -62,7 +62,7 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/20 22:43
      * @author: yanakai@126.com
      */
-    @PostMapping("/loginInfo")
+    @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataList(SysLoginInfo sysLoginInfo){
         startPage();
