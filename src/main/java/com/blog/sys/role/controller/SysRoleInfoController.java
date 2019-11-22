@@ -1,5 +1,6 @@
 package com.blog.sys.role.controller;
 
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
@@ -24,7 +25,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/sys/role")
