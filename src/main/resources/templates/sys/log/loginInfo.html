@@ -72,10 +72,13 @@
 		        	field: 'state',
 		            checkbox: true
 		        },
-		        {
-		            field: 'infoId',
-		            title: '访问编号'
-		        },
+				{
+					field : '',
+					title : '序号' ,
+					formatter: function(value, row, index) {
+						return index + 1;
+					}
+				},
 		        {
 		            field: 'loginName',
 		            title: '登录名称',

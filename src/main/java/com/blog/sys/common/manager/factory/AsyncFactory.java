@@ -1,5 +1,6 @@
 package com.blog.sys.common.manager.factory;
 
+import cn.hutool.core.lang.UUID;
 import com.blog.sys.common.utils.AddressUtils;
 import com.blog.sys.common.utils.Constants;
 import com.blog.sys.common.utils.ServletUtils;
@@ -12,6 +13,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.TimerTask;
 
 /**
@@ -57,12 +59,14 @@ public class AsyncFactory
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
                 SysLoginInfo loginInfo = new SysLoginInfo();
+                loginInfo.setInfoId(UUID.randomUUID().toString());
                 loginInfo.setLoginName(username);
                 loginInfo.setIpaddr(ip);
                 loginInfo.setLoginLocation(address);
                 loginInfo.setBrowser(browser);
                 loginInfo.setOs(os);
                 loginInfo.setMsg(message);
+                loginInfo.setLoginTime(new Date());
                 // 日志状态
                 if (Constants.LOGIN_SUCCESS.equals(status) || Constants.LOGOUT.equals(status)){
                     loginInfo.setStatus(Constants.SUCCESS);

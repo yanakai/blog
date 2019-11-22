@@ -47,34 +47,26 @@ public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter
     }
 
     @Override
-    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception
-    {
-        try
-        {
+    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+        try{
             Subject subject = getSubject(request, response);
             String redirectUrl = getRedirectUrl(request, response, subject);
-            try
-            {
+            try{
                 SysUserInfo user = ShiroUtils.getSysUser();
-                if (StringUtils.isNotNull(user))
-                {
+                if (StringUtils.isNotNull(user)){
                     String loginName = user.getUserName();
                     // 记录用户退出日志
-                    AsyncFactory.recordLogininfor(loginName, Constants.LOGOUT, MessageUtils.message("user.logout.success"));
+                   AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.LOGOUT, MessageUtils.message("user.logout.success")));
                     // 清理缓存
                     cache.remove(loginName);
                 }
                 // 退出登录
                 subject.logout();
-            }
-            catch (SessionException ise)
-            {
+            }catch (SessionException ise){
                 log.error("logout fail.", ise);
             }
             issueRedirect(request, response, redirectUrl);
-        }
-        catch (Exception e)
-        {
+        }catch (Exception e){
             log.error("Encountered session exception during logout.  This can generally safely be ignored.", e);
         }
         return false;
