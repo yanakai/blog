@@ -1,11 +1,14 @@
 package com.blog.sys.log.controller;
 
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.log.model.SysLoginInfo;
 import com.blog.sys.log.service.ISysLoginInfoService;
 import com.blog.sys.shiro.service.SysPasswordService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,6 +58,7 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/20 22:27
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:loginLog:view")
     @GetMapping("/list")
     public String pageList(HttpServletRequest request, ModelMap modelMap){
         return SYS_LOGININFO_PATH + "/loginInfo";
@@ -68,6 +72,8 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/20 22:43
      * @author: yanakai@126.com
      */
+    @Log(title = "登录日志-->查询列表", businessType = BusinessType.SEARCH)
+    @RequiresPermissions("sys:loginLog:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataList(SysLoginInfo sysLoginInfo){
@@ -84,6 +90,8 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/23 17:03
      * @author: yanakai@126.com
      */
+    @Log(title = "登录日志-->清空数据", businessType = BusinessType.CLEAN)
+    @RequiresPermissions("sys:loginLog:clean")
     @PostMapping("/clean")
     @ResponseBody
     public ResponseData clean(){
@@ -99,6 +107,8 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/23 20:26
      * @author: yanakai@126.com
      */
+    @Log(title = "登录日志-->删除数据", businessType = BusinessType.DELETE)
+    @RequiresPermissions("sys:loginLog:del")
     @PostMapping("remove")
     @ResponseBody
     public ResponseData deleteByIds(String ids){
@@ -119,6 +129,8 @@ public class SysLoginInfoController extends BaseController {
      * @date: 2019/11/23 17:55
      * @author: yanakai@126.com
      */
+    @Log(title = "登录日志-->用户解锁", businessType = BusinessType.OTHER)
+    @RequiresPermissions("sys:loginLog:unlock")
     @PostMapping("/unlock")
     @ResponseBody
     public ResponseData unlock(String loginName){
