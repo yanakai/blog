@@ -5,6 +5,7 @@ import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.log.model.SysLoginInfo;
 import com.blog.sys.log.service.ISysLoginInfoService;
+import com.blog.sys.shiro.service.SysPasswordService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,11 @@ public class SysLoginInfoController extends BaseController {
      */
     @Resource
     private ISysLoginInfoService sysLoginInfoService;
+    /**
+     * 密码操作业务层接口
+     */
+    @Resource
+    private SysPasswordService passwordService;
 
 
     /**
@@ -95,6 +101,21 @@ public class SysLoginInfoController extends BaseController {
             data = operateSucess("操作成功");
         }
         return data;
+    }
+
+    /**
+     * @method:  unlock
+     * @description: <p>解除登录失败造成账号被锁住</p>
+     * @params:  loginName
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/23 17:55
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/unlock")
+    @ResponseBody
+    public ResponseData unlock(String loginName){
+        passwordService.unlock(loginName);
+        return operateSucess("操作成功");
     }
 
 }
