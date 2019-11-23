@@ -81,13 +81,8 @@ public class SysLoginInfoController extends BaseController {
     @PostMapping("/clean")
     @ResponseBody
     public ResponseData clean(){
-        ResponseData data = operateFailed("操作失败");
-        int state = 0;
-        state = sysLoginInfoService.cleanLoginInfo();
-        if (state>0){
-            data = operateSucess("操作成功");
-        }
-        return data;
+        sysLoginInfoService.cleanLoginInfo();
+        return operateSucess("操作成功");
     }
 
     @PostMapping("remove")
