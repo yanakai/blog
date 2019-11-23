@@ -1,5 +1,6 @@
 package com.blog.sys.log.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import com.blog.sys.log.mapper.SysOperLogMapper;
 import com.blog.sys.log.model.SysOperLog;
 import com.blog.sys.log.service.ISysOperLogService;
@@ -32,5 +33,10 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     @Override
     public List<SysOperLog> getList(SysOperLog sysOperLog) {
         return sysOperLogMapper.getList(sysOperLog);
+    }
+
+    @Override
+    public int deleteByIds(String ids) {
+        return sysOperLogMapper.deleteByIds(Convert.toStrArray(ids));
     }
 }

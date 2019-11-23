@@ -246,4 +246,11 @@
       </if>
     </where>
   </select>
+<!--  批量删除数据-->
+  <delete id="deleteByIds" parameterType="String">
+    delete from sys_oper_log where oper_id in
+    <foreach collection="array" item="operId" open="(" separator="," close=")">
+      #{operId}
+    </foreach>
+  </delete>
 </mapper>

@@ -1,6 +1,7 @@
 package com.blog.sys.log.controller;
 
 import com.blog.sys.common.base.BaseController;
+import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.log.model.SysOperLog;
 import com.blog.sys.log.service.ISysOperLogService;
@@ -59,5 +60,23 @@ public class SysOperLogController extends BaseController {
         startPage();
         List<SysOperLog> list = sysOperLogService.getList(sysOperLog);
         return getDataTable(list);
+    }
+
+    /**
+     * @method:  deleteByIds
+     * @description: <p>批量删除数据</p>
+     * @params:  ids 主键ids
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/23 16:54
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/remove")
+    @ResponseBody
+    public ResponseData deleteByIds(String ids){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        state = sysOperLogService.deleteByIds(ids);
+        if(state>0)data = operateSucess("操作成功");
+        return data;
     }
 }

@@ -26,4 +26,14 @@ public interface ISysOperLogService {
      * @author: yanakai@126.com
      */
     List<SysOperLog> getList(SysOperLog sysOperLog);
+
+    /**
+     * @method:  deleteByIds
+     * @description: <p>批量删除信息</p>
+     * @params:  ids 主键ids
+     * @return: int
+     * @date: 2019/11/23 16:48
+     * @author: yanakai@126.com
+     */
+    int deleteByIds(String ids);
 }
