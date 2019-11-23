@@ -49,6 +49,7 @@ public class SysOperLogController extends BaseController {
      * @date: 2019/11/23 16:29
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:operLog:view")
     @GetMapping("/list")
     public String pageList(HttpServletRequest request, ModelMap modelMap){
         return SYS_OPERLOG_PATH + "/operLog";
@@ -62,7 +63,8 @@ public class SysOperLogController extends BaseController {
      * @date: 2019/11/23 19:44
      * @author: yanakai@126.com
      */
-    @Log(title = "操作日志", businessType = BusinessType.SEARCH)
+    @RequiresPermissions("sys:operLog:list")
+    @Log(title = "操作日志-->查询列表", businessType = BusinessType.SEARCH)
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataList(SysOperLog sysOperLog){
@@ -79,7 +81,8 @@ public class SysOperLogController extends BaseController {
      * @date: 2019/11/23 16:54
      * @author: yanakai@126.com
      */
-    @Log(title = "操作日志", businessType = BusinessType.DELETE)
+    @RequiresPermissions("sys:operLog:del")
+    @Log(title = "操作日志-->删除数据", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
     public ResponseData deleteByIds(String ids){
@@ -98,7 +101,8 @@ public class SysOperLogController extends BaseController {
      * @date: 2019/11/23 17:03
      * @author: yanakai@126.com
      */
-    @Log(title = "操作日志", businessType = BusinessType.CLEAN)
+    @RequiresPermissions("sys:operLog:clean")
+    @Log(title = "操作日志-->清空数据", businessType = BusinessType.CLEAN)
     @PostMapping("/clean")
     @ResponseBody
     public ResponseData clean(){
@@ -116,9 +120,9 @@ public class SysOperLogController extends BaseController {
      * @author: yanakai@126.com
      */
     @RequiresPermissions("sys:operLog:detail")
+    @Log(title = "操作日志-->查询详情", businessType = BusinessType.SEARCH)
     @GetMapping("/detail/{operId}")
-    public String detail(@PathVariable("operId") String operId, ModelMap mmap)
-    {
+    public String detail(@PathVariable("operId") String operId, ModelMap mmap){
         mmap.put("operLog", sysOperLogService.getById(operId));
         return SYS_OPERLOG_PATH + "/detail";
     }
