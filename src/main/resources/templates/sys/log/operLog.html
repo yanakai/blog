@@ -33,10 +33,10 @@
 			</div>
 			
 			<div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" >
+				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="monitor:operLog:del">
 		            <i class="fa fa-remove"></i> 删除
 		        </a>
-		        <a class="btn btn-danger" onclick="$.operate.clean()" >
+		        <a class="btn btn-danger" onclick="$.operate.clean()" shiro:hasPermission="monitor:operLog:clean">
 	                <i class="fa fa-trash"></i> 清空
 	            </a>
 	            <a class="btn btn-warning" onclick="$.table.exportExcel()" >
@@ -53,6 +53,7 @@
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: bootstrap-select-js" />
 	<script th:inline="javascript">
+		var detailFlag = [[${@permission.hasPermi('monitor:operLog:detail')}]];
 		var prefix ="/sys/operLog";
 
 		$(function() {
@@ -146,7 +147,7 @@
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		                var actions = [];
-		                actions.push('<a class="btn btn-warning btn-xs " href="javascript:void(0)" onclick="$.operate.detail(\'' + row.operId + '\')"><i class="fa fa-search"></i>详细</a>');
+		                actions.push('<a class="btn btn-warning btn-xs '+detailFlag+' " href="javascript:void(0)" onclick="$.operate.detail(\'' + row.operId + '\')"><i class="fa fa-search"></i>详细</a>');
 		                return actions.join('');
 		            }
 		        }]
