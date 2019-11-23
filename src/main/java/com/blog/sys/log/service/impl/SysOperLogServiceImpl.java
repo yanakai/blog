@@ -49,4 +49,9 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     public int insertOperlog(SysOperLog operLog) {
         return sysOperLogMapper.insertSelective(operLog);
     }
+
+    @Override
+    public SysOperLog getById(String operId) {
+        return sysOperLogMapper.selectByPrimaryKey(operId);
+    }
 }

@@ -7,12 +7,10 @@ import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.log.model.SysOperLog;
 import com.blog.sys.log.service.ISysOperLogService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -106,6 +104,23 @@ public class SysOperLogController extends BaseController {
     public ResponseData clean(){
         sysOperLogService.cleanLoginInfo();
         return operateSucess("操作成功");
+    }
+
+    /**
+     * @method:  detail
+     * @description: <p>查看操作日志详情</p>
+     * @params:  operId 操作日志id
+     * @Param mmap
+     * @return: java.lang.String
+     * @date: 2019/11/23 20:08
+     * @author: yanakai@126.com
+     */
+    @RequiresPermissions("sys:operLog:detail")
+    @GetMapping("/detail/{operId}")
+    public String detail(@PathVariable("operId") String operId, ModelMap mmap)
+    {
+        mmap.put("operLog", sysOperLogService.getById(operId));
+        return SYS_OPERLOG_PATH + "/detail";
     }
 
 }

@@ -24,13 +24,13 @@
     dept_name, oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg, 
     oper_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_oper_log
     where oper_id = #{operId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sys_oper_log
     where oper_id = #{operId,jdbcType=VARCHAR}
   </delete>

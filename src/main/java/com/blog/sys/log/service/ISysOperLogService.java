@@ -56,4 +56,14 @@ public interface ISysOperLogService {
      * @author: yanakai@126.com
      */
     int insertOperlog(SysOperLog operLog);
+
+    /**
+     * @method:  getById
+     * @description: <p>通过主键id查询对象信息</p>
+     * @params:  operId 操作日志主键id
+     * @return: com.blog.sys.log.model.SysOperLog
+     * @date: 2019/11/23 20:04
+     * @author: yanakai@126.com
+     */
+    SysOperLog getById(String operId);
 }

@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface SysOperLogMapper {
-    int deleteByPrimaryKey(Long operId);
+    int deleteByPrimaryKey(String operId);
 
     int insert(SysOperLog record);
 
     int insertSelective(SysOperLog record);
 
-    SysOperLog selectByPrimaryKey(Long operId);
+    SysOperLog selectByPrimaryKey(String operId);
 
     int updateByPrimaryKeySelective(SysOperLog record);
 
