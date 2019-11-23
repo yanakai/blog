@@ -95,4 +95,14 @@ public interface ISysRoleInfoService {
      * @author: yanakai@126.com
      */
     Set<String> getRoleKeysByUserId(String userId);
+
+    /**
+     * @method:  getRoleListByUserId
+     * @description: <p>通过用户id查询所拥有的角色</p>
+     * @params:  userId 用户id
+     * @return: java.util.List<com.blog.sys.role.model.SysRoleInfo>
+     * @date: 2019/11/23 21:28
+     * @author: yanakai@126.com
+     */
+    List<SysRoleInfo> getRoleListByUserId(String userId);
 }

@@ -2,9 +2,11 @@ package com.blog.sys.role.controller;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.menu.service.ISysMenuInfoService;
@@ -78,6 +80,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @Log(title = "角色管理-->列表页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:role:list")
     @PostMapping("/list")
     @ResponseBody
@@ -97,6 +100,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @Log(title = "角色管理-->添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:role:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request,ModelMap modelMap){
@@ -115,6 +119,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @Log(title = "角色管理-->编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:role:edit")
     @GetMapping("/edit/{roleId}")
     public String edit(HttpServletRequest request, @PathVariable("roleId") String roleId,ModelMap modelMap){
@@ -134,6 +139,7 @@ public class SysRoleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/8
      */
+    @Log(title = "角色管理-->保存数据", businessType = BusinessType.INSERT)
     @RequiresPermissions(value={"sys:column:add","sys:column:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
@@ -175,6 +181,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/8 23:07
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->删除数据", businessType = BusinessType.DELETE)
     @RequiresPermissions("sys:role:del")
     @PostMapping("/deleteById")
     @ResponseBody
@@ -229,6 +236,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/8 23:05
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->角色禁用/启用", businessType = BusinessType.UPDATE)
     @RequiresPermissions("sys:user:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
@@ -270,6 +278,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/9 18:05
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->角色下用户列表", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:role:addUser")
     @PostMapping("/authUser/allocatedList")
     @ResponseBody
@@ -287,6 +296,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/10 13:29
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->删除用户角色数据", businessType = BusinessType.DELETE)
     @PostMapping("/authUser/cancel")
     @ResponseBody
     public ResponseData cancel(HttpServletRequest request, SysUserRole sysUserRole){
@@ -325,6 +335,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/10 14:04
      * @author: yanakai@126.com       
      */
+    @Log(title = "角色管理-->选择用户", businessType = BusinessType.SEARCH)
     @PostMapping("/authUser/unallocatedList")
     @ResponseBody
     public TableDataInfo unallocatedList(HttpServletRequest request,SysUserInfo sysUserInfo){
@@ -342,6 +353,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/10 15:46
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->保存用户角色", businessType = BusinessType.INSERT)
     @PostMapping("/authUser/selectAll")
     @ResponseBody
     public ResponseData selectAll(HttpServletRequest request, String roleId,String userIds){
@@ -364,6 +376,7 @@ public class SysRoleInfoController extends BaseController {
      * @date: 2019/11/10 16:53
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->批量删除用户角色数据", businessType = BusinessType.DELETE)
     @PostMapping("/authUser/cancelAll")
     @ResponseBody
     public ResponseData cancelAll(HttpServletRequest request, String roleId,String userIds){

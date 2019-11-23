@@ -1,9 +1,11 @@
 package com.blog.sys.user.controller;
 
 import cn.hutool.core.lang.UUID;
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
 import com.blog.sys.role.model.SysRoleInfo;
@@ -79,6 +81,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/6 21:26
      * @author: yanakai@126.com
      */
+    @Log(title = "用户管理-->用户列表", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:user:list")
     @PostMapping("/list")
     @ResponseBody
@@ -98,6 +101,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:30
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:user:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request, ModelMap modelMap){
@@ -118,14 +122,13 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:33
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:user:edit")
     @GetMapping("/edit/{userId}")
     public String edit(HttpServletRequest request, @PathVariable("userId") String userId, ModelMap modelMap){
-        SysUserInfo info = sysUserInfoService.getById(userId);
-        SysRoleInfo sysRoleInfo = new SysRoleInfo();
-        List<SysRoleInfo> roleInfos = sysRoleInfoService.getList(sysRoleInfo);
-        modelMap.put("roles",roleInfos);
-        modelMap.put("info",info);
+        modelMap.put("info",sysUserInfoService.getById(userId));
+        //在service层使用动态代理调用执行方法获取数据 具体可以在方法实现类内查看
+        modelMap.put("roles",sysRoleInfoService.getRoleListByUserId(userId));
         return SYS_USER_PATH + "/edit";
     }
 
@@ -138,6 +141,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:45
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->保存数据", businessType = BusinessType.INSERT)
     @RequiresPermissions(value={"sys:user:add","sys:user:edit"},logical = Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
@@ -187,6 +191,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/7 21:51
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->删除角色", businessType = BusinessType.DELETE)
     @RequiresPermissions("sys:user:del")
     @PostMapping("/deleteById")
     @ResponseBody
@@ -255,6 +260,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/8 21:43
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->用户启用/禁用", businessType = BusinessType.UPDATE)
     @RequiresPermissions("sys:user:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
@@ -292,6 +298,7 @@ public class SysUserInfoController extends BaseController {
      * @date: 2019/11/8 21:48
      * @author: yanakai@126.com
      */
+    @Log(title = "角色管理-->修改密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
     public ResponseData resetPwdSave(SysUserInfo sysUserInfo) {

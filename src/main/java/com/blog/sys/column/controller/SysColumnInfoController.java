@@ -4,9 +4,11 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.blog.sys.column.model.SysColumnInfo;
 import com.blog.sys.column.service.ISysColumnInfoService;
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
@@ -62,6 +64,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
+    @Log(title = "栏目管理-->栏目列表", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:column:list")
     @PostMapping("/list")
     @ResponseBody
@@ -79,6 +82,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
+    @Log(title = "栏目管理-->添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:column:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request){
@@ -93,6 +97,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:53
      * @author: yanakai@126.com
      */
+    @Log(title = "栏目管理-->编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:column:edit")
     @GetMapping("/edit/{columnId}")
     public String add(HttpServletRequest request, @PathVariable("columnId") String columnId, ModelMap modelMap){
@@ -111,6 +116,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:49
      * @author: yanakai@126.com
      */
+    @Log(title = "栏目管理-->保存数据", businessType = BusinessType.INSERT)
     @RequiresPermissions(value={"sys:column:add","sys:column:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
@@ -137,6 +143,7 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:56
      * @author: yanakai@126.com
      */
+    @Log(title = "栏目管理-->删除数据", businessType = BusinessType.DELETE)
     @RequiresPermissions("sys:column:del")
     @PostMapping("/deleteById")
     @ResponseBody

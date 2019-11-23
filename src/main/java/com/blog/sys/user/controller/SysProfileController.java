@@ -1,8 +1,10 @@
 package com.blog.sys.user.controller;
 
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.config.Global;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.file.FileUploadUtils;
 import com.blog.sys.shiro.service.SysPasswordService;
@@ -62,6 +64,7 @@ public class SysProfileController extends BaseController{
         return prefix + "/resetPwd";
     }
 
+    @Log(title = "个人中心-->修改密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
     public ResponseData resetPwd(String oldPassword, String newPassword){
@@ -102,6 +105,7 @@ public class SysProfileController extends BaseController{
     /**
      * 修改用户
      */
+    @Log(title = "个人中心-->修改用户信息", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     @ResponseBody
     public ResponseData update(SysUserInfo user){
@@ -120,6 +124,7 @@ public class SysProfileController extends BaseController{
     /**
      * 保存头像
      */
+    @Log(title = "个人中心-->保存头像", businessType = BusinessType.UPDATE)
     @PostMapping("/updateAvatar")
     @ResponseBody
     public ResponseData updateAvatar(@RequestParam("avatarfile") MultipartFile file){

@@ -1,9 +1,11 @@
 package com.blog.sys.menu.controller;
 
 import cn.hutool.core.lang.UUID;
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.model.Ztree;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
@@ -61,6 +63,7 @@ public class SysMenuInfoController extends BaseController {
      * @date: 2019/11/10 21:10
      * @author: yanakai@126.com
      */
+    @Log(title = "菜单管理-->列表页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:menu:list")
     @PostMapping("/list")
     @ResponseBody
@@ -87,6 +90,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @Log(title = "菜单管理-->添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:menu:add")
     @GetMapping("/add/{parentId}")
     public String add(HttpServletRequest request,@PathVariable("parentId") String parentId,ModelMap modelMap){
@@ -113,6 +117,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @Log(title = "菜单管理-->编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:menu:edit")
     @GetMapping("/edit/{menuId}")
     public String edit(HttpServletRequest request, @PathVariable("menuId") String menuId, ModelMap modelMap){
@@ -144,6 +149,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @Log(title = "菜单管理-->保存数据", businessType = BusinessType.INSERT)
     @RequiresPermissions(value={"sys:menu:add","sys:menu:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
@@ -173,6 +179,7 @@ public class SysMenuInfoController extends BaseController {
      * @author: yankai
      * @date   2019/11/11
      */
+    @Log(title = "菜单管理-->删除数据", businessType = BusinessType.DELETE)
     @RequiresPermissions("sys:menu:del")
     @PostMapping("/deleteById")
     @ResponseBody

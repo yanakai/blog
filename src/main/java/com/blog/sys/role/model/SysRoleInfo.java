@@ -69,6 +69,18 @@ public class SysRoleInfo implements Serializable {
     private String remark;
 
     private static final long serialVersionUID = 1L;
+    /** 用户是否存在此角色标识 默认不存在 */
+    private boolean flag = false;
+
+    /** 用户是否存在此角色标识 默认不存在 */
+    public boolean isFlag() {
+        return flag;
+    }
+
+    /** 用户是否存在此角色标识 默认不存在 */
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 
     /** 菜单组 */
     private String[] menuIds;

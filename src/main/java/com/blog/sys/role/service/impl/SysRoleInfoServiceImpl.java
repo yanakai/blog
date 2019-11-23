@@ -2,6 +2,7 @@ package com.blog.sys.role.service.impl;
 
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.common.utils.UserConstants;
+import com.blog.sys.common.utils.spring.SpringUtils;
 import com.blog.sys.menu.mapper.SysRoleMenuMapper;
 import com.blog.sys.menu.model.SysRoleMenu;
 import com.blog.sys.role.mapper.SysRoleInfoMapper;
@@ -121,4 +122,25 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
         }
         return permsSet;
     }
+
+    @Override
+    public List<SysRoleInfo> getRoleListByUserId(String userId) {
+        List<SysRoleInfo> userRoles = sysRoleInfoMapper.getRoleListByUserId(userId);
+        List<SysRoleInfo> roleInfos =selectRoleAll();
+        for (SysRoleInfo role : roleInfos){
+            for (SysRoleInfo userRole : userRoles){
+                if (role.getRoleId().equals(userRole.getRoleId())){
+                    role.setFlag(true);
+                    break;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<SysRoleInfo> selectRoleAll() {
+        //使用动态代理调用执行方法
+        return SpringUtils.getAopProxy(this).getList(new SysRoleInfo());
+    }
+
 }

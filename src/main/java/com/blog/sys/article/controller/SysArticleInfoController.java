@@ -6,9 +6,11 @@ import com.blog.sys.article.model.SysArticleInfo;
 import com.blog.sys.article.service.ISysArticleInfoService;
 import com.blog.sys.column.model.SysColumnInfo;
 import com.blog.sys.column.service.ISysColumnInfoService;
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.Logical;
@@ -74,6 +76,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/22 23:27
      * @author: yanakai@126.com
      */
+    @Log(title = "文章管理-->查询列表", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:article:list")
     @PostMapping("list")
     @ResponseBody
@@ -93,6 +96,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/22 23:27
      * @author: yanakai@126.com
      */
+    @Log(title = "文章管理-->发布文章/置顶文章", businessType = BusinessType.UPDATE)
     @RequiresPermissions(value={"sys:article:rel","sys:article:top"},logical= Logical.OR)
     @PostMapping("/changeStatus")
     @ResponseBody
@@ -114,6 +118,7 @@ public class SysArticleInfoController extends BaseController {
      * @date: 2019/9/23 0:06
      * @author: yanakai@126.com
      */
+    @Log(title = "文章管理-->删除文章", businessType = BusinessType.DELETE)
     @RequiresPermissions("sys:article:del")
     @PostMapping("/deleteById")
     @ResponseBody
@@ -135,6 +140,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
+    @Log(title = "文章管理-->文章添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:article:add")
     @GetMapping("/add")
     public String add(ModelMap modelMap){
@@ -153,6 +159,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
+    @Log(title = "文章管理-->文章编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:article:edit")
     @GetMapping("/edit/{articleId}")
     public String edit(@PathVariable("articleId") String articleId, ModelMap modelMap){
@@ -172,6 +179,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
+    @Log(title = "文章管理-->保存文章", businessType = BusinessType.INSERT)
     @RequiresPermissions(value={"sys:article:add","sys:article:edit"},logical= Logical.OR)
     @PostMapping("/saveOrUpdate")
     @ResponseBody
@@ -204,6 +212,7 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/29
      */
+    @Log(title = "文章管理-->文章详情页", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:article:pre")
     @GetMapping("/detail/{articleId}")
     public String detail(HttpServletRequest request,@PathVariable("articleId") String articleId,ModelMap modelMap){
