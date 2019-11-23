@@ -126,7 +126,7 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
     @Override
     public List<SysRoleInfo> getRoleListByUserId(String userId) {
         List<SysRoleInfo> userRoles = sysRoleInfoMapper.getRoleListByUserId(userId);
-        List<SysRoleInfo> roleInfos =selectRoleAll();
+        List<SysRoleInfo> roleInfos =getList(new SysRoleInfo());
         for (SysRoleInfo role : roleInfos){
             for (SysRoleInfo userRole : userRoles){
                 if (role.getRoleId().equals(userRole.getRoleId())){
@@ -135,9 +135,9 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
                 }
             }
         }
-        return null;
+        return roleInfos;
     }
-
+    @Override
     public List<SysRoleInfo> selectRoleAll() {
         //使用动态代理调用执行方法
         return SpringUtils.getAopProxy(this).getList(new SysRoleInfo());

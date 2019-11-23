@@ -105,4 +105,14 @@ public interface ISysRoleInfoService {
      * @author: yanakai@126.com
      */
     List<SysRoleInfo> getRoleListByUserId(String userId);
+
+    /**
+     * @method:  selectRoleAll
+     * @description: <p>查询所有角色列表</p>
+     * @params:
+     * @return: java.util.List<com.blog.sys.role.model.SysRoleInfo>
+     * @date: 2019/11/23 22:58
+     * @author: yanakai@126.com       
+     */
+    public List<SysRoleInfo> selectRoleAll();
 }
