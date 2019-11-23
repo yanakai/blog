@@ -46,4 +46,14 @@ public interface ISysOperLogService {
      * @author: yanakai@126.com
      */
     int cleanLoginInfo();
+
+    /**
+     * @method:  insertOperlog
+     * @description: <p>添加操作日志</p>
+     * @params:  operLog 操作日志对象
+     * @return: int
+     * @date: 2019/11/23 19:42
+     * @author: yanakai@126.com
+     */
+    int insertOperlog(SysOperLog operLog);
 }

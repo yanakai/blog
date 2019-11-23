@@ -44,4 +44,9 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     public int cleanLoginInfo() {
         return sysOperLogMapper.cleanLoginInfo();
     }
+
+    @Override
+    public int insertOperlog(SysOperLog operLog) {
+        return sysOperLogMapper.insertSelective(operLog);
+    }
 }

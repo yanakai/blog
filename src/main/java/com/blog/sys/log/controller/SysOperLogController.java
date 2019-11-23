@@ -1,8 +1,10 @@
 package com.blog.sys.log.controller;
 
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.log.model.SysOperLog;
 import com.blog.sys.log.service.ISysOperLogService;
 import org.springframework.stereotype.Controller;
@@ -54,6 +56,15 @@ public class SysOperLogController extends BaseController {
         return SYS_OPERLOG_PATH + "/operLog";
     }
 
+    /**
+     * @method:  tableDataList
+     * @description: <p>查询操作日志列表</p>
+     * @params:  sysOperLog
+     * @return: com.blog.sys.common.base.TableDataInfo
+     * @date: 2019/11/23 19:44
+     * @author: yanakai@126.com
+     */
+    @Log(title = "操作日志", businessType = BusinessType.SEARCH)
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataList(SysOperLog sysOperLog){
@@ -70,6 +81,7 @@ public class SysOperLogController extends BaseController {
      * @date: 2019/11/23 16:54
      * @author: yanakai@126.com
      */
+    @Log(title = "操作日志", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
     public ResponseData deleteByIds(String ids){
@@ -88,6 +100,7 @@ public class SysOperLogController extends BaseController {
      * @date: 2019/11/23 17:03
      * @author: yanakai@126.com
      */
+    @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @PostMapping("/clean")
     @ResponseBody
     public ResponseData clean(){

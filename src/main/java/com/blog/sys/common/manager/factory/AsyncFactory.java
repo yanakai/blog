@@ -6,6 +6,8 @@ import com.blog.sys.common.utils.Constants;
 import com.blog.sys.common.utils.ServletUtils;
 import com.blog.sys.common.utils.spring.SpringUtils;
 import com.blog.sys.log.model.SysLoginInfo;
+import com.blog.sys.log.model.SysOperLog;
+import com.blog.sys.log.service.ISysOperLogService;
 import com.blog.sys.log.service.impl.SysLoginInfoServiceImpl;
 import com.blog.sys.shiro.utils.LogUtils;
 import com.blog.sys.shiro.utils.ShiroUtils;
@@ -25,6 +27,27 @@ import java.util.TimerTask;
 public class AsyncFactory
 {
     private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");
+
+
+    /**
+     * 操作日志记录
+     *
+     * @param operLog 操作日志信息
+     * @return 任务task
+     */
+    public static TimerTask recordOper(final SysOperLog operLog) {
+        return new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                // 远程查询操作地点
+                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                SpringUtils.getBean(ISysOperLogService.class).insertOperlog(operLog);
+            }
+        };
+    }
+
 
     /**
      * 记录登陆信息
