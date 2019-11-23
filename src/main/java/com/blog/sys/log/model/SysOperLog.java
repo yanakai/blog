@@ -1,12 +1,14 @@
 package com.blog.sys.log.model;
 
+import com.blog.sys.common.base.model.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 操作日志记录
  */
-public class SysOperLog implements Serializable {
+public class SysOperLog extends BaseEntity {
     /**
      * 日志主键
      */
