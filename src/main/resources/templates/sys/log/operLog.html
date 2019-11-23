@@ -17,17 +17,6 @@
 							<li>
 								<label>操作人员： </label><input type="text" name="operName"/>
 							</li>
-							<li class="select-selectpicker">
-								<label>操作类型： </label><select id="businessTypes" th:with="type=${@dict.getType('sys_oper_type')}" class="selectpicker" data-none-selected-text="请选择" multiple>
-									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-								</select>
-							</li>
-							<li>
-								<label>操作状态：</label><select name="status" th:with="type=${@dict.getType('sys_common_status')}">
-									<option value="">所有</option>
-									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-								</select>
-							</li>
 							<li class="select-time">
 								<label>操作时间： </label>
 								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
@@ -44,13 +33,13 @@
 			</div>
 			
 			<div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="monitor:operlog:remove">
+				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" >
 		            <i class="fa fa-remove"></i> 删除
 		        </a>
-		        <a class="btn btn-danger" onclick="$.operate.clean()" shiro:hasPermission="monitor:operlog:remove">
+		        <a class="btn btn-danger" onclick="$.operate.clean()" >
 	                <i class="fa fa-trash"></i> 清空
 	            </a>
-	            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="monitor:operlog:export">
+	            <a class="btn btn-warning" onclick="$.table.exportExcel()" >
 		            <i class="fa fa-download"></i> 导出
 		        </a>
 	        </div>
@@ -64,7 +53,7 @@
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: bootstrap-select-js" />
 	<script th:inline="javascript">
-		var prefix ="/sys/operlog";
+		var prefix ="/sys/operLog";
 
 		$(function() {
 		    var options = {

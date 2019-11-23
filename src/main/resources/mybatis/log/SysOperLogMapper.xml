@@ -28,11 +28,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_oper_log
-    where oper_id = #{operId,jdbcType=BIGINT}
+    where oper_id = #{operId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_oper_log
-    where oper_id = #{operId,jdbcType=BIGINT}
+    where oper_id = #{operId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.blog.sys.log.model.SysOperLog">
     insert into sys_oper_log (oper_id, title, business_type, 
@@ -41,7 +41,7 @@
       oper_ip, oper_location, oper_param, 
       json_result, status, error_msg, 
       oper_time)
-    values (#{operId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{businessType,jdbcType=INTEGER}, 
+    values (#{operId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{businessType,jdbcType=INTEGER},
       #{method,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{operatorType,jdbcType=INTEGER}, 
       #{operName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{operUrl,jdbcType=VARCHAR}, 
       #{operIp,jdbcType=VARCHAR}, #{operLocation,jdbcType=VARCHAR}, #{operParam,jdbcType=VARCHAR}, 
@@ -102,7 +102,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="operId != null">
-        #{operId,jdbcType=BIGINT},
+        #{operId,jdbcType=VARCHAR},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -200,7 +200,7 @@
         oper_time = #{operTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where oper_id = #{operId,jdbcType=BIGINT}
+    where oper_id = #{operId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.blog.sys.log.model.SysOperLog">
     update sys_oper_log
@@ -219,12 +219,13 @@
       status = #{status,jdbcType=INTEGER},
       error_msg = #{errorMsg,jdbcType=VARCHAR},
       oper_time = #{operTime,jdbcType=TIMESTAMP}
-    where oper_id = #{operId,jdbcType=BIGINT}
+    where oper_id = #{operId,jdbcType=VARCHAR}
   </update>
 <!--  获取类表数据-->
   <select id="getList" parameterType="com.blog.sys.log.model.SysOperLog" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
+    from sys_oper_log
     <where>
       <if test="vo.title != null and vo.title != ''">
         AND title like concat('%', #{vo.title}, '%')

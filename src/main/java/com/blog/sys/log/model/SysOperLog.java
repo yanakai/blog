@@ -89,7 +89,6 @@ public class SysOperLog extends BaseEntity {
      */
     private Date operTime;
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 日志主键
@@ -337,7 +336,6 @@ public class SysOperLog extends BaseEntity {
         sb.append(", status=").append(status);
         sb.append(", errorMsg=").append(errorMsg);
         sb.append(", operTime=").append(operTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
