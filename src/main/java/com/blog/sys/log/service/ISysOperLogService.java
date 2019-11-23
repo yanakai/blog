@@ -36,4 +36,14 @@ public interface ISysOperLogService {
      * @author: yanakai@126.com
      */
     int deleteByIds(String ids);
+
+    /**
+     * @method:  cleanLoginInfo
+     * @description: <p>清空数据</p>
+     * @params:
+     * @return: int
+     * @date: 2019/11/23 18:45
+     * @author: yanakai@126.com
+     */
+    int cleanLoginInfo();
 }

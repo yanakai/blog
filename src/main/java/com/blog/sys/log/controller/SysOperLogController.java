@@ -79,4 +79,20 @@ public class SysOperLogController extends BaseController {
         if(state>0)data = operateSucess("操作成功");
         return data;
     }
+
+    /**
+     * @method:  clean
+     * @description: <p>清空日志数据</p>
+     * @params:
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/23 17:03
+     * @author: yanakai@126.com
+     */
+    @PostMapping("/clean")
+    @ResponseBody
+    public ResponseData clean(){
+        sysOperLogService.cleanLoginInfo();
+        return operateSucess("操作成功");
+    }
+
 }

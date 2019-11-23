@@ -254,4 +254,8 @@
       #{operId}
     </foreach>
   </delete>
+  <!--清空操作日志-->
+  <update id="cleanLoginInfo">
+    truncate table sys_oper_log
+  </update>
 </mapper>

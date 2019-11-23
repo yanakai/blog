@@ -37,4 +37,14 @@ public interface SysOperLogMapper {
      * @author: yanakai@126.com
      */
     int deleteByIds(String[] ids);
+
+    /**
+     * @method:  cleanLoginInfo
+     * @description: <p>清空操作日志信息</p>
+     * @params:
+     * @return: int
+     * @date: 2019/11/23 18:46
+     * @author: yanakai@126.com
+     */
+    int cleanLoginInfo();
 }

@@ -39,4 +39,9 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     public int deleteByIds(String ids) {
         return sysOperLogMapper.deleteByIds(Convert.toStrArray(ids));
     }
+
+    @Override
+    public int cleanLoginInfo() {
+        return sysOperLogMapper.cleanLoginInfo();
+    }
 }
