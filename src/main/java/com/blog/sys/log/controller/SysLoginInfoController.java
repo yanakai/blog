@@ -91,6 +91,14 @@ public class SysLoginInfoController extends BaseController {
         return operateSucess("操作成功");
     }
 
+    /**
+     * @method:  deleteByIds
+     * @description: <p>批量删除登录日志数据</p>
+     * @params:  ids 主键ids
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/23 20:26
+     * @author: yanakai@126.com
+     */
     @PostMapping("remove")
     @ResponseBody
     public ResponseData deleteByIds(String ids){
