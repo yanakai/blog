@@ -18,7 +18,7 @@ public class SysOperLog implements Serializable {
     private String title;
 
     /**
-     * 业务类型（0其它 1新增 2修改 3删除）
+     * 业务类型（0其它 1查询 2新增 3修改  4删除）
      */
     private Integer businessType;
 
@@ -118,14 +118,14 @@ public class SysOperLog implements Serializable {
     }
 
     /**
-     * 业务类型（0其它 1新增 2修改 3删除）
+     * 业务类型（0其它 1查询 2新增 3修改  4删除）
      */
     public Integer getBusinessType() {
         return businessType;
     }
 
     /**
-     * 业务类型（0其它 1新增 2修改 3删除）
+     * 业务类型（0其它 1查询 2新增 3修改  4删除）
      */
     public void setBusinessType(Integer businessType) {
         this.businessType = businessType;
