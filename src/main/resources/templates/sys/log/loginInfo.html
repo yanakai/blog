@@ -32,13 +32,13 @@
 			</div>
 			
 			<div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()">
+				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="sys:loginLog:del">
 		            <i class="fa fa-remove"></i> 删除
 		        </a>
-		        <a class="btn btn-danger" onclick="$.operate.clean()">
+		        <a class="btn btn-danger" onclick="$.operate.clean()" shiro:hasPermission="sys:loginLog:clean">
 	                <i class="fa fa-trash"></i> 清空
 	            </a>
-				<a class="btn btn-primary single disabled" onclick="unlock()">
+				<a class="btn btn-primary single disabled" onclick="unlock()" shiro:hasPermission="sys:loginLog:unlock">
 					<i class="fa fa-unlock"></i> 解锁
 				</a>
 	            <a class="btn btn-warning" onclick="$.table.exportExcel()">

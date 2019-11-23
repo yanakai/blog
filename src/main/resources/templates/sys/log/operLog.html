@@ -33,10 +33,10 @@
 			</div>
 			
 			<div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="monitor:operLog:del">
+				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="sys:operLog:del">
 		            <i class="fa fa-remove"></i> 删除
 		        </a>
-		        <a class="btn btn-danger" onclick="$.operate.clean()" shiro:hasPermission="monitor:operLog:clean">
+		        <a class="btn btn-danger" onclick="$.operate.clean()" shiro:hasPermission="sys:operLog:clean">
 	                <i class="fa fa-trash"></i> 清空
 	            </a>
 	            <a class="btn btn-warning" onclick="$.table.exportExcel()" >
@@ -53,7 +53,7 @@
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: bootstrap-select-js" />
 	<script th:inline="javascript">
-		var detailFlag = [[${@permission.hasPermi('monitor:operLog:detail')}]];
+		var detailFlag = [[${@permission.hasPermi('sys:operLog:detail')}]];
 		var prefix ="/sys/operLog";
 
 		$(function() {
