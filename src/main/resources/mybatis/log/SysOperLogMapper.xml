@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.sys.log.mapper.SysOperLogMapper">
+  <resultMap id="BaseResultMap" type="com.blog.sys.log.model.SysOperLog">
+    <id column="oper_id" jdbcType="VARCHAR" property="operId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="business_type" jdbcType="INTEGER" property="businessType" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="request_method" jdbcType="VARCHAR" property="requestMethod" />
+    <result column="operator_type" jdbcType="INTEGER" property="operatorType" />
+    <result column="oper_name" jdbcType="VARCHAR" property="operName" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="oper_url" jdbcType="VARCHAR" property="operUrl" />
+    <result column="oper_ip" jdbcType="VARCHAR" property="operIp" />
+    <result column="oper_location" jdbcType="VARCHAR" property="operLocation" />
+    <result column="oper_param" jdbcType="VARCHAR" property="operParam" />
+    <result column="json_result" jdbcType="VARCHAR" property="jsonResult" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
+    <result column="oper_time" jdbcType="TIMESTAMP" property="operTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oper_id, title, business_type, method, request_method, operator_type, oper_name, 
+    dept_name, oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg, 
+    oper_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_oper_log
+    where oper_id = #{operId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_oper_log
+    where oper_id = #{operId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.blog.sys.log.model.SysOperLog">
+    insert into sys_oper_log (oper_id, title, business_type, 
+      method, request_method, operator_type, 
+      oper_name, dept_name, oper_url, 
+      oper_ip, oper_location, oper_param, 
+      json_result, status, error_msg, 
+      oper_time)
+    values (#{operId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{businessType,jdbcType=INTEGER}, 
+      #{method,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{operatorType,jdbcType=INTEGER}, 
+      #{operName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{operUrl,jdbcType=VARCHAR}, 
+      #{operIp,jdbcType=VARCHAR}, #{operLocation,jdbcType=VARCHAR}, #{operParam,jdbcType=VARCHAR}, 
+      #{jsonResult,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{errorMsg,jdbcType=VARCHAR}, 
+      #{operTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.sys.log.model.SysOperLog">
+    insert into sys_oper_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="operId != null">
+        oper_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="businessType != null">
+        business_type,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="requestMethod != null">
+        request_method,
+      </if>
+      <if test="operatorType != null">
+        operator_type,
+      </if>
+      <if test="operName != null">
+        oper_name,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="operUrl != null">
+        oper_url,
+      </if>
+      <if test="operIp != null">
+        oper_ip,
+      </if>
+      <if test="operLocation != null">
+        oper_location,
+      </if>
+      <if test="operParam != null">
+        oper_param,
+      </if>
+      <if test="jsonResult != null">
+        json_result,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="errorMsg != null">
+        error_msg,
+      </if>
+      <if test="operTime != null">
+        oper_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="operId != null">
+        #{operId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMethod != null">
+        #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="operName != null">
+        #{operName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="operUrl != null">
+        #{operUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operIp != null">
+        #{operIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operLocation != null">
+        #{operLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="operParam != null">
+        #{operParam,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonResult != null">
+        #{jsonResult,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="errorMsg != null">
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="operTime != null">
+        #{operTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.sys.log.model.SysOperLog">
+    update sys_oper_log
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMethod != null">
+        request_method = #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        operator_type = #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="operName != null">
+        oper_name = #{operName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="operUrl != null">
+        oper_url = #{operUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operIp != null">
+        oper_ip = #{operIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operLocation != null">
+        oper_location = #{operLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="operParam != null">
+        oper_param = #{operParam,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonResult != null">
+        json_result = #{jsonResult,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="errorMsg != null">
+        error_msg = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="operTime != null">
+        oper_time = #{operTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oper_id = #{operId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.sys.log.model.SysOperLog">
+    update sys_oper_log
+    set title = #{title,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=INTEGER},
+      method = #{method,jdbcType=VARCHAR},
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      operator_type = #{operatorType,jdbcType=INTEGER},
+      oper_name = #{operName,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      oper_url = #{operUrl,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_location = #{operLocation,jdbcType=VARCHAR},
+      oper_param = #{operParam,jdbcType=VARCHAR},
+      json_result = #{jsonResult,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      error_msg = #{errorMsg,jdbcType=VARCHAR},
+      oper_time = #{operTime,jdbcType=TIMESTAMP}
+    where oper_id = #{operId,jdbcType=BIGINT}
+  </update>
+<!--  获取类表数据-->
+  <select id="getList" parameterType="com.blog.sys.log.model.SysOperLog" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    <where>
+      <if test="vo.title != null and vo.title != ''">
+        AND title like concat('%', #{vo.title}, '%')
+      </if>
+      <if test="vo.businessType != null">
+        AND business_type = #{vo.businessType}
+      </if>
+      <if test="vo.status != null">
+        AND status = #{vo.status}
+      </if>
+      <if test="vo.operName != null and vo.operName != ''">
+        AND oper_name like concat('%', #{vo.operName}, '%')
+      </if>
+      <if test="vo.params.beginTime != null and vo.params.beginTime != ''"><!-- 开始时间检索 -->
+        and date_format(oper_time,'%y%m%d') &gt;= date_format(#{vo.params.beginTime},'%y%m%d')
+      </if>
+      <if test="vo.params.endTime != null and vo.params.endTime != ''"><!-- 结束时间检索 -->
+        and date_format(oper_time,'%y%m%d') &lt;= date_format(#{vo.params.endTime},'%y%m%d')
+      </if>
+    </where>
+  </select>
+</mapper>
