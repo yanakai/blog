@@ -1,5 +1,6 @@
 package com.blog.sys.log.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import com.blog.sys.log.mapper.SysLoginInfoMapper;
 import com.blog.sys.log.model.SysLoginInfo;
 import com.blog.sys.log.service.ISysLoginInfoService;
@@ -40,5 +41,10 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
 
     public int saveLoginInfo(SysLoginInfo loginInfo) {
         return sysLoginInfoMapper.insertSelective(loginInfo);
+    }
+
+    @Override
+    public int deleteByIds(String ids) {
+        return sysLoginInfoMapper.deleteLoginInfoByIds(Convert.toStrArray(ids));
     }
 }

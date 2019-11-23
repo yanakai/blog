@@ -70,7 +70,14 @@ public class SysLoginInfoController extends BaseController {
         return getDataTable(list);
     }
 
-
+    /**
+     * @method:  clean
+     * @description: <p>清空日志数据</p>
+     * @params:
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/23 17:03
+     * @author: yanakai@126.com
+     */
     @PostMapping("/clean")
     @ResponseBody
     public ResponseData clean(){
@@ -83,5 +90,16 @@ public class SysLoginInfoController extends BaseController {
         return data;
     }
 
+    @PostMapping("remove")
+    @ResponseBody
+    public ResponseData deleteByIds(String ids){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        state = sysLoginInfoService.deleteByIds(ids);
+        if (state>0){
+            data = operateSucess("操作成功");
+        }
+        return data;
+    }
 
 }

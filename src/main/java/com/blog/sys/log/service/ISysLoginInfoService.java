@@ -46,4 +46,14 @@ public interface ISysLoginInfoService {
      * @author: yanakai@126.com
      */
     int saveLoginInfo(SysLoginInfo sysLoginInfo);
+
+    /**
+     * @method:  deleteByIds
+     * @description: <p>批量删除数据</p>
+     * @params:  ids 主键ids
+     * @return: int
+     * @date: 2019/11/23 17:06
+     * @author: yanakai@126.com
+     */
+    int deleteByIds(String ids);
 }
