@@ -143,4 +143,9 @@ public class SysRoleInfoServiceImpl implements ISysRoleInfoService {
         return SpringUtils.getAopProxy(this).getList(new SysRoleInfo());
     }
 
+    @Override
+    public int changeStatus(SysRoleInfo sysRoleInfo) {
+        return sysRoleInfoMapper.updateByPrimaryKeySelective(sysRoleInfo);
+    }
+
 }

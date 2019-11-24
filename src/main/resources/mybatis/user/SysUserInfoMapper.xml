@@ -235,6 +235,12 @@
               <if test="vo.trueName != null and vo.trueName != null">
                   and true_name like CONCAT('%', #{vo.trueName}, '%')
               </if>
+              <if test="vo.params.beginTime != null and vo.params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{vo.params.beginTime},'%y%m%d')
+              </if>
+              <if test="vo.params.endTime != null and vo.params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{vo.params.endTime},'%y%m%d')
+              </if>
           </if>
       </where>
   </select>

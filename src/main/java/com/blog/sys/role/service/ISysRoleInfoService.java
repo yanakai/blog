@@ -115,4 +115,14 @@ public interface ISysRoleInfoService {
      * @author: yanakai@126.com       
      */
     public List<SysRoleInfo> selectRoleAll();
+
+    /**
+     * @method:  changeStatus
+     * @description: <p>角色禁用和启用</p>
+     * @params:  sysRoleInfo 角色对象
+     * @return: int
+     * @date: 2019/11/24 22:31
+     * @author: yanakai@126.com
+     */
+    int changeStatus(SysRoleInfo sysRoleInfo);
 }

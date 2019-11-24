@@ -245,7 +245,7 @@ public class SysRoleInfoController extends BaseController {
         int state = 0;
         sysRoleInfo.setUpdateTime(new Date());
         sysRoleInfo.setUpdateBy("暂无登录者");
-        state = sysRoleInfoService.updateNotNull(sysRoleInfo);
+        state = sysRoleInfoService.changeStatus(sysRoleInfo);
         if (state>0){
             data = operateSucess("操作成功");
         }

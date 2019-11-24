@@ -1,12 +1,14 @@
 package com.blog.sys.role.model;
 
+import com.blog.sys.common.base.model.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 
  */
-public class SysRoleInfo implements Serializable {
+public class SysRoleInfo extends BaseEntity {
     /**
      * 角色id
      */
@@ -68,7 +70,6 @@ public class SysRoleInfo implements Serializable {
      */
     private String remark;
 
-    private static final long serialVersionUID = 1L;
     /** 用户是否存在此角色标识 默认不存在 */
     private boolean flag = false;
 
@@ -297,7 +298,6 @@ public class SysRoleInfo implements Serializable {
         sb.append(", updateBy=").append(updateBy);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", remark=").append(remark);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }

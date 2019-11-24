@@ -1,12 +1,13 @@
 package com.blog.sys.user.model;
 
-import java.io.Serializable;
+import com.blog.sys.common.base.model.BaseEntity;
+
 import java.util.Date;
 
 /**
  * 
  */
-public class SysUserInfo implements Serializable {
+public class SysUserInfo extends BaseEntity {
     /**
      * 
      */
@@ -82,7 +83,6 @@ public class SysUserInfo implements Serializable {
      */
     private String loginIp;
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * @Title: isAdmin
@@ -393,7 +393,6 @@ public class SysUserInfo implements Serializable {
         sb.append(", loginTime=").append(loginTime);
         sb.append(", modifyTime=").append(modifyTime);
         sb.append(", loginIp=").append(loginIp);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
