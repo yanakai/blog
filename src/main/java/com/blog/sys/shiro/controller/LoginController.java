@@ -5,8 +5,6 @@ import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
-import com.blog.sys.menu.model.SysMenuInfo;
-import com.blog.sys.menu.service.ISysMenuInfoService;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
@@ -44,11 +42,6 @@ public class LoginController extends BaseController {
     @Resource
     private ISysUserInfoService sysUserInfoService;
 
-    /**
-     * 菜单业务层接口
-     */
-    @Resource
-    private ISysMenuInfoService sysMenuInfoService;
 
     @GetMapping({"/login",""})
     public String login() {
@@ -92,29 +85,5 @@ public class LoginController extends BaseController {
             }
             return operateFailed(msg);
         }
-    }
-
-    /**
-     *
-     * <p>Title: index</p>
-     * <p>Description: 跳转值系统首页</p>
-     * @param: model
-     * @return
-     * @author yanakai@126.com
-     * @date 2019年7月27日
-     */
-    @RequestMapping(value="index",method = RequestMethod.GET)
-    public String index(Model model){
-        SysUserInfo sysUserInfo= ShiroUtils.getSysUser();
-        //根据当前登录用户信息查询目录和菜单
-        List<SysMenuInfo> menuList=sysMenuInfoService.getMenuListByUser(sysUserInfo);
-        model.addAttribute("menuList", menuList);
-        model.addAttribute("user", sysUserInfo);
-        return "/sys/index";
-    }
-    // 系统介绍页
-    @GetMapping("/sys/main")
-    public String main(Model model) {
-        return "/sys/main";
     }
 }
