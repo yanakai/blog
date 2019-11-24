@@ -170,7 +170,7 @@
         /*菜单管理-新增-选择菜单树*/
         function selectMenuTree() {
         	var treeId = $("#treeId").val();
-        	var menuId = treeId > 0 ? treeId : 1;
+        	var menuId = treeId !=null && treeId!="" ? treeId : 'root';
         	var url = prefix + "/selectMenuTree/" + menuId;
 			var options = {
 				title: '菜单选择',
