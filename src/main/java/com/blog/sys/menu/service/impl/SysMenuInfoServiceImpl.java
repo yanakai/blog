@@ -123,6 +123,23 @@ public class SysMenuInfoServiceImpl implements ISysMenuInfoService {
         return getChildPerms(menuList, "root");
     }
 
+    @Override
+    public List<Ztree> menuTreeData(String userId) {
+        List<SysMenuInfo> menuList = selectMenuAll(userId);
+        List<Ztree> ztrees = initZtree(menuList);
+        return ztrees;
+    }
+
+    /**
+     * 对象转菜单树
+     *
+     * @param menuList 菜单列表
+     * @return 树结构列表
+     */
+    public List<Ztree> initZtree(List<SysMenuInfo> menuList){
+        return initZtree(menuList, null, false);
+    }
+
     /**
      *
      * <p>Title: getChildPerms</p>

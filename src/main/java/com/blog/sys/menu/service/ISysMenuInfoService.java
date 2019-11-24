@@ -141,4 +141,14 @@ public interface ISysMenuInfoService {
      * @author: yanakai@126.com
      */
     List<SysMenuInfo> getMenuListByUser(SysUserInfo sysUserInfo);
+
+    /**
+     * @method:  menuTreeData
+     * @description: <p>通过用户id加载所有菜单列表</p>
+     * @params:  userId 用户id
+     * @return: java.util.List<com.blog.sys.common.base.model.Ztree>
+     * @date: 2019/11/24 17:13
+     * @author: yanakai@126.com
+     */
+    List<Ztree> menuTreeData(String userId);
 }

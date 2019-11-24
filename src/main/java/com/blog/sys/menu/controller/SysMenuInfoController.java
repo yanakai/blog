@@ -10,6 +10,7 @@ import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.menu.model.SysMenuInfo;
 import com.blog.sys.menu.service.ISysMenuInfoService;
 import com.blog.sys.role.model.SysRoleInfo;
+import com.blog.sys.shiro.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
@@ -213,6 +214,17 @@ public class SysMenuInfoController extends BaseController {
         modelMap.put("info",sysMenuInfoService.getMenuInfoById(menuId));
         return SYS_MENU_PATH + "/tree";
     }
+    /**
+     * 加载所有菜单列表树
+     */
+    @GetMapping("/menuTreeData")
+    @ResponseBody
+    public List<Ztree> menuTreeData(){
+        String userId = ShiroUtils.getUserId();
+        List<Ztree> ztrees = sysMenuInfoService.menuTreeData(userId);
+        return ztrees;
+    }
+
 
     /**
      * 加载角色菜单列表树
@@ -220,7 +232,7 @@ public class SysMenuInfoController extends BaseController {
     @GetMapping("/roleMenuTreeData")
     @ResponseBody
     public List<Ztree> roleMenuTreeData(SysRoleInfo sysRoleInfo){
-        String userId = "admin";
+        String userId = ShiroUtils.getUserId();
         List<Ztree> ztrees = sysMenuInfoService.roleMenuTreeData(sysRoleInfo, userId);
         return ztrees;
     }
