@@ -136,6 +136,17 @@
             $.modal.open("重置密码", url, '770', '380');
         }
 
+        /* 切换主题 */
+        function switchSkin() {
+            layer.open({
+                type : 2,
+                shadeClose : true,
+                title : "切换主题",
+                area : ["530px", "386px"],
+                content : ["/sys/switchSkin", 'no']
+            })
+        }
+
 // 排除非左侧菜单链接
         var excludesUrl = ["/sys/user/profile"];
 
