@@ -1,6 +1,5 @@
 package com.blog.sys.shiro.controller;
 
-import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.enums.BusinessType;
@@ -69,7 +68,6 @@ public class LoginController extends BaseController {
      * @date: 2019/11/12 22:35
      * @author: yanakai@126.com       
      */
-    @Log(title = "用户登录-->登录用户", businessType = BusinessType.OTHER)
     @PostMapping(value = "/login")
     @ResponseBody
     public ResponseData userLoginWithRealmAction (String userName,String password,String rememberMe){
