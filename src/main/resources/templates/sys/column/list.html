@@ -48,10 +48,9 @@
                 modalName: "栏目列表",
                 columns: [
 				{
-					field : '',
 					title : '序号' ,
-					formatter: function(value, row, index) {
-						return index + 1;
+					formatter: function (value, row, index) {
+						return $.table.serialNumber(index);
 					}
 				},
 				{

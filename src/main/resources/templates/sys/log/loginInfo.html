@@ -77,10 +77,9 @@
 						visible: false,// 隐藏列
 					},
 				{
-					field : '',
 					title : '序号' ,
-					formatter: function(value, row, index) {
-						return index + 1;
+					formatter: function (value, row, index) {
+						return $.table.serialNumber(index);
 					}
 				},
 		        {

@@ -81,6 +81,12 @@
 				checkbox: true
 			},
 				{
+					title : '序号' ,
+					formatter: function (value, row, index) {
+						return $.table.serialNumber(index);
+					}
+				},
+				{
 					field: 'userName',
 					title: '登录名称',
 					sortable: true
