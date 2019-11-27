@@ -10,7 +10,7 @@ public class SysUserOnline implements Serializable {
     /**
      * 用户会话id
      */
-    private String sessionid;
+    private String sessionId;
 
     /**
      * 登录账号
@@ -67,15 +67,15 @@ public class SysUserOnline implements Serializable {
     /**
      * 用户会话id
      */
-    public String getSessionid() {
-        return sessionid;
+    public String getSessionId() {
+        return sessionId;
     }
 
     /**
      * 用户会话id
      */
-    public void setSessionid(String sessionid) {
-        this.sessionid = sessionid == null ? null : sessionid.trim();
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId == null ? null : sessionId.trim();
     }
 
     /**
@@ -224,7 +224,7 @@ public class SysUserOnline implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", sessionid=").append(sessionid);
+        sb.append(", sessionId=").append(sessionId);
         sb.append(", loginName=").append(loginName);
         sb.append(", deptName=").append(deptName);
         sb.append(", ipaddr=").append(ipaddr);

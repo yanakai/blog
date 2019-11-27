@@ -1,9 +1,12 @@
 package com.blog.sys.online.controller;
 
+import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.online.model.SysUserOnline;
 import com.blog.sys.online.service.ISysUserOnlineService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +30,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Controller
-@RequestMapping("/sys/userOnline")
+@RequestMapping("/sys/online")
 public class SysUserOnlineController extends BaseController {
 
     private static final String SYS_ONLINE_PATH = "/sys/online";
@@ -45,11 +48,22 @@ public class SysUserOnlineController extends BaseController {
      * @date: 2019/11/26 22:19
      * @author: yanakai@126.com
      */
+    @RequiresPermissions("sys:online:view")
     @GetMapping("/list")
     public String pageList(ModelMap modelMap){
         return SYS_ONLINE_PATH + "/list";
     }
 
+    /**
+     * @method:  tableDataInfo
+     * @description: <p>获取用户在线数据</p>
+     * @params:  sysUserOnline 用户在线列表
+     * @return: com.blog.sys.common.base.TableDataInfo
+     * @date: 2019/11/27 22:32
+     * @author: yanakai@126.com
+     */
+    @Log(title = "用户在线-->在线列表",businessType = BusinessType.SEARCH)
+    @RequiresPermissions("sys:online:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo tableDataInfo(SysUserOnline sysUserOnline){
