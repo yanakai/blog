@@ -26,4 +26,14 @@ public interface ISysUserOnlineService {
      * @author: yanakai@126.com
      */
     List<SysUserOnline> getList(SysUserOnline sysUserOnline);
+
+    /*
+     * @method:  getById
+     * @description: <p>主键查询对象</p>
+     * @params:  sessionId 主键id
+     * @return: com.blog.sys.online.model.SysUserOnline
+     * @date: 2019/11/27 23:10
+     * @author: yanakai@126.com
+     */
+    SysUserOnline getById(String sessionId);
 }

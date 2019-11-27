@@ -33,4 +33,9 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
     public List<SysUserOnline> getList(SysUserOnline sysUserOnline) {
         return sysUserOnlineMapper.getList(sysUserOnline);
     }
+
+    @Override
+    public SysUserOnline getById(String sessionId) {
+        return sysUserOnlineMapper.selectByPrimaryKey(sessionId);
+    }
 }

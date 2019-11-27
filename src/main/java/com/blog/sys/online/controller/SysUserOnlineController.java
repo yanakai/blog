@@ -2,10 +2,12 @@ package com.blog.sys.online.controller;
 
 import com.blog.sys.common.annotation.Log;
 import com.blog.sys.common.base.BaseController;
+import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.online.model.SysUserOnline;
 import com.blog.sys.online.service.ISysUserOnlineService;
+import com.blog.sys.shiro.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -62,7 +64,7 @@ public class SysUserOnlineController extends BaseController {
      * @date: 2019/11/27 22:32
      * @author: yanakai@126.com
      */
-    @Log(title = "用户在线-->在线列表",businessType = BusinessType.SEARCH)
+    @Log(title = "在线用户-->在线列表",businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:online:list")
     @PostMapping("/list")
     @ResponseBody
@@ -72,4 +74,28 @@ public class SysUserOnlineController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * @method:  forceLogout
+     * @description: <p>单个用户强退功能</p>
+     * @params:  sessionId 在线用户sessionId
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/11/27 23:08
+     * @author: yanakai@126.com
+     */
+    @Log(title = "在线用户-->单个用户强退",businessType = BusinessType.FORCE)
+    @RequiresPermissions("sys:online:forceLogout")
+    @PostMapping("/forceLogout")
+    @ResponseBody
+    public ResponseData forceLogout(String sessionId){
+        ResponseData data = operateSucess();
+        SysUserOnline online = sysUserOnlineService.getById(sessionId);
+        //判断当前操作者强退的用户是否本账户
+        if (sessionId.equals(ShiroUtils.getSessionId())){
+            return operateFailed("当前登陆用户无法强退");
+        }
+        if (online == null){
+            return operateFailed("此用户已下线");
+        }
+        return data;
+    }
 }
