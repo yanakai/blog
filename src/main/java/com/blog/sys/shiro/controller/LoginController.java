@@ -6,7 +6,6 @@ import com.blog.sys.common.enums.BusinessType;
 import com.blog.sys.common.utils.StringUtils;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
-import com.blog.sys.user.service.ISysUserInfoService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -35,11 +34,6 @@ import java.util.List;
 @Controller
 public class LoginController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
-    /**
-     * 用户业务层接口
-     */
-    @Resource
-    private ISysUserInfoService sysUserInfoService;
 
 
     @GetMapping({"/login",""})

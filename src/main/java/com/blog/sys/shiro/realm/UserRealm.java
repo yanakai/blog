@@ -6,7 +6,6 @@ import com.blog.sys.role.service.ISysRoleInfoService;
 import com.blog.sys.shiro.service.SysLoginService;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
-import com.blog.sys.user.service.ISysUserInfoService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -35,8 +34,6 @@ import java.util.Set;
 public class UserRealm extends AuthorizingRealm {
     private static final Logger log = LoggerFactory.getLogger(UserRealm.class);
 
-    @Resource
-    private ISysUserInfoService sysUserInfoService;
     @Resource
     private ISysRoleInfoService sysRoleInfoService;
     @Resource

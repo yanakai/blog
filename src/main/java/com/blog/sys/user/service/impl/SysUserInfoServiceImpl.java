@@ -52,6 +52,11 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     @Override
     @Transactional
     public int updateNotNull(SysUserInfo sysUserInfo) {
+        return sysUserInfoMapper.updateByPrimaryKeySelective(sysUserInfo);
+    }
+
+    @Override
+    public int updateSaveUserInfo(SysUserInfo sysUserInfo) {
         //通过用户id删除用户角色关系
         sysUserRoleMapper.deleteUserRoleByUserId(sysUserInfo.getUserId());
         //新增用户角色关系
@@ -142,4 +147,5 @@ public class SysUserInfoServiceImpl implements ISysUserInfoService {
     public SysUserInfo selectUserByEmail(String email) {
         return sysUserInfoMapper.findUserByEmail(email);
     }
+
 }

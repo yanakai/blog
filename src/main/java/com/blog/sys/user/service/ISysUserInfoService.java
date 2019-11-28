@@ -146,4 +146,14 @@ public interface ISysUserInfoService {
      * @author: yanakai@126.com
      */
     SysUserInfo selectUserByEmail(String email);
+
+    /**
+     * @Title: updateSaveUserInfo
+     * @Description:  修改保存用户信息
+     * @Param: sysUserInfo
+     * @return: int
+     * @author: yankai
+     * @date   2019-11-28
+     */
+    int updateSaveUserInfo(SysUserInfo sysUserInfo);
 }

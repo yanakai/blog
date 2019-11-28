@@ -157,7 +157,7 @@ public class SysUserInfoController extends BaseController {
                 return data;
             }
             sysUserInfo.setModifyTime(new Date());
-            state = sysUserInfoService.updateNotNull(sysUserInfo);
+            state = sysUserInfoService.updateSaveUserInfo(sysUserInfo);
         }else {
             if (UserConstants.USER_NAME_NOT_UNIQUE.equals(sysUserInfoService.checkUserNameUnique(sysUserInfo))) {
                 data.setMsg("保存用户'" + sysUserInfo.getUserName() + "'失败，登录账号已存在");
