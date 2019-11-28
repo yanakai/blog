@@ -117,14 +117,17 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <!-- dev环境 -->
     <springProfile name="dev">
         <root level="INFO">
-            <!-- 控制台 -->
+            <!-- 控制台 日志输出 -->
             <appender-ref ref="console" />
+            <!-- 本地日志文件 日志输出 -->
+            <appender-ref ref="appLogAppender" />
         </root>
     </springProfile>
 
     <!-- 生产环境 -->
     <springProfile name="prod">
         <root level="INFO">
+            <!--日志只打印到本地日志文件内-->
             <appender-ref ref="appLogAppender"/>
         </root>
     </springProfile>
@@ -138,7 +141,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         <!--
         使用方法：
         1、根据自己实际项目路径修改地址
-        <property name="LOG_HOME" value="d:\\springbootv2-log" />
+         <property name="LOG_HOME" value="E:\\blog-log" />
         2、
         dev环境   与    生产环境  根据application.yml 里面的
         spring :
