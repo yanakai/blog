@@ -2,10 +2,17 @@ package com.blog.sys.shiro.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.blog.sys.common.utils.StringUtils;
+import com.blog.sys.common.utils.spring.SpringUtils;
 import com.blog.sys.shiro.filter.LogoutFilter;
 import com.blog.sys.shiro.filter.captcha.CaptchaValidateFilter;
+import com.blog.sys.shiro.filter.online.OnlineSessionFilter;
+import com.blog.sys.shiro.filter.sync.SyncOnlineSessionFilter;
 import com.blog.sys.shiro.realm.CredentialMatcher;
 import com.blog.sys.shiro.realm.UserRealm;
+import com.blog.sys.shiro.session.OnlineSessionDAO;
+import com.blog.sys.shiro.session.OnlineSessionFactory;
+import com.blog.sys.shiro.session.OnlineWebSessionManager;
+import com.blog.sys.shiro.session.SpringSessionValidationScheduler;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -69,6 +76,22 @@ public class ShiroConfig {
     @Value("${shiro.cookie.maxAge}")
     private int maxAge;
 
+    // Session超时时间，单位为毫秒（默认30分钟）
+    @Value("${shiro.session.expireTime}")
+    private int expireTime;
+
+    // 相隔多久检查一次session的有效性，单位毫秒，默认就是10分钟
+    @Value("${shiro.session.validationInterval}")
+    private int validationInterval;
+
+    // 同一个用户最大会话数
+    @Value("${shiro.session.maxSession}")
+    private int maxSession;
+
+    // 踢出之前登录的/之后登录的用户，默认踢出之前登录的用户
+    @Value("${shiro.session.kickoutAfter}")
+    private boolean kickoutAfter;
+
     /**
      * 缓存管理器 使用Ehcache实现
      */
@@ -105,6 +128,53 @@ public class ShiroConfig {
         }
     }
 
+    /**
+     * 自定义sessionDAO会话
+     */
+    @Bean
+    public OnlineSessionDAO sessionDAO()
+    {
+        OnlineSessionDAO sessionDAO = new OnlineSessionDAO();
+        return sessionDAO;
+    }
+
+    /**
+     * 自定义sessionFactory会话
+     */
+    @Bean
+    public OnlineSessionFactory sessionFactory()
+    {
+        OnlineSessionFactory sessionFactory = new OnlineSessionFactory();
+        return sessionFactory;
+    }
+
+    /**
+     * 会话管理器
+     */
+    @Bean
+    public OnlineWebSessionManager sessionManager()
+    {
+        OnlineWebSessionManager manager = new OnlineWebSessionManager();
+        // 加入缓存管理器
+        manager.setCacheManager(getEhCacheManager());
+        // 删除过期的session
+        manager.setDeleteInvalidSessions(true);
+        // 设置全局session超时时间
+        manager.setGlobalSessionTimeout(expireTime * 60 * 1000);
+        // 去掉 JSESSIONID
+        manager.setSessionIdUrlRewritingEnabled(false);
+        // 定义要使用的无效的Session定时调度器
+        manager.setSessionValidationScheduler(SpringUtils.getBean(SpringSessionValidationScheduler.class));
+        // 是否定时检查session
+        manager.setSessionValidationSchedulerEnabled(true);
+        // 自定义SessionDao
+        manager.setSessionDAO(sessionDAO());
+        // 自定义sessionFactory
+        manager.setSessionFactory(sessionFactory());
+        return manager;
+    }
+
+
 
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager securityManager) {
@@ -139,15 +209,48 @@ public class ShiroConfig {
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         filters.put("captchaValidate", captchaValidateFilter());
+        filters.put("onlineSession", onlineSessionFilter());
+        filters.put("syncOnlineSession", syncOnlineSessionFilter());
         // 注销成功，则跳转到指定页面
         filters.put("logout", logoutFilter());
         bean.setFilters(filters);
 
         // 所有请求需要认证
-        filterChainDefinitionMap.put("/**", "user");
+        filterChainDefinitionMap.put("/**", "user,onlineSession,syncOnlineSession");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
+
+    /**
+     * 自定义在线用户处理过滤器
+     */
+    @Bean
+    public OnlineSessionFilter onlineSessionFilter(){
+        OnlineSessionFilter onlineSessionFilter = new OnlineSessionFilter();
+        onlineSessionFilter.setLoginUrl("/login");
+        return onlineSessionFilter;
+    }
+
+    /**
+     * 自定义在线用户同步过滤器
+     */
+    @Bean
+    public SyncOnlineSessionFilter syncOnlineSessionFilter(){
+        SyncOnlineSessionFilter syncOnlineSessionFilter = new SyncOnlineSessionFilter();
+        return syncOnlineSessionFilter;
+    }
+
+    /**
+     * 自定义验证码过滤器
+     */
+    @Bean
+    public CaptchaValidateFilter captchaValidateFilter(){
+        CaptchaValidateFilter captchaValidateFilter = new CaptchaValidateFilter();
+        captchaValidateFilter.setCaptchaEnabled(captchaEnabled);
+        captchaValidateFilter.setCaptchaType(captchaType);
+        return captchaValidateFilter;
+    }
+
 
     /**
      * @method:  logoutFilter
@@ -162,17 +265,6 @@ public class ShiroConfig {
         logoutFilter.setCacheManager(getEhCacheManager());
         logoutFilter.setLoginUrl("/login");
         return logoutFilter;
-    }
-
-    /**
-     * 自定义验证码过滤器
-     */
-    @Bean
-    public CaptchaValidateFilter captchaValidateFilter(){
-        CaptchaValidateFilter captchaValidateFilter = new CaptchaValidateFilter();
-        captchaValidateFilter.setCaptchaEnabled(captchaEnabled);
-        captchaValidateFilter.setCaptchaType(captchaType);
-        return captchaValidateFilter;
     }
 
 
@@ -201,8 +293,7 @@ public class ShiroConfig {
     /**
      * cookie 属性设置
      */
-    public SimpleCookie rememberMeCookie()
-    {
+    public SimpleCookie rememberMeCookie() {
         SimpleCookie cookie = new SimpleCookie("rememberMe");
         cookie.setDomain(domain);
         cookie.setPath(path);

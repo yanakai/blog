@@ -22,7 +22,7 @@ public class ShiroConstants {
     /**
      * 用户名
      */
-    public static final String CURRENT_USERNAME = "userName";
+    public static final String CURRENT_USERNAME = "username";
 
     /**
      * 消息key
@@ -42,7 +42,7 @@ public class ShiroConstants {
     /**
      * 当前在线会话
      */
-    public String ONLINE_SESSION = "online_session";
+    public static final String ONLINE_SESSION = "online_session";
 
     /**
      * 验证码key

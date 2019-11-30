@@ -9,6 +9,9 @@ import com.blog.sys.log.model.SysLoginInfo;
 import com.blog.sys.log.model.SysOperLog;
 import com.blog.sys.log.service.ISysOperLogService;
 import com.blog.sys.log.service.impl.SysLoginInfoServiceImpl;
+import com.blog.sys.online.model.SysUserOnline;
+import com.blog.sys.online.service.ISysUserOnlineService;
+import com.blog.sys.shiro.session.OnlineSession;
 import com.blog.sys.shiro.utils.LogUtils;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -98,6 +101,37 @@ public class AsyncFactory
                 }
                 // 插入数据
                 SpringUtils.getBean(SysLoginInfoServiceImpl.class).saveLoginInfo(loginInfo);
+            }
+        };
+    }
+
+    /**
+     * 同步session到数据库
+     *
+     * @param session 在线用户会话
+     * @return 任务task
+     */
+    public static TimerTask syncSessionToDb(final OnlineSession session)
+    {
+        return new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                SysUserOnline online = new SysUserOnline();
+                online.setSessionId(String.valueOf(session.getId()));
+                online.setDeptName(session.getDeptName());
+                online.setLoginName(session.getLoginName());
+                online.setStartTimestamp(session.getStartTimestamp());
+                online.setLastAccessTime(session.getLastAccessTime());
+                online.setExpireTime(session.getTimeout());
+                online.setIpaddr(session.getHost());
+                online.setLoginLocation(AddressUtils.getRealAddressByIP(session.getHost()));
+                online.setBrowser(session.getBrowser());
+                online.setOs(session.getOs());
+                online.setStatus(session.getStatus().toString());
+                SpringUtils.getBean(ISysUserOnlineService.class).saveOnline(online);
+
             }
         };
     }
