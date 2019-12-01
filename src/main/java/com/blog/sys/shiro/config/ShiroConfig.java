@@ -132,8 +132,7 @@ public class ShiroConfig {
      * 自定义sessionDAO会话
      */
     @Bean
-    public OnlineSessionDAO sessionDAO()
-    {
+    public OnlineSessionDAO sessionDAO(){
         OnlineSessionDAO sessionDAO = new OnlineSessionDAO();
         return sessionDAO;
     }
@@ -142,8 +141,7 @@ public class ShiroConfig {
      * 自定义sessionFactory会话
      */
     @Bean
-    public OnlineSessionFactory sessionFactory()
-    {
+    public OnlineSessionFactory sessionFactory(){
         OnlineSessionFactory sessionFactory = new OnlineSessionFactory();
         return sessionFactory;
     }
@@ -152,8 +150,7 @@ public class ShiroConfig {
      * 会话管理器
      */
     @Bean
-    public OnlineWebSessionManager sessionManager()
-    {
+    public OnlineWebSessionManager sessionManager() {
         OnlineWebSessionManager manager = new OnlineWebSessionManager();
         // 加入缓存管理器
         manager.setCacheManager(getEhCacheManager());
@@ -268,6 +265,9 @@ public class ShiroConfig {
     }
 
 
+    /**
+     * 安全管理器
+     */
     @Bean("securityManager")
     public SecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -278,7 +278,7 @@ public class ShiroConfig {
         // 注入缓存管理器;
         securityManager.setCacheManager(getEhCacheManager());
         // session管理器
-        //securityManager.setSessionManager(sessionManager());
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
     /**
