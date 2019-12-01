@@ -36,9 +36,8 @@ public class SysShiroService {
      * @return
      */
     public Session getSession(Serializable sessionId){
-//        SysUserOnline userOnline = onlineService.getById(String.valueOf(sessionId));
-//        return StringUtils.isNull(userOnline) ? null : createSession(userOnline);
-        return null;
+        SysUserOnline userOnline = onlineService.getById(String.valueOf(sessionId));
+        return StringUtils.isNull(userOnline) ? null : createSession(userOnline);
     }
 
     public Session createSession(SysUserOnline userOnline) {

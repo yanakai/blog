@@ -37,16 +37,13 @@ public class OnlineSessionFilter extends AccessControlFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
-            throws Exception
-    {
+            throws Exception{
         Subject subject = getSubject(request, response);
-        if (subject == null || subject.getSession() == null)
-        {
+        if (subject == null || subject.getSession() == null){
             return true;
         }
         Session session = onlineSessionDAO.readSession(subject.getSession().getId());
-        if (session != null && session instanceof OnlineSession)
-        {
+        if (session != null && session instanceof OnlineSession){
             OnlineSession onlineSession = (OnlineSession) session;
             request.setAttribute(ShiroConstants.ONLINE_SESSION, onlineSession);
             // 把user对象设置进去
