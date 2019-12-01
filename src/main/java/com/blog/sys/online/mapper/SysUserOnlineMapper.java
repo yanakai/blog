@@ -37,4 +37,14 @@ public interface SysUserOnlineMapper {
      * @author: yanakai@126.com
      */
     List<SysUserOnline> selectOnlineByExpired(String lastAccessTime);
+
+    /**
+     * @method:  saveOnline
+     * @description: <p>保存会话信息</p>
+     * @params:  online 会话信息
+     * @return: int
+     * @date: 2019/12/1 22:29
+     * @author: yanakai@126.com
+     */
+    int saveOnline(SysUserOnline online);
 }

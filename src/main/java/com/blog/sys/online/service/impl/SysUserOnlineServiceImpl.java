@@ -55,7 +55,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
 
     @Override
     public int saveOnline(SysUserOnline online) {
-        return sysUserOnlineMapper.insertSelective(online);
+        return sysUserOnlineMapper.saveOnline(online);
     }
 
     @Override

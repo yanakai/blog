@@ -5,8 +5,11 @@ import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.common.enums.BusinessType;
+import com.blog.sys.common.enums.OnlineStatus;
 import com.blog.sys.online.model.SysUserOnline;
 import com.blog.sys.online.service.ISysUserOnlineService;
+import com.blog.sys.shiro.session.OnlineSession;
+import com.blog.sys.shiro.session.OnlineSessionDAO;
 import com.blog.sys.shiro.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
@@ -41,6 +44,9 @@ public class SysUserOnlineController extends BaseController {
      */
     @Resource
     private ISysUserOnlineService sysUserOnlineService;
+
+    @Resource
+    private OnlineSessionDAO onlineSessionDAO;
 
     /**
      * @method:  pageList
@@ -96,6 +102,14 @@ public class SysUserOnlineController extends BaseController {
         if (online == null){
             return operateFailed("此用户已下线");
         }
+        OnlineSession onlineSession = (OnlineSession) onlineSessionDAO.readSession(online.getSessionId());
+        if (onlineSession == null){
+            return operateFailed("用户已下线");
+        }
+        onlineSession.setStatus(OnlineStatus.off_line);
+        onlineSessionDAO.update(onlineSession);
+        online.setStatus(OnlineStatus.off_line.toString());
+        sysUserOnlineService.saveOnline(online);
         return data;
     }
 }
