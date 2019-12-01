@@ -27,4 +27,14 @@ public interface SysUserOnlineMapper {
      * @author: yanakai@126.com
      */
     List<SysUserOnline> getList(@Param("vo") SysUserOnline sysUserOnline);
+
+    /**
+     * @method:  selectOnlineByExpired
+     * @description: <p>查询会话集合</p>
+     * @params:  lastAccessTime 过期时间
+     * @return: java.util.List<com.blog.sys.online.model.SysUserOnline>
+     * @date: 2019/12/1 20:55
+     * @author: yanakai@126.com
+     */
+    List<SysUserOnline> selectOnlineByExpired(String lastAccessTime);
 }

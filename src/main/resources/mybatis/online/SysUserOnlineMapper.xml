@@ -175,4 +175,10 @@
       </if>
     </where>
   </select>
+<!--  查询会话列表数据-->
+  <select id="selectOnlineByExpired" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+	from sys_user_online
+    WHERE last_access_time <![CDATA[ <= ]]> #{lastAccessTime} ORDER BY o.last_access_time ASC
+  </select>
 </mapper>

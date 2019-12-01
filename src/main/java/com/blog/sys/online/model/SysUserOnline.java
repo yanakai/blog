@@ -1,12 +1,14 @@
 package com.blog.sys.online.model;
 
+import com.blog.sys.common.base.model.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 在线用户记录
  */
-public class SysUserOnline implements Serializable {
+public class SysUserOnline extends BaseEntity {
     /**
      * 用户会话id
      */
@@ -60,9 +62,8 @@ public class SysUserOnline implements Serializable {
     /**
      * 超时时间，单位为分钟
      */
-    private Integer expireTime;
+    private Long expireTime;
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 用户会话id
@@ -207,14 +208,14 @@ public class SysUserOnline implements Serializable {
     /**
      * 超时时间，单位为分钟
      */
-    public Integer getExpireTime() {
+    public Long getExpireTime() {
         return expireTime;
     }
 
     /**
      * 超时时间，单位为分钟
      */
-    public void setExpireTime(Integer expireTime) {
+    public void setExpireTime(Long expireTime) {
         this.expireTime = expireTime;
     }
 
@@ -235,7 +236,6 @@ public class SysUserOnline implements Serializable {
         sb.append(", startTimestamp=").append(startTimestamp);
         sb.append(", lastAccessTime=").append(lastAccessTime);
         sb.append(", expireTime=").append(expireTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }

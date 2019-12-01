@@ -2,6 +2,7 @@ package com.blog.sys.online.service;
 
 import com.blog.sys.online.model.SysUserOnline;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,4 +37,44 @@ public interface ISysUserOnlineService {
      * @author: yanakai@126.com
      */
     SysUserOnline getById(String sessionId);
+
+    /**
+     * @method:  deleteOnlineById
+     * @description: <p>通过主键删除对象</p>
+     * @params:  sessionId
+     * @return: int
+     * @date: 2019/12/1 20:14
+     * @author: yanakai@126.com
+     */
+    int deleteOnlineById(String sessionId);
+
+    /**
+     * @method:  saveOnline
+     * @description: <p>保存用户在线信息</p>
+     * @params:  online
+     * @return: int
+     * @date: 2019/12/1 20:41
+     * @author: yanakai@126.com
+     */
+    int saveOnline(SysUserOnline online);
+
+    /**
+     * @method:  selectOnlineByExpired
+     * @description: <p> 查询会话集合</p>
+     * @params:  expiredDate 会话有效期
+     * @return: java.util.List<com.blog.sys.online.model.SysUserOnline> 会话集合
+     * @date: 2019/12/1 20:53
+     * @author: yanakai@126.com
+     */
+    List<SysUserOnline> selectOnlineByExpired(Date expiredDate);
+
+    /**
+     * @method:  batchDeleteOnline
+     * @description: <p>通过会话序号删除信息</p>
+     * @params:  sessions 会话ID集合
+     * @return: void
+     * @date: 2019/12/1 20:58
+     * @author: yanakai@126.com
+     */
+    void batchDeleteOnline(List<String> sessions);
 }
