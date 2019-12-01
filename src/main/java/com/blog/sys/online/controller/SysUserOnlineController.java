@@ -14,10 +14,7 @@ import com.blog.sys.shiro.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -111,5 +108,39 @@ public class SysUserOnlineController extends BaseController {
         online.setStatus(OnlineStatus.off_line.toString());
         sysUserOnlineService.saveOnline(online);
         return data;
+    }
+
+    /**
+     * @method:  batchForceLogout
+     * @description: <p>批量用户强退</p>
+     * @params:  ids
+     * @return: com.blog.sys.common.base.ResponseData
+     * @date: 2019/12/1 22:41
+     * @author: yanakai@126.com
+     */
+    @RequiresPermissions("sys:online:batchForceLogout")
+    @Log(title = "在线用户-->批量强退", businessType = BusinessType.FORCE)
+    @PostMapping("/batchForceLogout")
+    @ResponseBody
+    public ResponseData batchForceLogout(@RequestParam("ids[]") String[] ids){
+        for (String sessionId : ids){
+            SysUserOnline online = sysUserOnlineService.getById(sessionId);
+            if (online == null){
+                return operateFailed("用户已下线");
+            }
+            OnlineSession onlineSession = (OnlineSession) onlineSessionDAO.readSession(online.getSessionId());
+            if (onlineSession == null){
+                return operateFailed("用户已下线");
+            }
+            if (sessionId.equals(ShiroUtils.getSessionId()))
+            {
+                return operateFailed("当前登陆用户无法强退");
+            }
+            onlineSession.setStatus(OnlineStatus.off_line);
+            onlineSessionDAO.update(onlineSession);
+            online.setStatus(OnlineStatus.off_line.toString());
+            sysUserOnlineService.saveOnline(online);
+        }
+        return operateSucess();
     }
 }
