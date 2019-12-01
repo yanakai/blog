@@ -181,4 +181,16 @@
 	from sys_user_online
     WHERE last_access_time <![CDATA[ <= ]]> #{lastAccessTime} ORDER BY last_access_time ASC
   </select>
+  <!--  保存会话信息-->
+  <!--
+  replace into 跟 insert 功能类似，不同点在于：replace into 首先尝试插入数据到表中， 
+  1. 如果发现表中已经有此行数据（根据主键或者唯一索引判断）则先删除此行数据，然后插入新的数据。
+  2. 否则，直接插入新数据。
+  要注意的是：插入数据的表必须有主键或者是唯一索引！否则的话，replace into 会直接插入数据，这将导致表中出现重复的数据。
+  -->
+  <insert id="saveOnline" parameterType="SysUserOnline">
+      replace into sys_user_online(sessionId, login_name, dept_name, ipaddr, login_location, browser, os, status, start_timestamp, last_access_time, expire_time)
+      values (#{sessionId}, #{loginName}, #{deptName}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{status}, #{startTimestamp}, #{lastAccessTime}, #{expireTime})
+  </insert>
+
 </mapper>
