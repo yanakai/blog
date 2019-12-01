@@ -64,8 +64,7 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO
      */
     public void syncToDb(OnlineSession onlineSession){
         Date lastSyncTimestamp = (Date) onlineSession.getAttribute(LAST_SYNC_DB_TIMESTAMP);
-        if (lastSyncTimestamp != null)
-        {
+        if (lastSyncTimestamp != null){
             boolean needSync = true;
             long deltaTime = onlineSession.getLastAccessTime().getTime() - lastSyncTimestamp.getTime();
             if (deltaTime < dbSyncPeriod * 60 * 1000)
