@@ -200,7 +200,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截就能访问
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");
+        //对接口的拦截放开
         filterChainDefinitionMap.put("/**/api/**", "anon");
+        //对前端页面访问拦截放开
+        filterChainDefinitionMap.put("/**/web/**", "anon");
         // 指定admin接口只允许admin角色的用户访问
         filterChainDefinitionMap.put("/admin", "roles[admin]");
 
