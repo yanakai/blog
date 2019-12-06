@@ -122,7 +122,7 @@ public class SysArticleInfoController extends BaseController {
     @RequiresPermissions("sys:article:del")
     @PostMapping("/deleteById")
     @ResponseBody
-    public ResponseData virtualDeleteById(HttpServletRequest request,String articleId){
+    public ResponseData virtualDeleteById(HttpServletRequest request,Long articleId){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
         SysArticleInfo sysArticleInfo = sysArticleInfoService.getInfoById(articleId);
@@ -159,10 +159,9 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/24
      */
-    @Log(title = "文章管理-->文章编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:article:edit")
     @GetMapping("/edit/{articleId}")
-    public String edit(@PathVariable("articleId") String articleId, ModelMap modelMap){
+    public String edit(@PathVariable("articleId")Long articleId, ModelMap modelMap){
         //获取所有的文章栏目
         List<SysColumnInfo> columnInfoList=sysColumnInfoService.getList(null);
         modelMap.put("columnInfoList",columnInfoList);
@@ -186,12 +185,11 @@ public class SysArticleInfoController extends BaseController {
     public ResponseData saveOrUpdate(SysArticleInfo sysArticleInfo){
         ResponseData data = operateFailed("操作失败");
         int state = 0;
-        if (StrUtil.isNotEmpty(sysArticleInfo.getArticleId())){
+        if (sysArticleInfo.getArticleId()!=null){
             sysArticleInfo.setLastModifyTime(new Date());
             sysArticleInfo.setLastModifyName("目前没有登录系统");
             state = sysArticleInfoService.updateNotNull(sysArticleInfo);
         }else {
-            sysArticleInfo.setArticleId(UUID.randomUUID().toString());
             sysArticleInfo.setCreateTime(new Date());
             sysArticleInfo.setCreateName("目前没有登录系统");
             sysArticleInfo.setLastModifyTime(sysArticleInfo.getCreateTime());
@@ -212,11 +210,10 @@ public class SysArticleInfoController extends BaseController {
      * @author: yankai
      * @date   2019/9/29
      */
-    @Log(title = "文章管理-->文章详情页", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:article:pre")
     @GetMapping("/detail/{articleId}")
-    public String detail(HttpServletRequest request,@PathVariable("articleId") String articleId,ModelMap modelMap){
-        if (StringUtils.isNotEmpty(articleId)){
+    public String detail(HttpServletRequest request,@PathVariable("articleId") Long articleId,ModelMap modelMap){
+        if (articleId != null){
             SysArticleInfo info = sysArticleInfoService.getInfoById(articleId);
             modelMap.put("info",info);
         }

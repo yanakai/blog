@@ -40,12 +40,12 @@ public interface ISysArticleInfoService {
     /**
      * @method:  getInfoById
      * @description: <p>主键查询对象</p>
-     * @params:  [id]
+     * @params:  [articleId]
      * @return com.yk.blog.article.model.SysArticleInfo
      * @date: 2019/9/23 0:25
      * @author: yanakai@126.com
      */
-    SysArticleInfo getInfoById(String id);
+    SysArticleInfo getInfoById(Long articleId);
 
     /**
      * @Title: saveNotNull

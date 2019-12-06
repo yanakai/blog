@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface SysArticleInfoMapper {
-    int deleteByPrimaryKey(String articleId);
+    int deleteByPrimaryKey(Long articleId);
 
     int insert(SysArticleInfo record);
 
     int insertSelective(SysArticleInfo record);
 
-    SysArticleInfo selectByPrimaryKey(String articleId);
+    SysArticleInfo selectByPrimaryKey(Long articleId);
 
     int updateByPrimaryKeySelective(SysArticleInfo record);
 

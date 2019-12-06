@@ -36,7 +36,7 @@ public class SysArticleInfoServiceImpl implements ISysArticleInfoService {
     }
 
     @Override
-    public SysArticleInfo getInfoById(String id) {
+    public SysArticleInfo getInfoById(Long id) {
         return sysArticleInfoMapper.selectByPrimaryKey(id);
     }
 
