@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.sys.column.mapper.SysColumnInfoMapper">
   <resultMap id="BaseResultMap" type="com.blog.sys.column.model.SysColumnInfo">
-    <id column="column_id" jdbcType="VARCHAR" property="columnId" />
+    <id column="column_id" jdbcType="BIGINT" property="columnId" />
     <result column="column_name" jdbcType="VARCHAR" property="columnName" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
@@ -10,28 +10,25 @@
   <sql id="Base_Column_List">
     column_id, column_name, sort, remarks
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_column_info
-    where column_id = #{columnId,jdbcType=VARCHAR}
+    where column_id = #{columnId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="Long">
     delete from sys_column_info
-    where column_id = #{columnId,jdbcType=VARCHAR}
+    where column_id = #{columnId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.blog.sys.column.model.SysColumnInfo">
     insert into sys_column_info (column_id, column_name, sort, 
       remarks)
-    values (#{columnId,jdbcType=VARCHAR}, #{columnName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+    values (#{columnId,jdbcType=BIGINT}, #{columnName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER},
       #{remarks,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.blog.sys.column.model.SysColumnInfo">
     insert into sys_column_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="columnId != null">
-        column_id,
-      </if>
       <if test="columnName != null">
         column_name,
       </if>
@@ -43,9 +40,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="columnId != null">
-        #{columnId,jdbcType=VARCHAR},
-      </if>
       <if test="columnName != null">
         #{columnName,jdbcType=VARCHAR},
       </if>
@@ -70,14 +64,14 @@
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where column_id = #{columnId,jdbcType=VARCHAR}
+    where column_id = #{columnId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.blog.sys.column.model.SysColumnInfo">
     update sys_column_info
     set column_name = #{columnName,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR}
-    where column_id = #{columnId,jdbcType=VARCHAR}
+    where column_id = #{columnId,jdbcType=BIGINT}
   </update>
   <select id="getList" parameterType="com.blog.sys.column.model.SysColumnInfo" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" />

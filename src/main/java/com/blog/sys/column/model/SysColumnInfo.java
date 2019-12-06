@@ -9,7 +9,7 @@ public class SysColumnInfo implements Serializable {
     /**
      * 主键Id
      */
-    private String columnId;
+    private Long columnId;
 
     /**
      * 栏目名称
@@ -29,17 +29,16 @@ public class SysColumnInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键Id
+     * 主键id
      */
-    public String getColumnId() {
+    public Long getColumnId() {
         return columnId;
     }
-
     /**
-     * 主键Id
+     * 主键id
      */
-    public void setColumnId(String columnId) {
-        this.columnId = columnId == null ? null : columnId.trim();
+    public void setColumnId(Long columnId) {
+        this.columnId = columnId;
     }
 
     /**

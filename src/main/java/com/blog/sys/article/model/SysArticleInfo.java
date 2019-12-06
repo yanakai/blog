@@ -10,7 +10,7 @@ public class SysArticleInfo implements Serializable {
     /**
      * 主键id
      */
-    private String articleId;
+    private Long articleId;
 
     /**
      * 文章标题
@@ -126,15 +126,15 @@ public class SysArticleInfo implements Serializable {
     /**
      * 主键id
      */
-    public String getArticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
     /**
      * 主键id
      */
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     /**

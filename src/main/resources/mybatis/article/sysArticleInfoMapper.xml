@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.sys.article.mapper.SysArticleInfoMapper">
   <resultMap id="BaseResultMap" type="com.blog.sys.article.model.SysArticleInfo">
-    <id column="article_id" jdbcType="VARCHAR" property="articleId" />
+    <id column="article_id" jdbcType="BIGINT" property="articleId" />
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
     <result column="article_abstract" jdbcType="VARCHAR" property="articleAbstract" />
     <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
@@ -10,8 +10,8 @@
     <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
     <result column="point_num" jdbcType="INTEGER" property="pointNum" />
     <result column="chick_num" jdbcType="INTEGER" property="chickNum" />
-    <result column="column_id" jdbcType="VARCHAR" property="columnId" />
-    <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
+    <result column="column_id" jdbcType="BIGINT" property="columnId" />
+    <result column="tag_id" jdbcType="BIGINT" property="tagId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_name" jdbcType="VARCHAR" property="createName" />
     <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
@@ -28,25 +28,25 @@
     point_num, chick_num, column_id, tag_id, create_time, create_name, last_modify_time,
     last_modify_name, release_time, release_name, delete_status, release_status, top_status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sys_article_info
-    where article_id = #{articleId,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="Long">
     delete from sys_article_info
-    where article_id = #{articleId,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.blog.sys.article.model.SysArticleInfo">
-    insert into sys_article_info (article_id, article_title, article_abstract,
+    insert into sys_article_info (article_title, article_abstract,
       article_content, img_name, img_path,
       point_num, chick_num, column_id,
       tag_id, create_time, create_name,
       last_modify_time, last_modify_name, release_time,
       release_name, delete_status, release_status,
       top_status)
-    values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleAbstract,jdbcType=VARCHAR},
+    values ( #{articleTitle,jdbcType=VARCHAR}, #{articleAbstract,jdbcType=VARCHAR},
       #{articleContent,jdbcType=VARCHAR}, #{imgName,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR},
       #{pointNum,jdbcType=INTEGER}, #{chickNum,jdbcType=INTEGER}, #{columnId,jdbcType=VARCHAR},
       #{tagId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR},
@@ -57,9 +57,6 @@
   <insert id="insertSelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
     insert into sys_article_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        article_id,
-      </if>
       <if test="articleTitle != null">
         article_title,
       </if>
@@ -116,9 +113,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=VARCHAR},
-      </if>
       <if test="articleTitle != null">
         #{articleTitle,jdbcType=VARCHAR},
       </if>
@@ -200,10 +194,10 @@
         chick_num = #{chickNum,jdbcType=INTEGER},
       </if>
       <if test="columnId != null">
-        column_id = #{columnId,jdbcType=VARCHAR},
+        column_id = #{columnId,jdbcType=BIGINT},
       </if>
       <if test="tagId != null">
-        tag_id = #{tagId,jdbcType=VARCHAR},
+        tag_id = #{tagId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -233,7 +227,7 @@
         top_status = #{topStatus,jdbcType=INTEGER},
       </if>
     </set>
-    where article_id = #{articleId,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.blog.sys.article.model.SysArticleInfo">
     update sys_article_info
@@ -244,8 +238,8 @@
       img_path = #{imgPath,jdbcType=VARCHAR},
       point_num = #{pointNum,jdbcType=INTEGER},
       chick_num = #{chickNum,jdbcType=INTEGER},
-      column_id = #{columnId,jdbcType=VARCHAR},
-      tag_id = #{tagId,jdbcType=VARCHAR},
+      column_id = #{columnId,jdbcType=BIGINT},
+      tag_id = #{tagId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_name = #{createName,jdbcType=VARCHAR},
       last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
@@ -255,7 +249,7 @@
       delete_status = #{deleteStatus,jdbcType=INTEGER},
       release_status = #{releaseStatus,jdbcType=INTEGER},
       top_status = #{topStatus,jdbcType=INTEGER}
-    where article_id = #{articleId,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=BIGINT}
   </update>
     <select id="getList" parameterType="com.blog.sys.article.model.SysArticleInfo" resultMap="BaseResultMap">
         select
@@ -267,17 +261,17 @@
         from  sys_column_info sci
         left join sys_article_info sai  on sai.column_id = sci.column_id
         <where>
-            <if test="vo.articleId !=null and vo.articleId !='' ">
+            <if test="vo.articleId !=null ">
                 and sai.article_id = #{vo.articleId}
             </if>
             <if test="vo.articleTitle != null and vo.articleTitle != ''">
                 and sai.article_title like CONCAT('%', #{vo.articleTitle}, '%')
             </if>
-            <if test="vo.columnId != null and vo.columnId != ''">
-                and sai.column_id = #{vo.columnId,jdbcType=VARCHAR}
+            <if test="vo.columnId != null ">
+                and sai.column_id = #{vo.columnId,jdbcType=BIGINT}
             </if>
-            <if test="vo.tagId != null and vo.tagId != ''">
-                and sai.tag_id = #{vo.tagId,jdbcType=VARCHAR}
+            <if test="vo.tagId != null">
+                and sai.tag_id = #{vo.tagId,jdbcType=BIGINT}
             </if>
             <if test="vo.createTime != null">
                 and DATE_FORMAT(sai.create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
@@ -313,11 +307,11 @@
         <if test="vo.articleTitle != null and vo.articleTitle != ''">
           and article_title like CONCAT('%', #{vo.articleTitle}, '%')
         </if>
-        <if test="vo.columnId != null and vo.columnId != ''">
-          and column_id = #{vo.columnId,jdbcType=VARCHAR}
+        <if test="vo.columnId != null ">
+          and column_id = #{vo.columnId,jdbcType=BIGINT}
         </if>
-        <if test="vo.tagId != null and vo.tagId != ''">
-          and tag_id = #{vo.tagId,jdbcType=VARCHAR}
+        <if test="vo.tagId != null ">
+          and tag_id = #{vo.tagId,jdbcType=BIGINT}
         </if>
         <if test="vo.createTime != null">
           and DATE_FORMAT(create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
@@ -347,17 +341,17 @@
         <include refid="Base_Column_List"/>
       from  sys_article_info
       <where>
-        <if test="vo.articleId !=null and vo.articleId !='' ">
+        <if test="vo.articleId !=null ">
           and article_id = #{vo.articleId}
         </if>
         <if test="vo.articleTitle != null and vo.articleTitle != ''">
           and article_title like CONCAT('%', #{vo.articleTitle}, '%')
         </if>
-        <if test="vo.columnId != null and vo.columnId != ''">
-          and column_id = #{vo.columnId,jdbcType=VARCHAR}
+        <if test="vo.columnId != null ">
+          and column_id = #{vo.columnId,jdbcType=BIGINT}
         </if>
-        <if test="vo.tagId != null and vo.tagId != ''">
-          and tag_id = #{vo.tagId,jdbcType=VARCHAR}
+        <if test="vo.tagId != null ">
+          and tag_id = #{vo.tagId,jdbcType=BIGINT}
         </if>
         <if test="vo.createTime != null">
           and DATE_FORMAT(create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
