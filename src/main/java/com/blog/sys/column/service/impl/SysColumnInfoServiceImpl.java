@@ -43,19 +43,19 @@ public class SysColumnInfoServiceImpl implements ISysColumnInfoService {
     }
 
     @Override
-    public SysColumnInfo selectByPrimaryKey(String columnId) {
+    public SysColumnInfo selectByPrimaryKey(Long columnId) {
         return sysColumnInfoMapper.selectByPrimaryKey(columnId);
     }
 
     @Override
-    public int deleteByPrimaryKey(String columnId) {
+    public int deleteByPrimaryKey(Long columnId) {
         return sysColumnInfoMapper.deleteByPrimaryKey(columnId);
     }
 
     @Override
     public String checkColumnNameUnique(SysColumnInfo sysColumnInfo) {
-        String columnId = StrUtil.isEmpty(sysColumnInfo.getColumnId())?"":sysColumnInfo.getColumnId();
-       SysColumnInfo temp = sysColumnInfoMapper.checkColumnNameUnique(sysColumnInfo.getColumnName().trim());
+        Long columnId =sysColumnInfo.getColumnId()!=null?sysColumnInfo.getColumnId():0L;
+        SysColumnInfo temp = sysColumnInfoMapper.checkColumnNameUnique(sysColumnInfo.getColumnName().trim());
         if (temp != null && !columnId.equals(temp.getColumnId())){
             return UserConstants.USER_COLUMN_NAME_NOT_UNIQUE;
         }

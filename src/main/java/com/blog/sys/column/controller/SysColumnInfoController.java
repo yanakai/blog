@@ -64,7 +64,6 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
-    @Log(title = "栏目管理-->栏目列表", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:column:list")
     @PostMapping("/list")
     @ResponseBody
@@ -82,7 +81,6 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:35
      * @author: yanakai@126.com
      */
-    @Log(title = "栏目管理-->添加页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:column:add")
     @GetMapping("/add")
     public String add(HttpServletRequest request){
@@ -97,11 +95,10 @@ public class SysColumnInfoController extends BaseController {
      * @date: 2019/9/23 22:53
      * @author: yanakai@126.com
      */
-    @Log(title = "栏目管理-->编辑页面", businessType = BusinessType.SEARCH)
     @RequiresPermissions("sys:column:edit")
     @GetMapping("/edit/{columnId}")
-    public String add(HttpServletRequest request, @PathVariable("columnId") String columnId, ModelMap modelMap){
-        if (StrUtil.isNotEmpty(columnId)){
+    public String add(HttpServletRequest request, @PathVariable("columnId") Long columnId, ModelMap modelMap){
+        if (columnId != null){
             SysColumnInfo sysColumnInfo = sysColumnInfoService.selectByPrimaryKey(columnId);
             modelMap.put("info",sysColumnInfo);
         }
@@ -123,8 +120,7 @@ public class SysColumnInfoController extends BaseController {
     public ResponseData saveOrUpdate(HttpServletRequest request, SysColumnInfo sysColumnInfo){
         ResponseData data = operateFailed("保存失败");
         int state = 0;
-        if (StrUtil.isEmpty(sysColumnInfo.getColumnId())){
-            sysColumnInfo.setColumnId(UUID.randomUUID().toString());
+        if (sysColumnInfo.getColumnId() == null){
             state = sysColumnInfoService.saveNotNUll(sysColumnInfo);
         }else {
             state = sysColumnInfoService.updateNotNUll(sysColumnInfo);
@@ -147,7 +143,7 @@ public class SysColumnInfoController extends BaseController {
     @RequiresPermissions("sys:column:del")
     @PostMapping("/deleteById")
     @ResponseBody
-    public ResponseData deleteById(String columnId){
+    public ResponseData deleteById(Long columnId){
         ResponseData data = operateFailed("删除失败");
         int state = 0;
         state = sysColumnInfoService.deleteByPrimaryKey(columnId);

@@ -55,7 +55,7 @@ public interface ISysColumnInfoService {
      * @date: 2019/9/23 22:52
      * @author: yanakai@126.com
      */
-    SysColumnInfo selectByPrimaryKey(String columnId);
+    SysColumnInfo selectByPrimaryKey(Long columnId);
 
     /**
      * @method:  deleteByPrimaryKey
@@ -65,7 +65,7 @@ public interface ISysColumnInfoService {
      * @date: 2019/9/23 22:55
      * @author: yanakai@126.com
      */
-    int deleteByPrimaryKey(String columnId);
+    int deleteByPrimaryKey(Long columnId);
 
     /**
      * @method:  checkColumnNameUnique

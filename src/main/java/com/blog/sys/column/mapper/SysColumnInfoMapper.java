@@ -5,13 +5,13 @@ import com.blog.sys.column.model.SysColumnInfo;
 import java.util.List;
 
 public interface SysColumnInfoMapper {
-    int deleteByPrimaryKey(String columnId);
+    int deleteByPrimaryKey(Long columnId);
 
     int insert(SysColumnInfo record);
 
     int insertSelective(SysColumnInfo record);
 
-    SysColumnInfo selectByPrimaryKey(String columnId);
+    SysColumnInfo selectByPrimaryKey(Long columnId);
 
     int updateByPrimaryKeySelective(SysColumnInfo record);
 
