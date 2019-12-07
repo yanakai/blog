@@ -104,6 +104,7 @@ public class SysArticleInfoController extends BaseController {
         ResponseData data = operateFailed("操作失败");
         int state = 0;
         sysArticleInfo.setReleaseTime(new Date());
+        sysArticleInfo.setReleaseUser(ShiroUtils.getUserId());
         sysArticleInfo.setReleaseName(ShiroUtils.getSysUser().getTrueName());
         state = sysArticleInfoService.updateNotNull(sysArticleInfo);
         if (state>0) data = operateSucess("操作成功");
@@ -187,13 +188,14 @@ public class SysArticleInfoController extends BaseController {
         int state = 0;
         if (sysArticleInfo.getArticleId()!=null){
             sysArticleInfo.setLastModifyTime(new Date());
-            sysArticleInfo.setLastModifyName("目前没有登录系统");
+            sysArticleInfo.setLastModifyName(ShiroUtils.getSysUser().getTrueName());
             state = sysArticleInfoService.updateNotNull(sysArticleInfo);
         }else {
             sysArticleInfo.setCreateTime(new Date());
-            sysArticleInfo.setCreateName("目前没有登录系统");
+            sysArticleInfo.setCreateUser(ShiroUtils.getUserId());
+            sysArticleInfo.setCreateName(ShiroUtils.getSysUser().getTrueName());
             sysArticleInfo.setLastModifyTime(sysArticleInfo.getCreateTime());
-            sysArticleInfo.setLastModifyName("目前没有登录系统");
+            sysArticleInfo.setLastModifyName(ShiroUtils.getSysUser().getTrueName());
             state = sysArticleInfoService.saveNotNull(sysArticleInfo);
         }
         if (state>0) data = operateSucess("操作成功");

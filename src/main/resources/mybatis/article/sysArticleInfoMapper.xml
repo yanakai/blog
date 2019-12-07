@@ -13,10 +13,12 @@
     <result column="column_id" jdbcType="BIGINT" property="columnId" />
     <result column="tag_id" jdbcType="BIGINT" property="tagId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createName" />
     <result column="create_name" jdbcType="VARCHAR" property="createName" />
     <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
     <result column="last_modify_name" jdbcType="VARCHAR" property="lastModifyName" />
     <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
+    <result column="release_user" jdbcType="VARCHAR" property="releaseName" />
     <result column="release_name" jdbcType="VARCHAR" property="releaseName" />
     <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
     <result column="release_status" jdbcType="INTEGER" property="releaseStatus" />
@@ -25,8 +27,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     article_id, article_title, article_abstract, article_content, img_name, img_path,
-    point_num, chick_num, column_id, tag_id, create_time, create_name, last_modify_time,
-    last_modify_name, release_time, release_name, delete_status, release_status, top_status
+    point_num, chick_num, column_id, tag_id, create_time, create_user, create_name, last_modify_time,
+    last_modify_name, release_time, release_user, release_name, delete_status, release_status, top_status
   </sql>
   <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
     select
@@ -42,16 +44,16 @@
     insert into sys_article_info (article_title, article_abstract,
       article_content, img_name, img_path,
       point_num, chick_num, column_id,
-      tag_id, create_time, create_name,
+      tag_id, create_time, create_user,create_name,
       last_modify_time, last_modify_name, release_time,
-      release_name, delete_status, release_status,
+      release_user,release_name, delete_status, release_status,
       top_status)
     values ( #{articleTitle,jdbcType=VARCHAR}, #{articleAbstract,jdbcType=VARCHAR},
       #{articleContent,jdbcType=VARCHAR}, #{imgName,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR},
       #{pointNum,jdbcType=INTEGER}, #{chickNum,jdbcType=INTEGER}, #{columnId,jdbcType=VARCHAR},
-      #{tagId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR},
+      #{tagId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},
       #{lastModifyTime,jdbcType=TIMESTAMP}, #{lastModifyName,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP},
-      #{releaseName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, #{releaseStatus,jdbcType=INTEGER},
+       #{releaseUser,jdbcType=VARCHAR},#{releaseName,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, #{releaseStatus,jdbcType=INTEGER},
       #{topStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.blog.sys.article.model.SysArticleInfo">
@@ -87,6 +89,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
       <if test="createName != null">
         create_name,
       </if>
@@ -98,6 +103,9 @@
       </if>
       <if test="releaseTime != null">
         release_time,
+      </if>
+      <if test="releaseUser != null">
+        release_User,
       </if>
       <if test="releaseName != null">
         release_name,
@@ -143,6 +151,9 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
       <if test="createName != null">
         #{createName,jdbcType=VARCHAR},
       </if>
@@ -154,6 +165,9 @@
       </if>
       <if test="releaseTime != null">
         #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="releaseUser != null">
+        #{releaseUser,jdbcType=VARCHAR},
       </if>
       <if test="releaseName != null">
         #{releaseName,jdbcType=VARCHAR},
@@ -202,6 +216,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createUser != null">
+        create_User = #{createUser,jdbcType=VARCHAR},
+      </if>
       <if test="createName != null">
         create_name = #{createName,jdbcType=VARCHAR},
       </if>
@@ -213,6 +230,9 @@
       </if>
       <if test="releaseTime != null">
         release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="releaseUser != null">
+        release_user = #{releaseUser,jdbcType=VARCHAR},
       </if>
       <if test="releaseName != null">
         release_name = #{releaseName,jdbcType=VARCHAR},
@@ -241,10 +261,12 @@
       column_id = #{columnId,jdbcType=BIGINT},
       tag_id = #{tagId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
       create_name = #{createName,jdbcType=VARCHAR},
       last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
       last_modify_name = #{lastModifyName,jdbcType=VARCHAR},
       release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      release_user = #{releaseUser,jdbcType=VARCHAR},
       release_name = #{releaseName,jdbcType=VARCHAR},
       delete_status = #{deleteStatus,jdbcType=INTEGER},
       release_status = #{releaseStatus,jdbcType=INTEGER},
@@ -255,8 +277,8 @@
         select
           sai.article_id, sai.article_title, sai.article_abstract, sai.article_content,
           sai.img_name, sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time,
-          sai.create_name, sai.point_num, sai.top_status,
-          sai.last_modify_time, sai.last_modify_name,sai.release_time, sai.release_name,
+          sai.create_name, sai.create_user, sai.point_num, sai.top_status,
+          sai.last_modify_time, sai.last_modify_name,sai.release_time, sai.release_name,sai.release_user,
           sai.delete_status, sai.release_status,sci.column_name
         from  sys_column_info sci
         left join sys_article_info sai  on sai.column_id = sci.column_id
@@ -277,13 +299,13 @@
                 and DATE_FORMAT(sai.create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
             </if>
             <if test="vo.createName != null and vo.createName != ''">
-                and sai.create_name = #{vo.createName,jdbcType=VARCHAR}
+                and sai.create_name like CONCAT('%', #{vo.createName}, '%')
             </if>
             <if test="vo.releaseTime != null">
                 and DATE_FORMAT(sai.release_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.releaseTime},"%Y-%m-%d")
             </if>
             <if test="vo.releaseName != null and vo.releaseName != ''">
-                and sai.release_name = #{vo.releaseName,jdbcType=VARCHAR}
+                and sai.release_name like CONCAT('%', #{vo.releaseName}, '%')
             </if>
             <if test="vo.deleteStatus != null">
                 and sai.delete_status = #{vo.deleteStatus,jdbcType=INTEGER}
@@ -317,13 +339,13 @@
           and DATE_FORMAT(create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
         </if>
         <if test="vo.createName != null and vo.createName != ''">
-          and create_name = #{vo.createName,jdbcType=VARCHAR}
+          and sai.create_name like CONCAT('%', #{vo.createName}, '%')
         </if>
         <if test="vo.releaseTime != null">
           and DATE_FORMAT(release_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.releaseTime},"%Y-%m-%d")
         </if>
         <if test="vo.releaseName != null and vo.releaseName != ''">
-          and release_name = #{vo.releaseName,jdbcType=VARCHAR}
+          and sai.release_name like CONCAT('%', #{vo.releaseName}, '%')
         </if>
         <if test="vo.deleteStatus != null">
           and delete_status = #{vo.deleteStatus,jdbcType=INTEGER}
@@ -357,13 +379,13 @@
           and DATE_FORMAT(create_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.createTime},"%Y-%m-%d")
         </if>
         <if test="vo.createName != null and vo.createName != ''">
-          and create_name = #{vo.createName,jdbcType=VARCHAR}
+          and sai.create_name like CONCAT('%', #{vo.createName}, '%')
         </if>
         <if test="vo.releaseTime != null">
           and DATE_FORMAT(release_time,"%Y-%m-%d") = DATE_FORMAT(#{vo.releaseTime},"%Y-%m-%d")
         </if>
         <if test="vo.releaseName != null and vo.releaseName != ''">
-          and release_name = #{vo.releaseName,jdbcType=VARCHAR}
+          and sai.release_name like CONCAT('%', #{vo.releaseName}, '%')
         </if>
         <if test="vo.deleteStatus != null">
           and delete_status = #{vo.deleteStatus,jdbcType=INTEGER}

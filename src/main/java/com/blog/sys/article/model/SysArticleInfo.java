@@ -63,7 +63,12 @@ public class SysArticleInfo implements Serializable {
     private Date createTime;
 
     /**
-     * 创建人
+     * 创建人id
+     */
+    private String createUser;
+
+    /**
+     * 创建人名称
      */
     private String createName;
 
@@ -83,7 +88,12 @@ public class SysArticleInfo implements Serializable {
     private Date releaseTime;
 
     /**
-     * 发布人
+     * 发布人id
+     */
+    private String releaseUser;
+
+    /**
+     * 发布人名称
      */
     private String releaseName;
 
@@ -388,6 +398,31 @@ public class SysArticleInfo implements Serializable {
     public void setTopStatus(Integer topStatus) {
         this.topStatus = topStatus;
     }
+    /**
+     * 创建人id
+     */
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    /**
+     * 创建人id
+     */
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+    /**
+     * 发布人id
+     */
+    public String getReleaseUser() {
+        return releaseUser;
+    }
+    /**
+     * 发布人id
+     */
+    public void setReleaseUser(String releaseUser) {
+        this.releaseUser = releaseUser;
+    }
 
     @Override
     public String toString() {
@@ -414,6 +449,8 @@ public class SysArticleInfo implements Serializable {
         sb.append(", deleteStatus=").append(deleteStatus);
         sb.append(", releaseStatus=").append(releaseStatus);
         sb.append(", topStatus=").append(topStatus);
+        sb.append(", createUser=").append(createUser);
+        sb.append(", releaseUser=").append(releaseUser);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
