@@ -1,4 +1,4 @@
-package com.blog.web.article.controller;
+package com.blog.web.controller;
 
 import com.blog.sys.article.model.SysArticleInfo;
 import com.blog.sys.article.service.ISysArticleInfoService;
@@ -8,10 +8,7 @@ import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.TableDataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -87,8 +84,18 @@ public class WebIndexController extends BaseController {
         return "web/article";
     }
 
-    @RequestMapping("/article/detail")
-    public String getArticle(HttpServletRequest request,String articleId, ModelMap modelMap){
+    /**
+     * @Title: getArticle
+     * @Description:  跳转至文章详情页
+     * @Param: request
+     * @Param articleId 文章主键id
+     * @Param modelMap
+     * @return: java.lang.Long
+     * @author: yankai
+     * @date   2019-12-09
+     */
+    @RequestMapping("/article/details/{articleId}")
+    public String getArticle(HttpServletRequest request, @PathVariable("articleId") Long articleId, ModelMap modelMap){
         SysArticleInfo info = sysArticleInfoService.getInfoById(articleId);
         //浏览次数+1
         int chickNum = info.getChickNum()==null? 0 : info.getChickNum();
