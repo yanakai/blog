@@ -17,7 +17,6 @@ var width = window.innerWidth || document.documentElement.clientWidth;
 if (width < 660) {
   var pagenav = '<p style="text-align:center;margin:-5px auto 20px;"><a href="javascript:void(0);" onclick="initBlogByClickMore()"><i class="fa fa-arrow-down"></i> 加载更多</a></p>';
   $(".pageMin").html(pagenav);
-//$(".top").css("display", "none");
 }
 
 function init() {
@@ -173,8 +172,6 @@ var initBlogByTop = function() {
       for (var i = 0; i < data.length; i++) {
         var id = data[i].id.toString(8) * data[i].id;
         topBlog += '<li><a href="find/' + id + '.html" title=' + data[i].title + ' target="_blank">' + data[i].title + '</a></li>';
-      /*topBlog += '<li class="animated fadeIn"><a href="find/' + id + '.html" onclick=""><img style="width:415px;height:155px;" src="' + data[i].images + '"></a><span>'
-        + data[i].title + '</span></li>'*/
       }
       // 初始化数据
       $(".notice").find("ul").html(topBlog);
@@ -472,7 +469,6 @@ var applyLinks = function() {
     confirmButtonText : "提交",
     closeOnConfirm : false
   }, function() {
-    //swal("删除成功！", "您已经永久删除了这条信息。", "success");
     checkLinks();
   });
 };
