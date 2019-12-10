@@ -71,18 +71,19 @@
 		//查询出文章类别
 		//设置参数，表示查询所有的类别
 		var params = {
-			"data" : "all"
+			pageSize : 100, //每页显示数量
+			pageNum : 1, //当前页
 		};
 		$.ajax({
-			url : '/selectBlogType',
+			url : '/web/article/getColumnList',
 			type : 'post',
 			data : params,
 			dataType : 'json',
 			success : function(data) {
 				var typeName = '';
+				var data = data.data;
 				for (var i = 0; i < data.length; i++) {
-					typeName += "<li><a href='/result?keyboard=type_"+data[i].id +"'>"+ data[i].typename + "</a></li>";
-					//typeName += '<a onclick="searchType(' + data[i].id + ',\'' + data[i].typename + '\')" href="javascript:void(0);">' + data[i].typename + '</a> '
+					typeName += "<li><a href='/web/article/column/"+data[i].columnId +"'>"+ data[i].columnName + "</a></li>";
 				}
 				$(".sub").html(typeName);
 			},

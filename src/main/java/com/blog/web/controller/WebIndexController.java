@@ -57,6 +57,30 @@ public class WebIndexController extends BaseController {
         return "web/index";
     }
 
+
+
+    /**
+     * @Title: getColumnList
+     * @Description:  获取栏目列表数据
+     * @Param: request
+     * @Param sysColumnInfo
+     * @return: com.blog.sys.common.base.ResponseData
+     * @author: yankai
+     * @date   2019-12-10
+     */
+    @RequestMapping("/article/getColumnList")
+    @ResponseBody
+    public ResponseData getColumnList(HttpServletRequest request ,SysColumnInfo sysColumnInfo){
+        ResponseData data = operateFailed("暂无数据");
+        startPage();
+        List<SysColumnInfo> list = sysColumnInfoService.getList(sysColumnInfo);
+        if (list.size()>0){
+            data = operateSucess();
+            data.setData(list);
+        }
+        return data;
+    }
+
     /**
      * @Title: getArticleList
      * @Description:  获取文章列表  根据传入的参数不同获取不同的文章数据
