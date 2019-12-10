@@ -399,7 +399,7 @@ function initArticleByClick() {
     pageNum : 1, //当前页
     deleteStatus:0, //删除状态 0 标识未删除
     releaseStatus : 1, //发布状态 1标识文章已发布
-    orderByColumn : "release_time", //排序字段
+    orderByColumn : "chick_num", //排序字段
     isAsc : "DESC" //排序规则
   };
   $.ajax({
@@ -408,8 +408,19 @@ function initArticleByClick() {
       data : params,
       dataType : 'json',
       success : function(data) {
+        var clickBlog = '';
+        var data = data.data;
+        var time = '';
+        for (var i = 0; i < data.length; i++) {
+          var id = data[i].articleId;
+          time = i * 0.05;
+          clickBlog += '<li style="animation-delay:0.' + i + 's" class="animated fadeIn"><b><a target="_blank" href="/web/article/details/' + id + '">'
+              + data[i].articleTitle
+              + '</a></b><p><i><img src="' + data[i].imgPath + '"></i><span>'
+              + data[i].articleAbstract + '</span></p></li>'
+        }
         // 初始化数据
-        $(".paihang").find("ul").html();
+        $(".paihang").find("ul").html(clickBlog);
       },
       error : function() {
         layer.msg('请求太快，请稍后再试！', {
