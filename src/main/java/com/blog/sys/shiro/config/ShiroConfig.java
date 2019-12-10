@@ -204,6 +204,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**/api/**", "anon");
         //对前端页面访问拦截放开
         filterChainDefinitionMap.put("/**/web/**", "anon");
+        //对上传的图片放开
+        filterChainDefinitionMap.put("/**/upload/**", "anon");
         // 指定admin接口只允许admin角色的用户访问
         filterChainDefinitionMap.put("/admin", "roles[admin]");
 
