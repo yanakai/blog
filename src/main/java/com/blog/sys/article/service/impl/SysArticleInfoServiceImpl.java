@@ -6,7 +6,10 @@ import com.blog.sys.article.service.ISysArticleInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: blog
@@ -46,12 +49,19 @@ public class SysArticleInfoServiceImpl implements ISysArticleInfoService {
     }
 
     @Override
-    public List<SysArticleInfo> getHotArticleList(SysArticleInfo sysArticleInfo) {
-        return sysArticleInfoMapper.getHotArticleList(sysArticleInfo);
-    }
-
-    @Override
-    public List<SysArticleInfo> getTopArticleList(SysArticleInfo sysArticleInfo) {
-        return sysArticleInfoMapper.getTopArticleList(sysArticleInfo);
+    public Map<String, List<SysArticleInfo>> getArticleListByHotColumn() {
+        List<SysArticleInfo> list = sysArticleInfoMapper.getArticleListByHotColumn();
+        Map<String, List<SysArticleInfo>> map = new HashMap<>();
+        for (SysArticleInfo info : list){
+            //判断map的key是否包含某个栏目的值不包含则把新的栏目值放入map里面
+            if (map.containsKey(info.getColumnName())){
+                map.get(info.getColumnName()).add(info);
+            }else {
+                List<SysArticleInfo> infoList = new ArrayList<>();
+                infoList.add(info);
+                map.put(info.getColumnName(),infoList);
+            }
+        }
+        return map;
     }
 }

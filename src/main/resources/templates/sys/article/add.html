@@ -92,7 +92,7 @@
 	    }
 		//上传图片
 	    function uploadImage(file){
-	    	$("#imgName").val(file.name)
+	    	$("#imgName").val(file.name);
 			var data = new FormData();
 			data.append("file", file);
 			$.ajax({

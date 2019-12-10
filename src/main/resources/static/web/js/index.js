@@ -1,4 +1,4 @@
-/**
+﻿/**
  *
  */
 var globalCount = 0;
@@ -92,7 +92,7 @@ $(window).scroll(
     }
     if ($(document).scrollTop() > 350 && count == 2) {
       $(".newblogs").css("display", "block");
-      initBlogByNew(1); //初始化最新5篇文章
+      initLatestArticleList(1); //初始化最新5篇文章
       count++;
     }
     if ($(document).scrollTop() > 450 && count == 3) {
@@ -124,28 +124,28 @@ $(window).scroll(
       isEnd = true;
       $('.page').css('display', 'block');
       setTimeout(function() {
-        initBlogByNew(pageNext);
+        initLatestArticleList(pageNext);
       }, 500);
     } else {
       $('.page').css('display', 'none');
     }
   });
-
+//初始化数据
 $(document).ready(function() {
-  initBlogByTop(); //初始化置顶的3篇文章
-  initBlogByAllTypeBlog();
-  initBlogByLike(); //初始化特别推荐6篇文章
-  initBlogByClick(); //初始化点击排行5篇文章
+  initTopArticleList(); //初始化置顶5文章
+  initArticleListByHotColumn(); //初始化热点栏目的文章每个栏目最多显示7篇文章
+  initRecommendedArticleList(); //初始化特别推荐6篇文章
+  initArticleByClick(); //初始化点击排行5篇文章
   init();
 });
 
-var initBlogByClickMore = function() {
+function initBlogByClickMore() {
   setTimeout(function() {
-    initBlogByNew(pageNext);
+    initLatestArticleList(pageNext);
   }, 200);
 };
 
-var returnAllCount = function() {
+function returnAllCount() {
   if (globalCount == 2) {
     setTimeout(function() {
       $('article').css('opacity', '1');
@@ -153,25 +153,27 @@ var returnAllCount = function() {
   }
 };
 
-var initBlogByTop = function() {
+function initTopArticleList() {
   //设置参数
   var params = {
-    pageSize : 5,
-    page : 1,
-    istop : 1, //1 表示置顶
-    status : 1
+    pageSize : 5, //每页显示数量
+    pageNum : 1, //当前页
+    deleteStatus:0, //删除状态 0 标识未删除
+    topStatus : 1, //1 表示置顶
+    releaseStatus : 1, //发布状态 1标识文章已发布
+    orderByColumn : "release_time", //排序字段
+    isAsc : "DESC" //排序规则
   };
   $.ajax({
-    url : 'selectGroupLikeBlogListByPage',
+    url : '/web/article/getList',
     type : 'get',
     data : params,
     dataType : 'json',
     success : function(data) {
       var topBlog = '';
-      var data = data.blogList;
+      var data = data.data;
       for (var i = 0; i < data.length; i++) {
-        var id = data[i].id.toString(8) * data[i].id;
-        topBlog += '<li><a href="find/' + id + '.html" title=' + data[i].title + ' target="_blank">' + data[i].title + '</a></li>';
+        topBlog += '<li><a href="/web/article/details/' + data[i].articleId + '" title=' + data[i].articleTitle + ' target="_blank">' + data[i].articleTitle + '</a></li>';
       }
       // 初始化数据
       $(".notice").find("ul").html(topBlog);
@@ -187,16 +189,14 @@ var initBlogByTop = function() {
 };
 
 
-//初始化每个类别的前N
-var initBlogByAllTypeBlog = function() {
-
+//查询热点栏目的文章
+function initArticleListByHotColumn() {
   $.ajax({
-    url : 'selectBlogByAllType',
+    url : '/web/article/getArticleListByHotColumn',
     type : 'get',
     dataType : 'json',
     success : function(data) {
-      var likeBlog = '';
-      var data = data.blogMap;
+      var data = data.data;
       var tab_button = "";
       var newsitem = "";
       var indexTab = 0;
@@ -221,12 +221,12 @@ var initBlogByAllTypeBlog = function() {
         index++;
         newslist += "<ul class='newslist'>";
         for (var i = 0; i < data[type].length; i++) {
-          var id = data[type][i].id.toString(8) * data[type][i].id;
+          var id = data[type][i].articleId;
           if (i < 2) {
-            newspic += "<li><a href=find/" + id + ".html target='_blank'><img src=" + data[type][i].images + "> <span>" + data[type][i].title + "</span></a></li>";
+            newspic += "<li><a href=\"/web/article/details/" + id + "\" target='_blank'><img src=" + data[type][i].imgPath + "> <span>" + data[type][i].articleTitle + "</span></a></li>";
           }
           if (i >= 1) {
-            newslist += "<li><i></i><a href=find/" + id + ".html target='_blank'>" + data[type][i].title + "<p>" + data[type][i].introduction + "</p></a></li>";
+            newslist += "<li><i></i><a href=/web/article/details/" + id + " target='_blank'>" + data[type][i].articleTitle + "<p>" + data[type][i].articleAbstract + "</p></a></li>";
           }
         }
         newspic += "</ul></div>";
@@ -246,30 +246,33 @@ var initBlogByAllTypeBlog = function() {
 
 
 //初始化推荐
-var initBlogByLike = function() {
+function initRecommendedArticleList() {
   //设置参数
   var params = {
-    pageSize : 6,
-    page : 1,
-    isrecommend : 1, //1 表示推荐
-    status : 1
+    pageSize : 6, //每页显示数量
+    pageNum : 1, //当前页
+    deleteStatus:0, //删除状态 0 标识未删除
+    topStatus : 1, //1 表示置顶
+    releaseStatus : 1, //发布状态 1标识文章已发布
+    orderByColumn : "release_time", //排序字段
+    isAsc : "DESC" //排序规则
   };
   $.ajax({
-    url : 'selectGroupLikeBlogListByPage',
+    url : '/web/article/getList',
     type : 'get',
     data : params,
     dataType : 'json',
     success : function(data) {
       var likeBlog = '';
-      var data = data.blogList;
+      var data = data.data;
       for (var i = 0; i < data.length; i++) {
-        var id = data[i].id.toString(8) * data[i].id;
+        var id = data[i].articleId;
         var time = i * 0.05;
-        likeBlog += '<li style="animation-delay:0.' + i + 's" class="animated fadeIn"><i class="ztpic"><a target="_blank" href="find/' + id + '.html" ><img src="' + data[i].images + '"></a></i><b>'
-          + data[i].title
+        likeBlog += '<li style="animation-delay:0.' + i + 's" class="animated fadeIn"><i class="ztpic"><a target="_blank" href="/web/article/details/' + id + '" ><img src="' + data[i].imgPath + '"></a></i><b>'
+          + data[i].articleTitle
           + '</b><span>'
-          + data[i].introduction
-          + '</span><a href="find/' + id + '.html" target="_blank" class="readmore">阅读原文</a></li>'
+          + data[i].articleAbstract
+          + '</span><a href="/web/article/details/' + id + '" target="_blank" class="readmore">阅读原文</a></li>'
       }
       // 初始化数据
       $(".zhuanti").find("ul").html(likeBlog);
@@ -285,25 +288,28 @@ var initBlogByLike = function() {
 };
 
 //初始化最新文章
-var initBlogByNew = function(page) {
+function initLatestArticleList(page) {
   //设置参数
   var params = {
-    pageSize : 5,
-    page : page,
-    status : 1
+    pageSize : 5, //每页显示数量
+    pageNum : page, //当前页
+    deleteStatus:0, //删除状态 0 标识未删除
+    topStatus : 1, //1 表示置顶
+    releaseStatus : 1, //发布状态 1标识文章已发布
+    orderByColumn : "release_time", //排序字段
+    isAsc : "DESC" //排序规则
   };
-  $
-    .ajax({
-      url : 'selectGroupLikeBlogListByPage',
+  /*$.ajax({
+      url : 'getLatestArticleList',
       type : 'get',
       data : params,
       dataType : 'json',
-      success : function(dataAll) {
+      success : function(data) {
         var newBlog = '';
         var parm = "";
         var arr = [];
-        var data = dataAll.blogList;
-        var page = dataAll.pageInfo;
+        var data = data.data;
+        var page = data.pageInfo;
         for (var i = 0; i < data.length; i++) {
           arr[i] = data[i].id;
           parm += data[i].id + ",";
@@ -334,8 +340,7 @@ var initBlogByNew = function(page) {
           client_id : 'cytzg9rLH',
           topic_source_id : parm
         };
-        $
-          .ajax({
+        $.ajax({
             url : 'http://changyan.sohu.com/api/2/topic/count',
             type : 'get',
             data : p,
@@ -383,38 +388,28 @@ var initBlogByNew = function(page) {
           icon : 5
         });
       }
-    });
+    });*/
 };
 
 //初始化点击排行
-var initBlogByClick = function() {
+function initArticleByClick() {
   //设置参数
   var params = {
-    pageSize : 5,
-    page : 1,
-    sort : "clickNum", //按点击量排序,默认按时间
-    status : 1,
+    pageSize : 6, //每页显示数量
+    pageNum : 1, //当前页
+    deleteStatus:0, //删除状态 0 标识未删除
+    releaseStatus : 1, //发布状态 1标识文章已发布
+    orderByColumn : "release_time", //排序字段
+    isAsc : "DESC" //排序规则
   };
-  $
-    .ajax({
-      url : 'selectGroupLikeBlogListByPage',
+  $.ajax({
+      url : '/web/article/getList',
       type : 'get',
       data : params,
       dataType : 'json',
       success : function(data) {
-        var clickBlog = '';
-        var data = data.blogList;
-        var time = '';
-        for (var i = 0; i < data.length; i++) {
-          var id = data[i].id.toString(8) * data[i].id;
-          time = i * 0.05;
-          clickBlog += '<li style="animation-delay:0.' + i + 's" class="animated fadeIn"><b><a target="_blank" href="find/' + id + '.html">'
-            + data[i].title
-            + '</a></b><p><i><img src="' + data[i].images + '"></i><span>'
-            + data[i].introduction + '</span></p></li>'
-        }
         // 初始化数据
-        $(".paihang").find("ul").html(clickBlog);
+        $(".paihang").find("ul").html();
       },
       error : function() {
         layer.msg('请求太快，请稍后再试！', {
@@ -424,10 +419,9 @@ var initBlogByClick = function() {
     });
 };
 
-var initAllLinks = function() {
-
+function initAllLinks() {
   $.ajax({
-    url : 'selectAllLinks',
+    url : '',
     type : 'get',
     data : "",
     dataType : 'json',
@@ -459,7 +453,7 @@ var initAllLinks = function() {
   });
 };
 
-var applyLinks = function() {
+function applyLinks() {
   swal({
     title : '互换友链',
     text : '注意：请在您的网站友链处添加本站链接后再行申请！！！！！！添加格式如下：名称&网站首页地址',
@@ -473,7 +467,7 @@ var applyLinks = function() {
   });
 };
 
-var checkLinks = function() {
+function checkLinks() {
   var inputLink = [];
   inputLink = $("fieldset").find("input").val().split("&");
   var title = '';
@@ -502,7 +496,7 @@ var checkLinks = function() {
     }
   });
 };
-var addLinks = function(name, link) {
+function addLinks(name, link) {
   var params = {
     name : name,
     link : link,
@@ -511,7 +505,7 @@ var addLinks = function(name, link) {
     prarm : '有新伙伴申请友链啦！',
   };
   $.ajax({
-    url : 'addLinks',
+    url : '',
     type : 'post',
     data : params,
     dataType : 'json',
@@ -528,12 +522,12 @@ var addLinks = function(name, link) {
 
 
 //更新链接点击次数
-var clickNum = function(id) {
+function clickNum(id) {
   var params = {
     id : id,
   };
   $.ajax({
-    url : 'selectLinksById',
+    url : '',
     type : 'post',
     data : params,
     dataType : 'json',

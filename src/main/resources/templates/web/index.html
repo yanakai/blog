@@ -15,8 +15,8 @@
 }
 </style>
 </head>
-<body style="background:url(/static/web/images/bj.png) repeat top left scroll;z-index:-2">
-  <th:block th:include="top" />
+<body style="background:url(/web/images/bj.png) repeat top left scroll;z-index:-2">
+<th:block th:include="web/top :: header('公共头部')" />
   <article style="opacity:0">
     <div class="lbox ">
       <div class="banbox">
@@ -29,7 +29,7 @@
             </li>
             <li class="slide" style=" ">
               <a href="javascript:void(0)" target="_blank">
-              <img src="${pageContext.request.contextPath}/images/2.jpg"></a>
+              <img th:src="@{/web/images/2.jpg}"></a>
             </li>
             <li class="slide" style="">
               <a href="https://www.4562.com/" target="_blank">
@@ -64,7 +64,6 @@
       <div class="clearblank"></div>
 
       <div class="tab_box whitebg">
-
         <div class="tab_buttons">
           <ul>
             <li class=""></li>
@@ -72,16 +71,12 @@
           </ul>
         </div>
         <div class="newstab">
-          
         </div>
-
-
       </div>
 
       <div class="zhuanti whitebg">
         <h2 class="htitle">特别推荐</h2>
         <ul class="animated ">
-
         </ul>
       </div>
       <div class="ad whitebg">
@@ -184,9 +179,7 @@
     <a href="#" class="top cd-top animated ">Top</a>
   </article>
   <!-- 全局js -->
-  <script th:src="@{/web/js/index.js}"></script>
-  <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
-  <script th:src="@{/web/js/plugins/sweetalert/sweetalert.min.js}"></script>
+<th:block th:include="web/top :: footer" />
 </body>
 
 </html>
