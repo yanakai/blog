@@ -35,11 +35,11 @@
                     <div class="m-b"></div>
                     <h4>欢迎使用 <strong>VBlog 后台管理系统</strong></h4>
                     <ul class="m-b">
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> SpringBoot</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Mybatis</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Shiro</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Thymeleaf</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Bootstrap</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 用户、角色、菜单管理</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 权限管理</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 登录日志</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 在线用户，强制退出</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 后续功能待开发</li>
                     </ul>
                     <strong>还没有账号？ <a href="javascript:void(0);">请联系管理员&raquo;</a></strong>
                 </div>
@@ -47,7 +47,7 @@
             <div class="col-sm-5">
                 <form id="signupForm">
                     <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">期待你的登录</p>
+                    <p class="m-t-md">登录访问VBlog后台管理系统</p>
                     <input type="text"     name="userName" class="form-control uname"     placeholder="用户名" value="admin"    />
                     <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="123456" />
 					<div class="row m-t" th:if="${captchaEnabled==true}">
