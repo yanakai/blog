@@ -145,7 +145,7 @@ $(function() {
 	    	$.bttTable.bootstrapTreeTable('collapseAll');
 	    }
 	    expandFlag = expandFlag ? false: true;
-	})
+	});
 	// 按下ESC按钮关闭弹层
 	$('body', document).on('keyup', function(e) {
 	    if (e.which === 27) {
@@ -161,7 +161,7 @@ var refreshItem = function(){
 	var target = $('.RuoYi_iframe[data-id="' + currentId + '"]', topWindow);
     var url = target.attr('src');
     target.attr('src', url).ready();
-}
+};
 
 /** 关闭选项卡 */
 var closeItem = function(dataId){
@@ -185,7 +185,7 @@ var closeItem = function(dataId){
             }
 		});
 	}
-}
+};
 
 /** 创建选项卡 */
 function createMenuItem(dataUrl, menuName) {

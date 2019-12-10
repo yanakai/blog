@@ -5,6 +5,7 @@ import com.blog.sys.article.service.ISysArticleInfoService;
 import com.blog.sys.column.model.SysColumnInfo;
 import com.blog.sys.column.service.ISysColumnInfoService;
 import com.blog.sys.common.base.BaseController;
+import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: blog
@@ -56,33 +58,48 @@ public class WebIndexController extends BaseController {
     }
 
     /**
-     * @method:  articleList
-     * @description: <p>跳转至文章列表页面</p>
-     * @params:  request
-     * @Param modelMap
-     * @return: java.lang.String
-     * @date: 2019/10/1 0:04
-     * @author: yanakai@126.com
+     * @Title: getArticleList
+     * @Description:  获取文章列表  根据传入的参数不同获取不同的文章数据
+     * @Param: request
+     * @Param sysArticleInfo
+     * @return: com.blog.sys.common.base.ResponseData
+     * @author: yankai
+     * @date   2019-12-10
      */
-    @RequestMapping("/article/list")
-    public String articleList(HttpServletRequest request,SysArticleInfo sysArticleInfo, ModelMap modelMap){
+    @RequestMapping("article/getList")
+    @ResponseBody
+    public ResponseData getArticleList(HttpServletRequest request ,SysArticleInfo sysArticleInfo){
+        ResponseData data = operateFailed("暂无数据");
         startPage();
-        sysArticleInfo.setReleaseStatus(1);
-        sysArticleInfo.setDeleteStatus(0);
-        List<SysArticleInfo> articleList = sysArticleInfoService.getList(sysArticleInfo);
-        modelMap.put("articleList",articleList);
-        //栏目列表
-        List<SysColumnInfo> columnInfoList = sysColumnInfoService.getList(null);
-        modelMap.put("columnInfoList",columnInfoList);
-        //热文门章
-        List<SysArticleInfo> hotArticleList = sysArticleInfoService.getHotArticleList(sysArticleInfo);
-        modelMap.put("hotArticleList",hotArticleList);
-        //置顶文章
-        sysArticleInfo.setReleaseStatus(1);
-        List<SysArticleInfo> topArticleList = sysArticleInfoService.getTopArticleList(sysArticleInfo);
-        modelMap.put("topArticleList",topArticleList);
-        return "web/article";
+        List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
+        if (list.size()>0){
+            data = operateSucess();
+            data.setData(list);
+        }
+        return data;
     }
+
+
+    /**
+     * @Title: getArticleListByHotColumn
+     * @Description:  获取热点栏目及栏目下文章 每个栏目下文章获取5条
+     * @Param: request
+     * @return: com.blog.sys.common.base.ResponseData
+     * @author: yankai
+     * @date   2019-12-10
+     */
+    @RequestMapping("/article/getArticleListByHotColumn")
+    @ResponseBody
+    public ResponseData getArticleListByHotColumn(HttpServletRequest request){
+        ResponseData data = new ResponseData();
+        Map<String,List<SysArticleInfo>> columnMap = sysArticleInfoService.getArticleListByHotColumn();
+        if (columnMap.size()>0){
+            data = operateSucess();
+            data.setData(columnMap);
+        }
+        return data;
+    }
+
 
     /**
      * @Title: getArticle

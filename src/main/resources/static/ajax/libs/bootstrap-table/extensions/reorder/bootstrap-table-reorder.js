@@ -68,7 +68,7 @@
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
         if (!this.options.reorderableRows) {
-            return;
+
         }
 
         //Known issue after search if you reorder the rows the data is not display properly

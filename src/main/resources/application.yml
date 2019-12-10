@@ -104,4 +104,4 @@ xss:
   # 排除链接（多个用逗号分隔）
   excludes: /sys/article/*
   # 匹配链接（多个用逗号分隔）
-  urlPatterns: /sys/*
+  urlPatterns: /sys/*,/web/*
