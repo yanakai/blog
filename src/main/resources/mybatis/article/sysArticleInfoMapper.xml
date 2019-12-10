@@ -394,6 +394,5 @@
           and release_status = #{vo.releaseStatus,jdbcType=INTEGER}
         </if>
       </where>
-      ORDER BY release_time DESC LIMIT 3
     </select>
 </mapper>
