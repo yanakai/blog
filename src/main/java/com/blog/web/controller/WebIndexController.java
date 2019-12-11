@@ -57,6 +57,18 @@ public class WebIndexController extends BaseController {
     public String index(HttpServletRequest request){
         return "web/index";
     }
+    /**
+     * @Title: list
+     * @Description: 跳转至技术博客页面
+     * @Param: request
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019-12-11
+     */
+    @GetMapping("list")
+    public String list(HttpServletRequest request){
+        return "web/list";
+    }
 
 
 
@@ -73,7 +85,6 @@ public class WebIndexController extends BaseController {
     @ResponseBody
     public ResponseData getColumnList(HttpServletRequest request ,SysColumnInfo sysColumnInfo){
         ResponseData data = operateFailed("暂无数据");
-        startPage();
         List<SysColumnInfo> list = sysColumnInfoService.getList(sysColumnInfo);
         if (list.size()>0){
             data = operateSucess();
