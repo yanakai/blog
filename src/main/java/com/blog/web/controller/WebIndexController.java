@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,15 +93,10 @@ public class WebIndexController extends BaseController {
      */
     @RequestMapping("article/getList")
     @ResponseBody
-    public ResponseData getArticleList(HttpServletRequest request ,SysArticleInfo sysArticleInfo){
-        ResponseData data = operateFailed("暂无数据");
+    public TableDataInfo getArticleList(HttpServletRequest request ,SysArticleInfo sysArticleInfo){
         startPage();
         List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
-        if (list.size()>0){
-            data = operateSucess();
-            data.setData(list);
-        }
-        return data;
+        return getDataTable(list);
     }
 
 
@@ -116,10 +112,23 @@ public class WebIndexController extends BaseController {
     @ResponseBody
     public ResponseData getArticleListByHotColumn(HttpServletRequest request){
         ResponseData data = new ResponseData();
-        Map<String,List<SysArticleInfo>> columnMap = sysArticleInfoService.getArticleListByHotColumn();
-        if (columnMap.size()>0){
+        Map<String,List<SysArticleInfo>> map = new HashMap<>();
+        //获取推荐栏目信息
+        SysColumnInfo columnInfo = new SysColumnInfo();
+        List<SysColumnInfo> columnInfoList = sysColumnInfoService.getList(columnInfo);
+        SysArticleInfo sysArticleInfo = new SysArticleInfo();
+        if (columnInfoList !=null && columnInfoList.size()>0){
+            for (SysColumnInfo temp:columnInfoList){
+                List<SysArticleInfo> list = sysArticleInfoService.getArticleListByColumnId(temp.getColumnId());
+                if (list != null && list.size()>0){
+                    map.put(temp.getColumnName(),list);
+                }
+
+            }
+        }
+        if (map.size()>0){
             data = operateSucess();
-            data.setData(columnMap);
+            data.setData(map);
         }
         return data;
     }

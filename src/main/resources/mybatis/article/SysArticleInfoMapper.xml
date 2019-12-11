@@ -316,17 +316,12 @@
         </where>
     </select>
 
-    <!--获取热点栏目及栏目下文章 每个栏目下文章最多获取7条-->
-    <select id="getArticleListByHotColumn" resultType="com.blog.sys.article.model.SysArticleInfo">
-      select
-        sai.article_id, sai.article_title, sai.article_abstract, sai.article_content,
-        sai.img_name, sai.img_path, sai.chick_num,sai.column_id, sai.tag_id, sai.create_time,
-        sai.create_name, sai.create_user, sai.point_num, sai.top_status,
-        sai.last_modify_time, sai.last_modify_name,sai.release_time, sai.release_name,sai.release_user,
-        sai.delete_status, sai.release_status,sci.column_name
-      from  sys_column_info sci
-      left join (select * from sys_article_info where delete_status = 0 and release_status = 1 ) sai  on sai.column_id = sci.column_id
-      order by sai.release_time desc
-      limit 7
-    </select>
+<!--  通过栏目id查询文章列表-->
+  <select id="getArticleListByColumnId" parameterType="Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_article_info
+    where column_id = #{columnId,jdbcType=BIGINT} and delete_status = 0 and release_status = 1
+    order by chick_num DESC, release_time DESC
+  </select>
 </mapper>

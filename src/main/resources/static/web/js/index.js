@@ -86,8 +86,6 @@ $(window).scroll(
       return;
     }
     if ($(document).scrollTop() > 110 && count == 1) {
-      //$(".dj").css("display", "block");
-      //initBlogByClick(); //初始化点击排行5篇文章
       count++;
     }
     if ($(document).scrollTop() > 350 && count == 2) {
@@ -169,7 +167,7 @@ function initTopArticleList() {
     dataType : 'json',
     success : function(data) {
       var topBlog = '';
-      var data = data.data;
+      var data = data.rows;
       for (var i = 0; i < data.length; i++) {
         topBlog += '<li><a href="/web/article/details/' + data[i].articleId + '" title=' + data[i].articleTitle + ' target="_blank">' + data[i].articleTitle + '</a></li>';
       }
@@ -262,7 +260,7 @@ function initRecommendedArticleList() {
     dataType : 'json',
     success : function(data) {
       var likeBlog = '';
-      var data = data.data;
+      var data = data.rows;
       for (var i = 0; i < data.length; i++) {
         var id = data[i].articleId;
         var time = i * 0.05;
@@ -286,11 +284,11 @@ function initRecommendedArticleList() {
 };
 
 //初始化最新文章
-function initLatestArticleList(page) {
+function initLatestArticleList(pageNum) {
   //设置参数
   var params = {
     pageSize : 5, //每页显示数量
-    pageNum : page, //当前页
+    pageNum : pageNum, //当前页
     deleteStatus:0, //删除状态 0 标识未删除
     topStatus : 1, //1 表示置顶
     releaseStatus : 1, //发布状态 1标识文章已发布
@@ -306,7 +304,8 @@ function initLatestArticleList(page) {
         var newBlog = '';
         var parm = "";
         var arr = [];
-        var data = data.data;
+        var total = data.total;//获取文章总数
+        var data = data.rows;
         for (var i = 0; i < data.length; i++) {
           arr[i] = data[i].articleId;
           parm += data[i].articleId + ",";
@@ -330,7 +329,7 @@ function initLatestArticleList(page) {
             + Format(data[i].releaseTime, "yyyy-MM-dd")
             + '</span><span  class="clicknum">浏览('
             + data[i].chickNum
-            + ')</span><span class="f_r"></p><a href="/web/article/details/' + id + '.html" class="viewmore">阅读原文</a></span></li>'
+            + ')</span><span class="f_r"></p><a href="/web/article/details/' + id + '" class="viewmore">阅读原文</a></span></li>'
         }
         var p = {
           client_id : 'cytzg9rLH',
@@ -353,14 +352,14 @@ function initLatestArticleList(page) {
             }
           });
         // 初始化数据
-        if (page.pageNum >= 2) {
+        if (pageNum >= 2) {
           $(".newblogs").find("ul").append(newBlog);
         } else {
           $(".newblogs").find("ul").html(newBlog);
         }
-        if (page.total > 5) {
+        if (total > params.pageSize) {
           var pagenav = '';
-          if (page.pageNum == page.pages) {
+          if (pageNum == Math.ceil(total/params.pageSize)) {
             isEnd = true;
             pagenav = '<p style="text-align:center;margin:-5px auto 10px;"><a href="javascript:void(0);" onclick="window.scrollTo(0,0)"><i class="fa fa-arrow-up"></i> 没有更多了</a></p>';
             if (width < 660) {
@@ -368,7 +367,7 @@ function initLatestArticleList(page) {
             }
           } else {
             isEnd = false;
-            pageNext = page.pageNum + 1;
+            pageNext = pageNum + 1;
             pagenav = '<div style="margin:-5px auto 10px;text-align:center;"><div class="loader-inner ball-pulse"><div></div><div></div><div></div></div></div>';
           }
           $(".page").html(pagenav);
@@ -403,7 +402,7 @@ function initArticleByClick() {
       dataType : 'json',
       success : function(data) {
         var clickBlog = '';
-        var data = data.data;
+        var data = data.rows;
         var time = '';
         for (var i = 0; i < data.length; i++) {
           var id = data[i].articleId;

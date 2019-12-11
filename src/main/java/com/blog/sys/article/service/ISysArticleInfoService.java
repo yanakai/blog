@@ -3,7 +3,6 @@ package com.blog.sys.article.service;
 import com.blog.sys.article.model.SysArticleInfo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ProjectName: blog
@@ -59,12 +58,12 @@ public interface ISysArticleInfoService {
     int saveNotNull(SysArticleInfo sysArticleInfo);
 
     /**
-     * @Title: getArticleListByHotColumn
-     * @Description:  获取热点栏目及栏目下文章 每个栏目下文章最多获取7条
-     * @Param:
-     * @return: java.util.Map<java.lang.String,java.util.List<com.blog.sys.article.model.SysArticleInfo>>
+     * @Title: getArticleListByColumnId
+     * @Description:  通过栏目id查询文章列表
+     * @Param: columnId 栏目id
+     * @return: java.util.List<com.blog.sys.article.model.SysArticleInfo>
      * @author: yankai
-     * @date   2019-12-10
+     * @date   2019-12-11
      */
-    Map<String, List<SysArticleInfo>> getArticleListByHotColumn();
+    List<SysArticleInfo> getArticleListByColumnId(Long columnId);
 }
