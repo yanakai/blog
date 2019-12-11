@@ -59,7 +59,7 @@ function showAdToGitEE() {
     closeOnCancel: false
   }, function(isConfirm) {
     if (isConfirm) {
-      window.open("https://gitee.com/luotf/Art_Blog");
+      window.open("https://gitee.com/yanakai/blog.git");
       swal.close()
     } else {
       swal({
@@ -72,7 +72,7 @@ function showAdToGitEE() {
         cancelButtonText : "取消",
         },function(isConfirm){
           if (isConfirm) {
-            window.open("https://gitee.com/luotf/Art_Blog");
+            window.open("https://gitee.com/yanakai/blog.git");
           }
           swal.close()
       });
@@ -118,9 +118,7 @@ $(window).scroll(
     } else {
       $(".guanzhu").css("display", "none");
     }
-    if ($(document).scrollTop() + 100 >= $(document).height()
-      - $(window).height()
-      && width > 700) {
+    if ($(document).scrollTop() + 100 >= $(document).height()- $(window).height()&& width > 700) {
       isEnd = true;
       $('.page').css('display', 'block');
       setTimeout(function() {
@@ -299,8 +297,8 @@ function initLatestArticleList(page) {
     orderByColumn : "release_time", //排序字段
     isAsc : "DESC" //排序规则
   };
-  /*$.ajax({
-      url : 'getLatestArticleList',
+  $.ajax({
+      url : '/web/article/getList',
       type : 'get',
       data : params,
       dataType : 'json',
@@ -309,32 +307,30 @@ function initLatestArticleList(page) {
         var parm = "";
         var arr = [];
         var data = data.data;
-        var page = data.pageInfo;
         for (var i = 0; i < data.length; i++) {
-          arr[i] = data[i].id;
-          parm += data[i].id + ",";
-          var id = data[i].id.toString(8) * data[i].id;
+          arr[i] = data[i].articleId;
+          parm += data[i].articleId + ",";
+          var id = data[i].articleId;
           var keyword = "";
-          if (data[i].keyword != ""
-            && data[i].keyword != null) {
-            if (data[i].keyword.search(';') != -1) {
-              keyword = data[i].keyword.replace(/;/g,
+          if (data[i].tagId != ""&& data[i].tagId != null) {
+            if (data[i].tagId.search(';') != -1) {
+              keyword = data[i].tagId.replace(/;/g,
                 "|");
             } else {
-              keyword = data[i].keyword;
+              keyword = data[i].tagId;
             }
           }
-          newBlog += '<li style="animation-delay:0.' + i + 's" class="animated fadeInDown"><h3 class="blogtitle"><a target="_blank" href="find/' + id + '.html"  >'
-            + data[i].title
-            + '</a></h3><span class="blogpic imgscale"><a href="find/' + id + '.html" title=""><img src="' + data[i].images + '"  /></a></span><p class="blogtext">'
-            + data[i].introduction
+          newBlog += '<li style="animation-delay:0.' + i + 's" class="animated fadeInDown"><h3 class="blogtitle"><a target="_blank" href="/web/article/details/' + id + '"  >'
+            + data[i].articleTitle
+            + '</a></h3><span class="blogpic imgscale"><a href="/web/article/details/' + id + '.html" title=""><img src="' + data[i].imgPath + '"  /></a></span><p class="blogtext">'
+            + data[i].articleAbstract
             + '</p><p class="bloginfo"><i class = "avatar"><img src="images/image_.jpg" border=0 width="30" height="30"></i><span>luotf</span><span><a href="javascript:void(0);">【'
             + keyword
             + '】</a></span><span class="m_time">'
-            + Format(data[i].addtime, "yyyy-MM-dd")
+            + Format(data[i].releaseTime, "yyyy-MM-dd")
             + '</span><span  class="clicknum">浏览('
-            + data[i].clicknum
-            + ')</span><span class="f_r"></p><a href="find/' + id + '.html" class="viewmore">阅读原文</a></span></li>'
+            + data[i].chickNum
+            + ')</span><span class="f_r"></p><a href="/web/article/details/' + id + '.html" class="viewmore">阅读原文</a></span></li>'
         }
         var p = {
           client_id : 'cytzg9rLH',
@@ -347,9 +343,7 @@ function initLatestArticleList(page) {
             dataType : 'jsonp',
             success : function(pl) {
               for (var i = 0; i < arr.length; i++) {
-                $('.' + arr[i])
-                  .html(
-                    pl.result[arr[i]].comments);
+                $('.' + arr[i]).html(pl.result[arr[i]].comments);
               }
             },
             error : function() {
@@ -388,7 +382,7 @@ function initLatestArticleList(page) {
           icon : 5
         });
       }
-    });*/
+    });
 };
 
 //初始化点击排行
