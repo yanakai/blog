@@ -51,7 +51,21 @@ var globalCount = 0;
     initRecommendedArticleList();//初始化推荐文章
     initLatestArticleList(1);//初始化技术博客文章
   });
-  
+  //通过栏目搜索文章
+  var searchType = function(columnId) {
+    $(".type_id").val(columnId);
+    var index = '';
+    layer.ready(function() {
+      index = layer.load(2, {
+        shade : [ 0.1, '#eee' ] //0.1透明度的白色背景
+      });
+    });
+    initLatestArticleList(1);
+    setTimeout(function() {
+      layer.close(index);
+    }, 200);
+  };
+  //初始化文章
   function initLatestArticleList(pageNum) {
     //设置参数
     var params = {
@@ -199,22 +213,7 @@ var globalCount = 0;
       }
     });
   };
-  
-  var searchType = function(type_id, typename) {
-    $(".type_id").val(type_id);
-    var index = '';
-    layer.ready(function() {
-      index = layer.load(2, {
-        shade : [ 0.1, '#eee' ] //0.1透明度的白色背景
-      });
-    });
-    initLatestArticleList(1);
-    setTimeout(function() {
-      layer.close(index);
-    }, 200);
-  
-  
-  };
+
   
   //初始化推荐
   var initRecommendedArticleList = function() {
