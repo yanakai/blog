@@ -57,17 +57,19 @@ public class WebIndexController extends BaseController {
     public String index(HttpServletRequest request){
         return "web/index";
     }
+
     /**
-     * @Title: list
-     * @Description: 跳转至技术博客页面
+     * @Title: navInfo
+     * @Description:  导航页面跳转
      * @Param: request
+     * @Param nav 导航名称
      * @return: java.lang.String
      * @author: yankai
-     * @date   2019-12-11
+     * @date   2019-12-12
      */
-    @GetMapping("list")
-    public String list(HttpServletRequest request){
-        return "web/list";
+    @GetMapping("/{nav}")
+    public String navInfo(HttpServletRequest request,@PathVariable("nav") String nav){
+        return "web/"+nav;
     }
 
 
