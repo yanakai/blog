@@ -67,9 +67,9 @@ public class WebIndexController extends BaseController {
      * @author: yankai
      * @date   2019-12-12
      */
-    @GetMapping("/{nav}")
-    public String navInfo(HttpServletRequest request,@PathVariable("nav") String nav){
-        return "web/"+nav;
+    @GetMapping("/list")
+    public String navInfo(HttpServletRequest request){
+        return "web/list";
     }
 
 

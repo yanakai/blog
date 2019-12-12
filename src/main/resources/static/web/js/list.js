@@ -36,39 +36,40 @@ var globalCount = 0;
       isEnd = true;
       $('.page').css('display', 'block');
       setTimeout(function() {
-        initLatestArticleList(pageNext);
+        initLatestArticleList(pageNext,$("#columnId").val());
       }, 500);
     }
   });
   var initBlog = function() {
     setTimeout(function() {
-      initLatestArticleList(pageNext);
+      initLatestArticleList(pageNext,$("#columnId").val());
     }, 100);
   };
   
   $(document).ready(function() {
     initColumnList();//初始化栏目类别信息
     initRecommendedArticleList();//初始化推荐文章
-    initLatestArticleList(1);//初始化技术博客文章
+    initLatestArticleList(1,$("#columnId").val());//初始化技术博客文章
   });
   //通过栏目搜索文章
   var searchType = function(columnId) {
-    $(".type_id").val(columnId);
+    $("#columnId").val(columnId);
     var index = '';
     layer.ready(function() {
       index = layer.load(2, {
         shade : [ 0.1, '#eee' ] //0.1透明度的白色背景
       });
     });
-    initLatestArticleList(1);
+    initLatestArticleList(1,columnId);
     setTimeout(function() {
       layer.close(index);
     }, 200);
   };
   //初始化文章
-  function initLatestArticleList(pageNum) {
+  function initLatestArticleList(pageNum,columnId) {
     //设置参数
     var params = {
+      columnId : columnId,//文章所属栏目id
       pageSize : 8, //每页显示数量
       pageNum : pageNum, //当前页
       deleteStatus:0, //删除状态 0 标识未删除
