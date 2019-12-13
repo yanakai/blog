@@ -16,15 +16,21 @@ var globalCount = 0;
     $(".tag").css('display', 'none');
   }
   $(window).scroll(function() {
-    if (isEnd == true) {
-      return;
+    if (!isEnd ) {
+      if ($(document).scrollTop() > 200 && count == 1) {
+        $(".dj").css("display", "block");
+        initArticleByClick();//初始化点击排行
+        count++;
+      }
+      if ($(document).scrollTop() + 50 >= $(document).height() - $(window).height() && width > 700) {
+        isEnd = true;
+        $('.page').css('display', 'block');
+        setTimeout(function() {
+          initLatestArticleList(pageNext,$("#columnId").val()!=""?$("#columnId").val():null);
+        }, 500);
+      }
     }
-    if ($(document).scrollTop() > 200 && count == 1) {
-      $(".dj").css("display", "block");
-      initArticleByClick();//初始化点击排行
-      count++;
-    }
-    
+
     if ($(document).scrollTop() > 1300 && width > 700) {
       $(".top").addClass('cd-is-visible fadeIn');
       $(".guanzhu").css("display", "block");
@@ -32,24 +38,18 @@ var globalCount = 0;
       $(".top").removeClass('cd-is-visible fadeOut');
       $(".guanzhu").css("display", "none");
     }
-    if ($(document).scrollTop() + 50 >= $(document).height() - $(window).height() && width > 700) {
-      isEnd = true;
-      $('.page').css('display', 'block');
-      setTimeout(function() {
-        initLatestArticleList(pageNext,$("#columnId").val());
-      }, 500);
-    }
+
   });
   var initBlog = function() {
     setTimeout(function() {
-      initLatestArticleList(pageNext,$("#columnId").val());
+      initLatestArticleList(pageNext,$("#columnId").val()!=""?$("#columnId").val():null);
     }, 100);
   };
   
   $(document).ready(function() {
     initColumnList();//初始化栏目类别信息
     initRecommendedArticleList();//初始化推荐文章
-    initLatestArticleList(1,$("#columnId").val());//初始化技术博客文章
+    initLatestArticleList(1,$("#columnId").val()!=""?$("#columnId").val():null);//初始化技术博客文章
   });
   //通过栏目搜索文章
   var searchType = function(columnId) {
