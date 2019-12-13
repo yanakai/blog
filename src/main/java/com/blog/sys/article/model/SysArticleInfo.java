@@ -50,12 +50,12 @@ public class SysArticleInfo implements Serializable {
     /**
      * 所属栏目
      */
-    private String columnId;
+    private Long columnId;
 
     /**
      * 所属标签
      */
-    private String tagId;
+    private Long tagId;
 
     /**
      * 创建时间
@@ -248,29 +248,29 @@ public class SysArticleInfo implements Serializable {
     /**
      * 所属栏目
      */
-    public String getColumnId() {
+    public Long getColumnId() {
         return columnId;
     }
 
     /**
      * 所属栏目
      */
-    public void setColumnId(String columnId) {
-        this.columnId = columnId == null ? null : columnId.trim();
+    public void setColumnId(Long columnId) {
+        this.columnId = columnId;
     }
 
     /**
      * 所属标签
      */
-    public String getTagId() {
+    public Long getTagId() {
         return tagId;
     }
 
     /**
      * 所属标签
      */
-    public void setTagId(String tagId) {
-        this.tagId = tagId == null ? null : tagId.trim();
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
     }
 
     /**
