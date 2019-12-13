@@ -38,8 +38,8 @@
 }
 </style>
 </head>
-<body style="background:url(/static/web/images/bj.png) repeat top left scroll;z-index:-2">
-<th:block th:include="top" />
+<body style="background:url(/web/images/bj.png) repeat top left scroll;z-index:-2">
+<th:block th:include="web/top :: header('公共头部')" />
   <article>
     <div class="lbox">
       <div class="newblogs bloglist">
@@ -56,8 +56,8 @@
       </div>
     </div>
     <div class="rbox">
-    <input name="keyword" id="keyword" value="${keyword}"
-          type="hidden">
+      <input type="hidden" name="columnId" id="columnId" th:value="${columnId}" >
+      <input type="hidden" name="keyword" id="keyword" value="${keyword}">
       <div class="cloud  whitebg">
         <h2 class="cloud_hometitle">标签云</h2>
         <ul>

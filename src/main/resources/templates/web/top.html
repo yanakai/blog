@@ -22,21 +22,20 @@
 			<span class="navicon"></span>
 		</h2>
 		<div class="logo">
-			<a href="/">山有木兮 | <font class="font16">只要还有明天，今天就永远是起跑线</font></a>
+			<a href="/web">山有木兮 | <font class="font16">只要还有明天，今天就永远是起跑线</font></a>
 		</div>
 		<nav>
 			<ul id="starlist">
 				<li><a href="/web/index" title="首页" >网站首页</a></li>
 				<li><a href="/web/list">技术博客</a></li>
-				<li class="menu"><a href="/result?keyboard=type_1">技术专栏</a>
+				<li class="menu"><a href="javascript:">技术专栏</a>
 					<ul class="sub">
 						<li></li>
 					</ul> <span></span></li>
-				<li><a href="/resource">资源分享</a></li>
+				<li><a href="/web/resource">资源分享</a></li>
 				<li><a href="/find/13015.html">网站介绍</a></li>
-				<li><a href="/about">关于我</a></li>
-				<li><a href="/message">留言</a></li>
-				<li><a href="/admin/">登录</a></li>
+				<li><a href="/web/about">关于我</a></li>
+				<li><a href="/web/message">留言</a></li>
 			</ul>
 		</nav>
 		<div class="searchico"></div>
@@ -45,8 +44,7 @@
 
 <div class="searchbox">
 	<div class="search">
-		<form action="/result" name="searchform" method="post"
-			  id="searchform">
+		<form action="/result" name="searchform" method="post" id="searchform">
 			<input name="keyboard" id="keyboard" class="input_text"
 				   value="请输入关键字词" style="color: rgb(153, 153, 153);"
 				   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
@@ -83,7 +81,7 @@
 				var typeName = '';
 				var data = data.data;
 				for (var i = 0; i < data.length; i++) {
-					typeName += "<li><a href='/web/article/column/"+data[i].columnId +"'>"+ data[i].columnName + "</a></li>";
+					typeName += "<li><a href='/web/column/"+data[i].columnId +"'>"+ data[i].columnName + "</a></li>";
 				}
 				$(".sub").html(typeName);
 			},
@@ -111,7 +109,7 @@
 		initAllBlogType();
 		$("body").click(function(e) {
 			/*这个数组中的每一个字符是你要浮动显示的词或句子，每次点击鼠标后按顺序出现*/
-			var a = ["Hello基佬", "你再点", "你继续点", "你有本事接着点", "有种你还点", "快别他妈点了", "好好看文章不行吗"];
+			var a = ["你好", "哈喽", "安宁哈塞要", "萨瓦迪卡", "恐你期挖","得比奥捏特"];
 			var $i = $("<span/>").text(a[a_idx]);
 			a_idx = (a_idx + 1) % a.length;
 			var x = e.pageX,

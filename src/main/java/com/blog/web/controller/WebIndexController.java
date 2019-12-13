@@ -67,9 +67,25 @@ public class WebIndexController extends BaseController {
      * @author: yankai
      * @date   2019-12-12
      */
-    @GetMapping("/list")
-    public String navInfo(HttpServletRequest request){
-        return "web/list";
+    @GetMapping("/{nav}")
+    public String navInfo(HttpServletRequest request,@PathVariable("nav") String nav){
+        return "web/"+nav;
+    }
+
+    /**
+     * @Title: columnArticle
+     * @Description:  跳转至专栏文章
+     * @Param: request
+     * @Param columnId
+     * @Param modelMap
+     * @return: java.lang.String
+     * @author: yankai
+     * @date   2019-12-13
+     */
+    @GetMapping("/column/{columnId}")
+    public String columnArticle(HttpServletRequest request,@PathVariable("columnId") String columnId,ModelMap modelMap){
+        modelMap.put("columnId",columnId);
+        return "web/column_article";
     }
 
 
