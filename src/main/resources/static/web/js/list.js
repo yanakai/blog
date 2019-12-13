@@ -31,7 +31,7 @@ var globalCount = 0;
       }
     }
 
-    if ($(document).scrollTop() > 1300 && width > 700) {
+    if ($(document).scrollTop() > 1200 && width > 700) {
       $(".top").addClass('cd-is-visible fadeIn');
       $(".guanzhu").css("display", "block");
     } else {
