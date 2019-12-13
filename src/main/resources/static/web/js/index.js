@@ -80,8 +80,12 @@ function showAdToGitEE() {
   });
 }
 
-$(window).scroll(
-  function() {
+$(window).scroll(function() {
+    if ($(document).scrollTop() > 2200 && width > 700) {
+      $(".guanzhu").css("display", "block");
+    } else {
+      $(".guanzhu").css("display", "none");
+    }
     if (isEnd == true) {
       return;
     }
@@ -110,11 +114,6 @@ $(window).scroll(
       $(".top").addClass('cd-is-visible fadeIn');
     } else {
       $(".top").removeClass('cd-is-visible fadeOut');
-    }
-    if ($(document).scrollTop() > 2200 && width > 700) {
-      $(".guanzhu").css("display", "block");
-    } else {
-      $(".guanzhu").css("display", "none");
     }
     if ($(document).scrollTop() + 100 >= $(document).height()- $(window).height()&& width > 700) {
       isEnd = true;
