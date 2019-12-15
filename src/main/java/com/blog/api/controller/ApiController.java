@@ -5,11 +5,14 @@ import com.blog.sys.article.service.ISysArticleInfoService;
 import com.blog.sys.column.model.SysColumnInfo;
 import com.blog.sys.column.service.ISysColumnInfoService;
 import com.blog.sys.common.base.BaseController;
+import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -98,6 +101,16 @@ public class ApiController extends BaseController {
         List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
         return getDataTable(list);
     }
+    @PostMapping("/article/delete/{articleId}")
+    public ResponseData virtualDeleteById(HttpServletRequest request,@PathVariable("articleId") Long articleId){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        SysArticleInfo sysArticleInfo = sysArticleInfoService.getInfoById(articleId);
+        sysArticleInfo.setDeleteStatus(1);
+        state = sysArticleInfoService.updateNotNull(sysArticleInfo);
+        if (state>0) data = operateSucess("操作成功");
+        return data;
+    }
     /**
      * @method:  columnPage
      * @description: <p>栏目列表数据接口</p>
@@ -112,5 +125,15 @@ public class ApiController extends BaseController {
         startPage();
         List<SysColumnInfo> list = sysColumnInfoService.getList(sysColumnInfo);
         return getDataTable(list);
+    }
+    @PostMapping("/column/delete/{columnId}")
+    public ResponseData deleteById(@PathVariable("columnId")Long columnId){
+        ResponseData data = operateFailed("删除失败");
+        int state = 0;
+        state = sysColumnInfoService.deleteByPrimaryKey(columnId);
+        if (state>0){
+            data = operateSucess("删除成功");
+        }
+        return data;
     }
 }
