@@ -9,6 +9,7 @@ import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
+import com.blog.sys.shiro.utils.ShiroUtils;
 import com.blog.sys.user.model.SysUserInfo;
 import com.blog.sys.user.service.ISysUserInfoService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,6 +102,25 @@ public class ApiController extends BaseController {
         sysArticleInfo.setDeleteStatus(0);
         List<SysArticleInfo> list = sysArticleInfoService.getList(sysArticleInfo);
         return getDataTable(list);
+    }
+    @RequestMapping("/article/saveOrUpdate")
+    public ResponseData saveOrUpdate(SysArticleInfo sysArticleInfo){
+        ResponseData data = operateFailed("操作失败");
+        int state = 0;
+        if (sysArticleInfo.getArticleId()!=null){
+            sysArticleInfo.setLastModifyTime(new Date());
+            sysArticleInfo.setLastModifyName(ShiroUtils.getSysUser().getTrueName());
+            state = sysArticleInfoService.updateNotNull(sysArticleInfo);
+        }else {
+            sysArticleInfo.setCreateTime(new Date());
+            sysArticleInfo.setCreateUser(ShiroUtils.getUserId());
+            sysArticleInfo.setCreateName(ShiroUtils.getSysUser().getTrueName());
+            sysArticleInfo.setLastModifyTime(sysArticleInfo.getCreateTime());
+            sysArticleInfo.setLastModifyName(ShiroUtils.getSysUser().getTrueName());
+            state = sysArticleInfoService.saveNotNull(sysArticleInfo);
+        }
+        if (state>0) data = operateSucess("操作成功");
+        return data;
     }
     @PostMapping("/article/delete/{articleId}")
     public ResponseData virtualDeleteById(HttpServletRequest request,@PathVariable("articleId") Long articleId){
