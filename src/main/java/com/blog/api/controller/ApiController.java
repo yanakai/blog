@@ -7,6 +7,9 @@ import com.blog.sys.column.service.ISysColumnInfoService;
 import com.blog.sys.common.base.BaseController;
 import com.blog.sys.common.base.ResponseData;
 import com.blog.sys.common.base.TableDataInfo;
+import com.blog.sys.common.config.Global;
+import com.blog.sys.common.config.ServerConfig;
+import com.blog.sys.common.utils.file.FileUploadUtils;
 import com.blog.sys.role.model.SysRoleInfo;
 import com.blog.sys.role.service.ISysRoleInfoService;
 import com.blog.sys.shiro.utils.ShiroUtils;
@@ -16,11 +19,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: blog
@@ -37,6 +44,15 @@ import java.util.List;
 @RestController()
 @RequestMapping("/api")
 public class ApiController extends BaseController {
+
+    /**
+     * 服务配置类
+     */
+    @Resource
+    private ServerConfig serverConfig;
+    /**
+     * 用户业务层接口
+     */
     @Resource
     private ISysUserInfoService sysUserInfoService;
     /**
@@ -54,6 +70,35 @@ public class ApiController extends BaseController {
      */
     @Resource
     private ISysColumnInfoService sysColumnInfoService;
+
+    /**
+     * @Title: updateFile
+     * @Description:  公共上传方法
+     * @Param: file
+     * @return: com.blog.sys.common.base.ResponseData
+     * @author: yankai
+     * @date   2019-12-16
+     */
+    @RequestMapping("/common/upload")
+    public ResponseData updateFile(MultipartFile file){
+        ResponseData data = operateFailed("上传失败！");
+        try {
+            //获取上传文件路径
+            String fielPath = Global.getUploadPath();
+            //上传并返回新的文件名称
+            String fileName = FileUploadUtils.upload(fielPath,file);
+            //获取新的文件路劲
+            String url = serverConfig.getUrl() + fileName;
+            Map<String,Object> map = new HashMap<>();
+            map.put("fileName", fileName);
+            map.put("url", url);
+            data = operateSucess("上传成功！");
+            data.setData(map);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return data;
+    }
 
     /**
      * @method:  getList
