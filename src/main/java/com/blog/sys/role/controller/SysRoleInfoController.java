@@ -31,7 +31,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/sys/role")
 public class SysRoleInfoController extends BaseController {
-    private static final String SYS_ROLE_PATH = "/sys/role";
+    private static final String SYS_ROLE_PATH = "sys/role";
 
     /**
      * 角色业务层接口

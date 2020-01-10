@@ -38,7 +38,7 @@ public class LoginController extends BaseController {
 
     @GetMapping({"/login",""})
     public String login() {
-        return "/sys/login";
+        return "sys/login";
     }
     /**
      * @method:  unauthorize
@@ -50,7 +50,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping("/unauth")
     public String unauthorize() {
-        return "/error/unauth";
+        return "error/unauth";
     }
 
     /**

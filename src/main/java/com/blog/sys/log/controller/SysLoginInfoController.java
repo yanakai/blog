@@ -36,7 +36,7 @@ import java.util.List;
 @RequestMapping("sys/loginLog")
 public class SysLoginInfoController extends BaseController {
 
-    private static final String SYS_LOGININFO_PATH="/sys/log";
+    private static final String SYS_LOGININFO_PATH="sys/log";
     /**
      * 登录日志业务层接口
      */

@@ -32,7 +32,7 @@ import java.util.List;
 @RequestMapping("/sys/operLog")
 public class SysOperLogController extends BaseController {
 
-    private static final String SYS_OPERLOG_PATH="/sys/log";
+    private static final String SYS_OPERLOG_PATH="sys/log";
 
     /**
      * 操作日志业务层接口

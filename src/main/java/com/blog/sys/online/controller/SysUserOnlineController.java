@@ -35,7 +35,7 @@ import java.util.List;
 @RequestMapping("/sys/online")
 public class SysUserOnlineController extends BaseController {
 
-    private static final String SYS_ONLINE_PATH = "/sys/online";
+    private static final String SYS_ONLINE_PATH = "sys/online";
     /**
      * 用户在线业务成接口
      */

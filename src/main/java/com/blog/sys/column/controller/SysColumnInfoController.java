@@ -34,7 +34,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/sys/column")
 public class SysColumnInfoController extends BaseController {
-    private static final String SYS_COLUMN_PATH = "/sys/column";
+    private static final String SYS_COLUMN_PATH = "sys/column";
 
     /**
      * 文章栏目业务层接口

@@ -37,7 +37,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/sys/menu")
 public class SysMenuInfoController extends BaseController {
-    private final static String SYS_MENU_PATH = "/sys/menu";
+    private final static String SYS_MENU_PATH = "sys/menu";
     @Resource
     private ISysMenuInfoService sysMenuInfoService;
 
