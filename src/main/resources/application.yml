@@ -11,7 +11,7 @@ blog:
   # 获取ip地址开关
   addressEnabled: true
 server:
-  port: 8080
+  port: 9090
   ##项目名字配置
   #servlet :
   #  context-path : /demo
@@ -19,9 +19,6 @@ server:
     max-threads: 128
     min-spare-threads: 5
     uri-encoding: UTF-8
-    #shiro 报错修改的地方
-    max-connections: 200000
-    max-http-post-size: 9000000
 
 # 用户配置
 user:
@@ -37,9 +34,6 @@ spring :
     multipart:
       max-request-size: 100MB
       maxFileSize : 10MB
-      #shiro 报错修改的地方
-    max-connections: 200000
-    max-http-post-size: 9000000
   thymeleaf:
     model: HTML5
     prefix: classpath:/templates/
