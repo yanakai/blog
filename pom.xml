@@ -22,7 +22,7 @@
         <shiro.version>1.4.0</shiro.version>
         <thymeleaf.extras.shiro.version>2.0.0</thymeleaf.extras.shiro.version>
         <commons.io.version>2.5</commons.io.version>
-        <fastjson.version>1.2.47</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
 
